@@ -3,119 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binary-Three | Cybersecurity Lab</title>
-    <link rel="stylesheet" href="estilos.css">
+    <title>CyberSecurity Pro | Contenido Técnico</title>
+    <link rel="stylesheet" href="estilos.css"> <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
 
     <div class="bg-layer mesh"></div>
     <div class="bg-layer dots"></div>
 
-    <header>
-        <nav class="navbar">
-            <div class="logo">BINARY-<span>THREE</span></div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#amenazas">Amenazas</a></li>
-                <li><a href="#seguridad">Seguridad</a></li>
-                <li><a href="#quiz">Evaluación</a></li>
-            </ul>
-        </nav>
+    <nav class="navbar">
+        <div class="logo">CYBER<span>SHIELD</span></div>
+        <ul class="nav-links">
+            <li><a href="#guias">Guías</a></li>
+            <li><a href="#glosario">Glosario</a></li>
+            <li><a href="#alertas">Alertas</a></li>
+            <li><a href="#recursos">Recursos</a></li>
+        </ul>
+        <a href="#" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem;">LOGIN</a>
+    </nav>
+
+    <header class="hero">
+        <span class="badge">CURSO PROFESIONAL 2026</span>
+        <h1>Protección <span class="text-glow">Digital Avanzada</span></h1>
+        <p>Módulo de Contenido Técnico y Documentación. Explora guías críticas, amenazas en tiempo real y herramientas de nivel industrial.</p>
+        <div class="hero-btns">
+            <a href="#guias" class="btn-primary">Empezar Curso</a>
+            <a href="#glosario" class="btn-secondary">Ver Glosario</a>
+        </div>
     </header>
 
-    <main>
-        <section id="inicio" class="hero">
-            <div class="hero-content">
-                <div class="badge-container">
-                    <span class="badge">Technical Institute Project 2026</span>
-                </div>
-                <h1>Seguridad Digital <br><span class="text-glow">Redefinida</span></h1>
-                <p>Análisis técnico y protocolos de prevención ante las amenazas cibernéticas más críticas del entorno académico actual.</p>
-                <div class="hero-btns">
-                    <a href="#amenazas" class="btn-primary">Ver Catálogo</a>
-                    <a href="#seguridad" class="btn-secondary">Protocolos</a>
-                </div>
-            </div>
-        </section>
+    <section class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-num">99.9%</span>
+            <span class="stat-desc">Resiliencia</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">CVE-2026</span>
+            <span class="stat-desc">Alertas Activas</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">AES-256</span>
+            <span class="stat-desc">Cifrado Estándar</span>
+        </div>
+    </section>
 
-        <section class="stats-bar">
-            <div class="stat-item">
-                <span class="stat-num">91%</span>
-                <span class="stat-desc">Ataques inician por Phishing</span>
+    <section id="guias" class="section-container">
+        <div class="section-header">
+            <h2 class="title-gradient">Guías de Protección</h2>
+            <p>Estrategias fundamentales para la defensa de activos digitales.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card">
+                <span class="card-tag">Autenticación</span>
+                <h3>Gestión de Credenciales</h3>
+                <p>Uso de entropía avanzada: contraseñas de +16 caracteres combinando sets alfanuméricos y símbolos. Implementación de políticas de rotación proactiva.</p>
             </div>
-            <div class="stat-item">
-                <span class="stat-num">30s</span>
-                <span class="stat-desc">Frecuencia de Ransomware</span>
+            <div class="card">
+                <span class="card-tag">MFA / 2FA</span>
+                <h3>Doble Factor de Forma</h3>
+                <p>Implementación de capas extras mediante tokens TOTP (Time-based One-Time Password) o llaves físicas FIDO2 para mitigar el robo de identidad.</p>
             </div>
-            <div class="stat-item">
-                <span class="stat-num">0.0</span>
-                <span class="stat-desc">Confianza (Zero Trust)</span>
+            <div class="card">
+                <span class="card-tag">Privacidad</span>
+                <h3>Higiene Digital</h3>
+                <p>Configuración de sandboxing en navegadores y limpieza sistemática de metadatos en documentos sensibles antes de su distribución.</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="amenazas" class="section-container">
-            <div class="section-header">
-                <h2 class="title-gradient">Vectores de Amenaza</h2>
-                <p>Identificación técnica de brechas de seguridad y métodos de infiltración comunes.</p>
+    <section id="glosario" class="section-container" style="background: rgba(15, 23, 42, 0.2);">
+        <div class="section-header">
+            <h2 class="title-gradient">Glosario Técnico</h2>
+            <p>Definiciones precisas para el análisis de vulnerabilidades.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card">
+                <span class="card-tag">Network Attack</span>
+                <h3>Sniffing</h3>
+                <p>Captura y análisis de paquetes de datos que viajan por una red. Se utiliza para interceptar tráfico no cifrado.</p>
             </div>
-
-            <div class="grid-amenazas">
-                <article class="card">
-                    <div class="card-content">
-                        <span class="card-tag">Ingeniería Social</span>
-                        <h3>Phishing Institucional</h3>
-                        <p>Simulación de comunicaciones oficiales para la extracción de credenciales mediante portales falsos.</p>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-content">
-                        <span class="card-tag">Software</span>
-                        <h3>Malware & Exfiltración</h3>
-                        <p>Ejecución de código malicioso destinado al compromiso de la integridad y privacidad de datos locales.</p>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-content">
-                        <span class="card-tag">Infraestructura</span>
-                        <h3>Vulnerabilidad de Red</h3>
-                        <p>Análisis de riesgos en conexiones públicas y la importancia del cifrado en el transporte de datos.</p>
-                    </div>
-                </article>
+            <div class="card">
+                <span class="card-tag">Data Leak</span>
+                <h3>Metadatos</h3>
+                <p>Información descriptiva sobre un archivo (autor, GPS, software). Su fuga puede revelar vectores de ataque críticos.</p>
             </div>
-        </section>
-
-        <section id="seguridad" class="section-container bg-darker">
-            <div class="section-header">
-                <h2>Protocolos de Seguridad</h2>
-                <p>Contenido técnico en desarrollo por el equipo de investigación de Binary-Three.</p>
+            <div class="card">
+                <span class="card-tag">Web Exploit</span>
+                <h3>Inyección SQL</h3>
+                <p>Inserción de código malicioso en campos de entrada para manipular consultas a la base de datos y extraer información.</p>
             </div>
-            <div id="content-area">
-                </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="quiz" class="section-container">
-            <div class="quiz-box card">
-                <h3>Evaluación de Riesgos</h3>
-                <p>Prueba interactiva para medir tu nivel de vulnerabilidad digital.</p>
-                <button class="btn-primary" onclick="iniciarQuiz()">Iniciar Test</button>
+    <section id="alertas" class="section-container">
+        <div class="section-header">
+            <h2 class="title-gradient">Alertas de Seguridad</h2>
+            <p>Monitoreo de vulnerabilidades de software común en tiempo real.</p>
+        </div>
+
+        <div class="card" style="max-width: 800px; margin: 0 auto; border-left: 4px solid var(--accent);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="card-tag" style="color: #ef4444;">CRÍTICO</span>
+                <span style="font-size: 0.8rem; color: var(--text-s);">15 ABRIL 2026</span>
             </div>
-        </section>
-    </main>
+            <h3>CVE-2026-1042: Remote Code Execution</h3>
+            <p>Se ha detectado una vulnerabilidad en librerías de procesamiento de imagen. Un atacante puede tomar control total del sistema mediante un archivo comprimido malicioso. Se recomienda parchear inmediatamente.</p>
+        </div>
+    </section>
+
+    <section id="recursos" class="section-container">
+        <div class="section-header">
+            <h2 class="title-gradient">Caja de Herramientas</h2>
+            <p>Software recomendado para estudiantes y profesionales.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-vault fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Bitwarden</h3>
+                <p>Gestor de contraseñas de código abierto.</p>
+                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Descargar</a>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-microchip fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Wireshark</h3>
+                <p>Analizador de protocolos de red profesional.</p>
+                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Descargar</a>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-bug fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>VirusTotal</h3>
+                <p>Análisis de malware basado en la nube.</p>
+                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Acceder</a>
+            </div>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-grid">
-            <div class="footer-info">
-                <div class="logo">BINARY-<span>THREE</span></div>
-                <p>Investigación en Ciberseguridad Estudiantil.</p>
+            <div class="footer-logo">
+                <div class="logo">CYBER<span>SHIELD</span></div>
             </div>
             <div class="footer-meta">
-                <p>Desarrollado para fines académicos por Alexander y equipo.</p>
+                <p>&copy; 2026 Integrante 2: Contenido Técnico & Documentación.</p>
             </div>
         </div>
     </footer>
 
-    <script src="funciones.js"></script>
 </body>
 </html>
