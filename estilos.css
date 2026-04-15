@@ -1,0 +1,55 @@
+/* Importar una fuente tipo código */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap');
+
+body {
+    background-color: #0a0b10;
+    color: #e6edf3;
+    font-family: 'Fira Code', monospace;
+    margin: 0;
+}
+
+header {
+    background: #161b22;
+    padding: 1rem 2rem;
+    border-bottom: 2px solid #00ff41; /* Línea neón */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+nav a {
+    color: #00ff41;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Diseño de Tarjetas con Grid */
+.contenedor-tarjetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 40px;
+}
+
+.tarjeta {
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 20px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.tarjeta:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+    transform: translateY(-5px);
+}
