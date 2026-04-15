@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Binary-Three | Seguridad Estudiantil</title>
+    <title>Binary-Three | Cybersecurity Lab</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+
+    <div class="bg-layer mesh"></div>
+    <div class="bg-layer dots"></div>
 
     <header>
         <nav class="navbar">
@@ -14,8 +17,8 @@
             <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#amenazas">Amenazas</a></li>
-                <li><a href="#consejos">Consejos</a></li>
-                <li><a href="#herramientas">Herramientas</a></li>
+                <li><a href="#seguridad">Seguridad</a></li>
+                <li><a href="#quiz">Evaluación</a></li>
             </ul>
         </nav>
     </header>
@@ -23,48 +26,96 @@
     <main>
         <section id="inicio" class="hero">
             <div class="hero-content">
-                <h1>Navega con Inteligencia</h1>
-                <p>Tu guía práctica de ciberseguridad creada por estudiantes para estudiantes.</p>
-                <a href="#amenazas" class="btn-primary">Empezar a aprender</a>
+                <div class="badge-container">
+                    <span class="badge">Technical Institute Project 2026</span>
+                </div>
+                <h1>Seguridad Digital <br><span class="text-glow">Redefinida</span></h1>
+                <p>Análisis técnico y protocolos de prevención ante las amenazas cibernéticas más críticas del entorno académico actual.</p>
+                <div class="hero-btns">
+                    <a href="#amenazas" class="btn-primary">Ver Catálogo</a>
+                    <a href="#seguridad" class="btn-secondary">Protocolos</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-num">91%</span>
+                <span class="stat-desc">Ataques inician por Phishing</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">30s</span>
+                <span class="stat-desc">Frecuencia de Ransomware</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">0.0</span>
+                <span class="stat-desc">Confianza (Zero Trust)</span>
             </div>
         </section>
 
         <section id="amenazas" class="section-container">
-            <h2 class="section-title">Amenazas Comunes</h2>
+            <div class="section-header">
+                <h2 class="title-gradient">Vectores de Amenaza</h2>
+                <p>Identificación técnica de brechas de seguridad y métodos de infiltración comunes.</p>
+            </div>
+
             <div class="grid-amenazas">
                 <article class="card">
-                    <div class="card-icon">📩</div>
-                    <h3>Phishing</h3>
-                    <p>Correos o mensajes falsos que buscan robar tus contraseñas haciéndose pasar por empresas reales.</p>
+                    <div class="card-content">
+                        <span class="card-tag">Ingeniería Social</span>
+                        <h3>Phishing Institucional</h3>
+                        <p>Simulación de comunicaciones oficiales para la extracción de credenciales mediante portales falsos.</p>
+                    </div>
                 </article>
 
                 <article class="card">
-                    <div class="card-icon">🛡️</div>
-                    <h3>Ransomware</h3>
-                    <p>Un tipo de virus que secuestra tus archivos y pide dinero a cambio de devolverte el acceso.</p>
+                    <div class="card-content">
+                        <span class="card-tag">Software</span>
+                        <h3>Malware & Exfiltración</h3>
+                        <p>Ejecución de código malicioso destinado al compromiso de la integridad y privacidad de datos locales.</p>
+                    </div>
                 </article>
 
                 <article class="card">
-                    <div class="card-icon">📱</div>
-                    <h3>Ingeniería Social</h3>
-                    <p>Técnicas de manipulación para que reveles información privada voluntariamente.</p>
+                    <div class="card-content">
+                        <span class="card-tag">Infraestructura</span>
+                        <h3>Vulnerabilidad de Red</h3>
+                        <p>Análisis de riesgos en conexiones públicas y la importancia del cifrado en el transporte de datos.</p>
+                    </div>
                 </article>
             </div>
         </section>
 
-        <section id="consejos" class="section-container bg-alt">
-            <h2 class="section-title">Consejos Rápidos</h2>
-            <ul class="tips-list">
-                <li>Usa siempre la autenticación de dos pasos (2FA).</li>
-                <li>No uses la misma contraseña para todo.</li>
-                <li>Mantén tu sistema operativo actualizado.</li>
-            </ul>
+        <section id="seguridad" class="section-container bg-darker">
+            <div class="section-header">
+                <h2>Protocolos de Seguridad</h2>
+                <p>Contenido técnico en desarrollo por el equipo de investigación de Binary-Three.</p>
+            </div>
+            <div id="content-area">
+                </div>
+        </section>
+
+        <section id="quiz" class="section-container">
+            <div class="quiz-box card">
+                <h3>Evaluación de Riesgos</h3>
+                <p>Prueba interactiva para medir tu nivel de vulnerabilidad digital.</p>
+                <button class="btn-primary" onclick="iniciarQuiz()">Iniciar Test</button>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Creado por <strong>Binary-Three</strong> | Proyecto Académico Local</p>
+        <div class="footer-grid">
+            <div class="footer-info">
+                <div class="logo">BINARY-<span>THREE</span></div>
+                <p>Investigación en Ciberseguridad Estudiantil.</p>
+            </div>
+            <div class="footer-meta">
+                <p>Desarrollado para fines académicos por Alexander y equipo.</p>
+            </div>
+        </div>
     </footer>
 
+    <script src="funciones.js"></script>
 </body>
 </html>

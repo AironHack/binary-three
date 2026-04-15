@@ -1,126 +1,198 @@
-/* Importar fuente moderna */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+/* Fuentes Premium */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono&display=swap');
 
 :root {
-    --bg-dark: #0f172a;      /* Azul muy oscuro profesional */
-    --bg-card: #1e293b;      /* Azul grisáceo para tarjetas */
-    --accent: #38bdf8;       /* Celeste moderno */
-    --text-main: #f8fafc;    /* Blanco suave */
-    --text-muted: #94a3b8;   /* Gris para textos secundarios */
+    --bg-deep: #020617;
+    --bg-card: rgba(15, 23, 42, 0.7);
+    --accent: #38bdf8;
+    --text-p: #f8fafc;
+    --text-s: #94a3b8;
+    --border-glass: rgba(255, 255, 255, 0.08);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-main);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--text-p);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Navegación Moderna */
+/* Fondo Tecnológico */
+.bg-layer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+}
+
+.mesh {
+    background: radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+}
+
+.dots {
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 30px 30px; /* Patrón de puntos tipo grid */
+}
+
+/* Navbar */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 10%;
-    background: rgba(15, 23, 42, 0.9);
-    backdrop-filter: blur(10px); /* Efecto cristal */
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(12px);
     position: sticky;
-    top: 0;
-    z-index: 1000;
+    top: 0; z-index: 1000;
+    border-bottom: 1px solid var(--border-glass);
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -1px;
-}
-
+.logo { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
 .logo span { color: var(--accent); }
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
+.nav-links { display: flex; list-style: none; gap: 2.5rem; }
 .nav-links a {
     text-decoration: none;
-    color: var(--text-muted);
+    color: var(--text-s);
+    font-size: 0.85rem;
+    font-weight: 600;
     transition: 0.3s;
 }
-
 .nav-links a:hover { color: var(--accent); }
 
-/* Hero Section */
-.hero {
-    height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 20px;
+/* Hero */
+.hero { padding: 100px 10% 60px; text-align: center; }
+.badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--accent);
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 1rem;
+    font-size: 4.5rem;
+    font-weight: 800;
+    margin: 1.5rem 0;
+    letter-spacing: -3px;
+    line-height: 1;
+}
+
+.text-glow {
     background: linear-gradient(to right, #fff, var(--accent));
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
+.hero p {
+    color: var(--text-s);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Botones */
 .btn-primary {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 12px 24px;
     background: var(--accent);
-    color: var(--bg-dark);
+    color: var(--bg-deep);
+    padding: 14px 28px;
+    border-radius: 8px;
     text-decoration: none;
-    font-weight: bold;
-    border-radius: 50px;
+    font-weight: 700;
     transition: 0.3s;
+    display: inline-block;
 }
 
-/* Grid de Tarjetas (Responsivo) */
-.section-container { padding: 80px 10%; }
-
-.section-title {
-    text-align: center;
-    margin-bottom: 3rem;
-    font-size: 2rem;
+.btn-secondary {
+    border: 1px solid var(--border-glass);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    margin-left: 10px;
 }
+
+.btn-secondary:hover { background: rgba(255,255,255,0.05); }
+
+/* Stats Bar */
+.stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    padding: 40px 10%;
+    border-style: 1px solid var(--border-glass);
+    background: rgba(15, 23, 42, 0.3);
+}
+
+.stat-item { text-align: center; }
+.stat-num { display: block; font-size: 1.5rem; font-weight: 800; color: var(--accent); }
+.stat-desc { color: var(--text-s); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Grid de Tarjetas */
+.section-container { padding: 100px 10%; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.title-gradient { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
 
 .grid-amenazas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
 }
 
 .card {
     background: var(--bg-card);
-    padding: 2rem;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: 0.4s ease;
+    backdrop-filter: blur(10px);
+    padding: 3rem 2rem;
+    border-radius: 24px;
+    border: 1px solid var(--border-glass);
+    transition: all 0.4s ease;
 }
 
 .card:hover {
     transform: translateY(-10px);
-    border-color: var(--accent);
+    border-color: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-.card-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+.card-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+}
 
+.card h3 { margin: 1rem 0; font-size: 1.4rem; }
+.card p { color: var(--text-s); font-size: 0.95rem; }
+
+/* Footer */
 footer {
-    text-align: center;
-    padding: 3rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted);
+    padding: 80px 10% 40px;
+    border-top: 1px solid var(--border-glass);
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-meta p { color: var(--text-s); font-size: 0.85rem; }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3rem; }
+    .stats-bar { flex-direction: column; gap: 2rem; }
+    .nav-links { display: none; }
 }
