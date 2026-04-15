@@ -100,13 +100,8 @@ const preguntas = [
 let currentQ = 0;
 
 function iniciarQuiz() {
-    currentQ = 0;
     const quizBox = document.querySelector(".quiz-box");
-    quizBox.innerHTML = `
-        <h3>Evaluación en curso...</h3>
-        <div id="q-area"></div>
-        <p id="quiz-feedback" class="quiz-feedback">Selecciona la respuesta correcta.</p>
-    `;
+    quizBox.innerHTML = `<h3>Evaluación en curso...</h3><div id="q-area"></div>`;
     mostrarPregunta();
 }
 
@@ -122,34 +117,31 @@ function mostrarPregunta() {
                 <button class="btn-secondary" onclick="checkQuiz('c')">${p.c}</button>
             </div>
         `;
-        const feedback = document.getElementById("quiz-feedback");
-        if (feedback) feedback.textContent = "Selecciona la respuesta correcta.";
     } else {
-        area.innerHTML = `<h4>Evaluación finalizada</h4><p>Nivel de concienciación: ALTO. Sigue protegiendo tus datos.</p>`;
+        area.innerHTML = `<h4>Evaluación Finalizada</h4><p>Nivel de concienciación: ALTO. Sigue protegiendo tus datos.</p>`;
     }
 }
 
 function checkQuiz(ans) {
-    const feedback = document.getElementById("quiz-feedback");
-    if (!feedback) return;
-
     if (ans === preguntas[currentQ].correct) {
-        feedback.textContent = "Respuesta correcta. Sigue así.";
-        feedback.style.color = "#38bdf8";
+        alert(" Respuesta técnica correcta.");
     } else {
-        feedback.textContent = "Respuesta incorrecta. Revisa las guías y vuelve a intentarlo.";
-        feedback.style.color = "#f59e0b";
+        alert(" Error de protocolo. Revisa el catálogo de amenazas.");
     }
-
     currentQ++;
-    setTimeout(mostrarPregunta, 1000);
+    mostrarPregunta();
 }
 
 // --- 4. INICIALIZADOR GLOBAL ---
 window.onload = () => {
+    // Iniciamos la terminal al cargar
     escribirTerminal();
+    
+    // Cargamos el verificador de claves después de un breve delay
     setTimeout(cargarVerificador, 2000);
-    setTimeout(simuladorAmenazas, 3000);
+    
+    // Escuchar el botón del quiz (ya definido en tu HTML)
+    // El botón de tu HTML ya tiene onclick="iniciarQuiz()", así que funcionará directo.
 };
 // Agrega esto a tus funciones de Verificador y Quiz
 const logs = [];
@@ -187,6 +179,7 @@ function simuladorAmenazas() {
         document.body.style.border = "2px solid red";
         setTimeout(() => document.body.style.border = "none", 500);
         registrarEvento(`AMENAZA: ${amenazas[index]}`, "HIGH");
+<<<<<<< HEAD
     }, 15000); // Cada 15 segundos
 }
 
@@ -249,3 +242,54 @@ function crearPaquete(container) {
     setTimeout(() => paquete.style.top = "320px", 50);
     setTimeout(() => paquete.remove(), 4000);
 }
+=======
+    }, 15000); // Cada 15 segundos 
+}
+// --- 5. ESCÁNER DE PUERTOS (AUDITORÍA ACTIVA) ---
+function ejecutarEscaneo() {
+    const puertos = [21, 22, 80, 443, 3306, 8080];
+    registrarEvento("Iniciando escaneo de puertos de red...", "INFO");
+    
+    puertos.forEach((puerto, index) => {
+        setTimeout(() => {
+            // Simulación aleatoria de puertos abiertos/cerrados
+            const estado = Math.random() > 0.7 ? "ABIERTO" : "FILTRADO";
+            const severidad = estado === "ABIERTO" ? "HIGH" : "SUCCESS";
+            registrarEvento(`Análisis Nodo Puerto ${puerto}: [${estado}]`, severidad);
+        }, index * 800); // Aparecen uno tras otro cada 800ms
+    });
+}
+
+// --- 6. PROTOCOLO DE EMERGENCIA (TECLADO) ---
+// Si presionas 'ESC', el sistema simula un "Wipe" (limpieza) visual
+window.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") {
+        registrarEvento("PROTOCOLO DE EMERGENCIA: Tecla ESC detectada", "HIGH");
+        document.body.style.filter = "invert(1) grayscale(1) contrast(2)";
+        setTimeout(() => {
+            document.body.style.filter = "none";
+            alert("⚠️ BINARY THREE: Protocolo de pánico ejecutado. Caché de sesión purgada.");
+        }, 800);
+    }
+});
+
+// --- 7. DETECTOR DE INACTIVIDAD (SEGURIDAD DE SESIÓN) ---
+let tiempoInactivo;
+
+function resetTimer() {
+    clearTimeout(tiempoInactivo);
+    tiempoInactivo = setTimeout(() => {
+        registrarEvento("ADVERTENCIA: Sesión inactiva detectada.", "WARNING");
+        // Efecto visual de advertencia
+        const warningDiv = document.createElement("div");
+        warningDiv.innerHTML = "SESIÓN INACTIVA - MUEVE EL MOUSE";
+        warningDiv.style = "position:fixed; top:0; left:0; width:100%; background:red; color:white; text-align:center; z-index:9999; font-weight:bold; padding:5px;";
+        document.body.appendChild(warningDiv);
+        setTimeout(() => warningDiv.remove(), 3000);
+    }, 60000); // Se activa tras 60 segundos de inactividad
+}
+
+// Escuchar movimientos para resetear el timer de inactividad
+window.onmousemove = resetTimer;
+window.onkeypress = resetTimer;
+>>>>>>> origin/develop
