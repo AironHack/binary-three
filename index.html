@@ -3,46 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberStudent | Portal de Seguridad</title>
+    <title>Binary-Three | Seguridad Estudiantil</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
     <header>
-        <nav>
-            <div class="logo">CYBER<span>STUDENT</span></div>
-            <ul>
+        <nav class="navbar">
+            <div class="logo">BINARY-<span>THREE</span></div>
+            <ul class="nav-links">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#amenazas">Amenazas</a></li>
+                <li><a href="#consejos">Consejos</a></li>
                 <li><a href="#herramientas">Herramientas</a></li>
-                <li><a href="#quiz">Quiz</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section id="hero">
-            <h1>Protege tu Entorno Digital</h1>
-            <p>Aprende las bases de la ciberseguridad de forma sencilla.</p>
+        <section id="inicio" class="hero">
+            <div class="hero-content">
+                <h1>Navega con Inteligencia</h1>
+                <p>Tu guía práctica de ciberseguridad creada por estudiantes para estudiantes.</p>
+                <a href="#amenazas" class="btn-primary">Empezar a aprender</a>
+            </div>
         </section>
 
-        <section id="amenazas">
-            <h2>Amenazas Comunes</h2>
-            <div class="contenedor-tarjetas">
-                <article class="tarjeta">
+        <section id="amenazas" class="section-container">
+            <h2 class="section-title">Amenazas Comunes</h2>
+            <div class="grid-amenazas">
+                <article class="card">
+                    <div class="card-icon">📩</div>
                     <h3>Phishing</h3>
-                    <p>Suplantación de identidad para robar datos sensibles.</p>
+                    <p>Correos o mensajes falsos que buscan robar tus contraseñas haciéndose pasar por empresas reales.</p>
                 </article>
-                <article class="tarjeta">
-                    <h3>Malware</h3>
-                    <p>Software malicioso diseñado para infiltrarse.</p>
+
+                <article class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Ransomware</h3>
+                    <p>Un tipo de virus que secuestra tus archivos y pide dinero a cambio de devolverte el acceso.</p>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">📱</div>
+                    <h3>Ingeniería Social</h3>
+                    <p>Técnicas de manipulación para que reveles información privada voluntariamente.</p>
                 </article>
             </div>
+        </section>
+
+        <section id="consejos" class="section-container bg-alt">
+            <h2 class="section-title">Consejos Rápidos</h2>
+            <ul class="tips-list">
+                <li>Usa siempre la autenticación de dos pasos (2FA).</li>
+                <li>No uses la misma contraseña para todo.</li>
+                <li>Mantén tu sistema operativo actualizado.</li>
+            </ul>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 - Proyecto de Ciberseguridad Local</p>
+        <p>&copy; 2026 Creado por <strong>Binary-Three</strong> | Proyecto Académico Local</p>
     </footer>
 
 </body>
