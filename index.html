@@ -19,20 +19,17 @@
             <li><a href="#glosario">Glosario</a></li>
             <li><a href="#alertas">Alertas</a></li>
             <li><a href="#recursos">Recursos</a></li>
+            <li><a href="#simulador">Ejercicios</a></li>
         </ul>
-        <div class="nav-btns">
-            <a href="#" class="btn-secondary" style="padding: 10px 20px; font-size: 0.8rem; margin: 0;">Login</a>
-            <a href="#" class="btn-primary" style="padding: 10px 20px; font-size: 0.8rem; margin-left: 10px;">Registrarse</a>
-        </div>
     </nav>
 
     <header class="hero">
-        <span class="badge">SISTEMA INTEGRAL DE SEGURIDAD</span>
-        <h1>Innovación en <span class="text-glow">Binary Three</span></h1>
-        <p>Expertos en documentación técnica y mitigación de amenazas. Accede a nuestra base de conocimientos avanzada para fortalecer tu infraestructura digital.</p>
+        <span class="badge">EDUCACIÓN EN CIBERSEGURIDAD</span>
+        <h1>Aprende a proteger tus datos con <span class="text-glow">Binary Three</span></h1>
+        <p>Guías prácticas, simulaciones y alertas reales para comprender ataques y fortalecer tu presencia digital.</p>
         <div class="hero-btns">
-            <a href="#alertas" class="btn-primary">Ver Amenazas</a>
-            <a href="#recursos" class="btn-secondary">Herramientas</a>
+            <a href="#proteger" class="btn-primary">¿Cómo protegerme?</a>
+            <a href="#simulador" class="btn-secondary">Prueba el quiz</a>
         </div>
     </header>
 
@@ -48,6 +45,31 @@
         <div class="stat-item">
             <span class="stat-num">0-DAY</span>
             <span class="stat-desc">Protección</span>
+        </div>
+    </section>
+
+    <section id="proteger" class="section-container">
+        <div class="section-header">
+            <h2 class="title-gradient">Cómo protegerte</h2>
+            <p>Pasos sencillos que puedes aplicar ya mismo para reducir el riesgo de ataques y cuidar tu información.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card">
+                <span class="card-tag">Actualiza</span>
+                <h3>Mantén tus sistemas al día</h3>
+                <p>Instala actualizaciones, parches y revisiones regulares en cuentas, redes y aplicaciones.</p>
+            </div>
+            <div class="card">
+                <span class="card-tag">Autenticación</span>
+                <h3>Usa contraseñas fuertes</h3>
+                <p>Activa verificación de dos pasos y utiliza gestores de contraseñas para proteger tus accesos.</p>
+            </div>
+            <div class="card">
+                <span class="card-tag">Conciencia</span>
+                <h3>Identifica correos y enlaces peligrosos</h3>
+                <p>No abras archivos ni enlaces de remitentes desconocidos y verifica siempre la fuente.</p>
+            </div>
         </div>
     </section>
 
@@ -76,7 +98,7 @@
         </div>
     </section>
 
-    <section id="glosario" class="section-container" style="background: rgba(15, 23, 42, 0.2);">
+    <section id="glosario" class="section-container alt-background">
         <div class="section-header">
             <h2 class="title-gradient">Diccionario de Amenazas</h2>
             <p>Conceptos clave que todo desarrollador de Binary Three debe dominar.</p>
@@ -107,13 +129,13 @@
             <p>Reportes críticos de seguridad actualizados por nuestro sistema.</p>
         </div>
 
-        <div class="card" style="max-width: 900px; margin: 0 auto; border-left: 4px solid #ef4444; background: rgba(239, 68, 68, 0.05);">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span class="card-tag" style="color: #ef4444;">ALERTA CRÍTICA</span>
-                <span style="font-size: 0.8rem; color: var(--text-s);">SISTEMA BINARY THREE</span>
+        <div class="alert-card">
+            <div class="alert-header">
+                <span class="card-tag alert-tag">ALERTA CRÍTICA</span>
+                <span class="alert-source">SISTEMA BINARY THREE</span>
             </div>
-            <h3>Detección de Ransomware en Redes Locales</h3>
-            <p>Se ha identificado una nueva variante de malware que cifra discos locales en menos de 5 minutos. Binary Three recomienda desconectar unidades de red no esenciales y aplicar el parche de seguridad BT-2026-X.</p>
+            <h3>Detección de ransomware en redes locales</h3>
+            <p>Se ha identificado una nueva variante de malware que cifra discos en menos de 5 minutos. Desconecta unidades de red no esenciales y revisa los parches de seguridad.</p>
         </div>
     </section>
 
@@ -124,23 +146,49 @@
         </div>
 
         <div class="grid-amenazas">
-            <div class="card" style="text-align: center;">
-                <i class="fas fa-key fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+            <div class="card resource-card">
+                <i class="fas fa-key fa-2x"></i>
                 <h3>Bitwarden</h3>
-                <p>Gestión de bóvedas de seguridad.</p>
-                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Obtener</a>
+                <p>Gestor de contraseñas para proteger cuentas y accesos.</p>
+                <a href="#" class="btn-secondary resource-link">Aprender más</a>
             </div>
-            <div class="card" style="text-align: center;">
-                <i class="fas fa-network-wired fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+            <div class="card resource-card">
+                <i class="fas fa-network-wired fa-2x"></i>
                 <h3>Nmap</h3>
-                <p>Escaneo y auditoría de red.</p>
-                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Documentación</a>
+                <p>Herramienta para escaneo y detección de debilidades en redes.</p>
+                <a href="#" class="btn-secondary resource-link">Ver guía</a>
             </div>
-            <div class="card" style="text-align: center;">
-                <i class="fas fa-shield-alt fa-2x" style="color: var(--accent); margin-bottom: 1rem;"></i>
+            <div class="card resource-card">
+                <i class="fas fa-shield-alt fa-2x"></i>
                 <h3>Wireshark</h3>
-                <p>Análisis profundo de paquetes.</p>
-                <a href="#" class="btn-secondary" style="margin-top: 1rem; display: block; margin-left: 0;">Descargar</a>
+                <p>Análisis de paquetes en tiempo real para investigar incidentes.</p>
+                <a href="#" class="btn-secondary resource-link">Ver guía</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulador" class="section-container">
+        <div class="section-header">
+            <h2 class="title-gradient">Practica y refuerza</h2>
+            <p>Simulaciones interactivas y ejercicios para aprender a identificar amenazas reales.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card">
+                <span class="card-tag">Simulación</span>
+                <h3>Terminal de seguridad</h3>
+                <div id="content-area" class="terminal-window"></div>
+            </div>
+            <div class="card">
+                <span class="card-tag">Quiz</span>
+                <h3>Prueba tus conocimientos</h3>
+                <div class="quiz-box"></div>
+                <button class="btn-secondary quiz-start" onclick="iniciarQuiz()">Iniciar Quiz</button>
+            </div>
+            <div class="card">
+                <span class="card-tag">Eventos</span>
+                <h3>Registros del simulador</h3>
+                <div id="log-viewer" class="log-viewer"></div>
             </div>
         </div>
     </section>
@@ -148,15 +196,16 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-logo">
-                <div class="logo" style="font-size: 1rem;">@2026 BINARY<span> THREE</span></div>
+                <div class="logo footer-logo-text">@2026 BINARY<span> THREE</span></div>
             </div>
-            <div class="footer-links" style="display: flex; gap: 20px;">
-                <a href="#" style="color: var(--text-s); text-decoration: none; font-size: 0.8rem;">Privacidad</a>
-                <a href="#" style="color: var(--text-s); text-decoration: none; font-size: 0.8rem;">Términos</a>
-                <a href="#" style="color: var(--text-s); text-decoration: none; font-size: 0.8rem;">Soporte</a>
+            <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Soporte</a>
             </div>
         </div>
     </footer>
 
+    <script src="funciones.js"></script>
 </body>
 </html>

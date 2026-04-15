@@ -100,8 +100,13 @@ const preguntas = [
 let currentQ = 0;
 
 function iniciarQuiz() {
+    currentQ = 0;
     const quizBox = document.querySelector(".quiz-box");
-    quizBox.innerHTML = `<h3>Evaluación en curso...</h3><div id="q-area"></div>`;
+    quizBox.innerHTML = `
+        <h3>Evaluación en curso...</h3>
+        <div id="q-area"></div>
+        <p id="quiz-feedback" class="quiz-feedback">Selecciona la respuesta correcta.</p>
+    `;
     mostrarPregunta();
 }
 
@@ -117,31 +122,34 @@ function mostrarPregunta() {
                 <button class="btn-secondary" onclick="checkQuiz('c')">${p.c}</button>
             </div>
         `;
+        const feedback = document.getElementById("quiz-feedback");
+        if (feedback) feedback.textContent = "Selecciona la respuesta correcta.";
     } else {
-        area.innerHTML = `<h4>Evaluación Finalizada</h4><p>Nivel de concienciación: ALTO. Sigue protegiendo tus datos.</p>`;
+        area.innerHTML = `<h4>Evaluación finalizada</h4><p>Nivel de concienciación: ALTO. Sigue protegiendo tus datos.</p>`;
     }
 }
 
 function checkQuiz(ans) {
+    const feedback = document.getElementById("quiz-feedback");
+    if (!feedback) return;
+
     if (ans === preguntas[currentQ].correct) {
-        alert(" Respuesta técnica correcta.");
+        feedback.textContent = "Respuesta correcta. Sigue así.";
+        feedback.style.color = "#38bdf8";
     } else {
-        alert(" Error de protocolo. Revisa el catálogo de amenazas.");
+        feedback.textContent = "Respuesta incorrecta. Revisa las guías y vuelve a intentarlo.";
+        feedback.style.color = "#f59e0b";
     }
+
     currentQ++;
-    mostrarPregunta();
+    setTimeout(mostrarPregunta, 1000);
 }
 
 // --- 4. INICIALIZADOR GLOBAL ---
 window.onload = () => {
-    // Iniciamos la terminal al cargar
     escribirTerminal();
-    
-    // Cargamos el verificador de claves después de un breve delay
     setTimeout(cargarVerificador, 2000);
-    
-    // Escuchar el botón del quiz (ya definido en tu HTML)
-    // El botón de tu HTML ya tiene onclick="iniciarQuiz()", así que funcionará directo.
+    setTimeout(simuladorAmenazas, 3000);
 };
 // Agrega esto a tus funciones de Verificador y Quiz
 const logs = [];
