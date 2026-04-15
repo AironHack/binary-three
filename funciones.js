@@ -143,3 +143,19 @@ window.onload = () => {
     // Escuchar el botón del quiz (ya definido en tu HTML)
     // El botón de tu HTML ya tiene onclick="iniciarQuiz()", así que funcionará directo.
 };
+// Agrega esto a tus funciones de Verificador y Quiz
+const logs = [];
+
+function registrarEvento(evento, severidad) {
+    const timestamp = new Date().toLocaleTimeString();
+    const nuevoLog = `[${timestamp}] [${severidad}] ${evento}`;
+    logs.unshift(nuevoLog); // Añade al inicio del array
+    actualizarVistaLogs();
+}
+
+function actualizarVistaLogs() {
+    const logArea = document.getElementById("log-viewer"); // Necesitarás un div con este ID
+    if(logArea) {
+        logArea.innerHTML = logs.map(log => `<p>> ${log}</p>`).join("");
+    }
+}
