@@ -189,3 +189,63 @@ function simuladorAmenazas() {
         registrarEvento(`AMENAZA: ${amenazas[index]}`, "HIGH");
     }, 15000); // Cada 15 segundos
 }
+
+// --- 5. FIREWALL DEFENDER GAME ---
+let gameScore = 0;
+let gameInterval;
+
+function iniciarFirewall() {
+    const container = document.getElementById("game-container");
+    const scoreDisplay = document.getElementById("game-score");
+    
+    // Reiniciar estado
+    container.innerHTML = "";
+    gameScore = 0;
+    scoreDisplay.innerText = "Score: 0";
+    registrarEvento("Iniciando Firewall Defender...", "INFO");
+
+    if (gameInterval) clearInterval(gameInterval);
+
+    gameInterval = setInterval(() => {
+        crearPaquete(container);
+    }, 1000);
+
+    // El juego dura 20 segundos
+    setTimeout(() => {
+        clearInterval(gameInterval);
+        alert(`Sesión terminada. Paquetes neutralizados: ${gameScore}`);
+        registrarEvento(`Sesión de defensa completada. Score: ${gameScore}`, "SUCCESS");
+    }, 20000);
+}
+
+function crearPaquete(container) {
+    const esAmenaza = Math.random() > 0.4;
+    const paquete = document.createElement("div");
+    
+    paquete.style.position = "absolute";
+    paquete.style.left = Math.random() * 90 + "%";
+    paquete.style.top = "-20px";
+    paquete.style.padding = "5px 10px";
+    paquete.style.borderRadius = "4px";
+    paquete.style.cursor = "pointer";
+    paquete.style.fontSize = "0.7rem";
+    paquete.style.transition = "top 4s linear";
+    paquete.style.background = esAmenaza ? "#ef4444" : "#22c55e";
+    paquete.innerText = esAmenaza ? "AMENAZA" : "TRAFICO OK";
+
+    paquete.onclick = () => {
+        if (esAmenaza) {
+            gameScore += 10;
+            registrarEvento("Paquete malicioso interceptado", "SUCCESS");
+        } else {
+            gameScore -= 5;
+            registrarEvento("¡ERROR! Bloqueaste tráfico legítimo", "LOW");
+        }
+        document.getElementById("game-score").innerText = `Score: ${gameScore}`;
+        paquete.remove();
+    };
+
+    container.appendChild(paquete);
+    setTimeout(() => paquete.style.top = "320px", 50);
+    setTimeout(() => paquete.remove(), 4000);
+}

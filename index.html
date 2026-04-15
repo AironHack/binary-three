@@ -191,6 +191,17 @@
                 <div id="log-viewer" class="log-viewer"></div>
             </div>
         </div>
+        
+        <div class="card" style="margin-top: 2rem; grid-column: 1 / -1;">
+            <span class="card-tag">Interactive Game</span>
+            <h3>Firewall Defender: Filtrado de Paquetes</h3>
+            <p>Haz clic en las amenazas rojas para bloquearlas. Deja pasar los paquetes verdes.</p>
+            <div id="game-container" style="height: 300px; background: rgba(0,0,0,0.4); position: relative; overflow: hidden; border-radius: 8px; border: 1px solid var(--border-glass); margin: 15px 0;"></div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn-primary" onclick="iniciarFirewall()">Iniciar Defensa</button>
+                <span id="game-score" style="font-family: 'JetBrains Mono'; color: var(--accent);">Score: 0</span>
+            </div>
+        </div>
     </section>
 
     <footer>
