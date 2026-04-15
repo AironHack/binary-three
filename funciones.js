@@ -159,3 +159,25 @@ function actualizarVistaLogs() {
         logArea.innerHTML = logs.map(log => `<p>> ${log}</p>`).join("");
     }
 }
+function generarPasswordSegura(largo = 16) {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+    let retVal = "";
+    for (let i = 0; i < largo; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * charset.length));
+    }
+    // Puedes inyectar esto en el input del password checker
+    document.getElementById("pass-checker").value = retVal;
+    // Disparar manualmente el evento 'input' para que el medidor se actualice
+    document.getElementById("pass-checker").dispatchEvent(new Event('input'));
+}
+function simuladorAmenazas() {
+    const amenazas = ["Fuerza Bruta en Puerto 22", "Inyección SQL detectada", "Intento de login: Admin"];
+    setInterval(() => {
+        const index = Math.floor(Math.random() * amenazas.length);
+        console.warn(`ALERTA: ${amenazas[index]}`);
+        // Aquí podrías hacer que el borde de la página parpadee en rojo un segundo
+        document.body.style.border = "2px solid red";
+        setTimeout(() => document.body.style.border = "none", 500);
+        registrarEvento(`AMENAZA: ${amenazas[index]}`, "HIGH");
+    }, 15000); // Cada 15 segundos
+}
