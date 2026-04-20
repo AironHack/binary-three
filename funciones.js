@@ -80,3 +80,65 @@ function initParticles() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 }
+// --- SONIDOS AMBIENTALES ---
+let ambientAudio = null;
+let isAmbientPlaying = false;
+
+function initAmbientSounds() {
+    // Crear audio de fondo (tonos suaves de "conexión digital")
+    ambientAudio = new (window.AudioContext || window.webkitAudioContext)();
+    
+    function playAmbientTone() {
+        if (!isAmbientPlaying) return;
+        
+        const oscillator = ambientAudio.createOscillator();
+        const gainNode = ambientAudio.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(ambientAudio.destination);
+        
+        oscillator.frequency.setValueAtTime(220, ambientAudio.currentTime); // Nota A3
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.05, ambientAudio.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ambientAudio.currentTime + 2);
+        
+        oscillator.start(ambientAudio.currentTime);
+        oscillator.stop(ambientAudio.currentTime + 2);
+        
+        // Repetir cada 5-10 segundos
+        setTimeout(playAmbientTone, Math.random() * 5000 + 5000);
+    }
+    
+    // Control de volumen
+    window.toggleAmbientSound = function() {
+        isAmbientPlaying = !isAmbientPlaying;
+        if (isAmbientPlaying) {
+            playAmbientTone();
+        }
+    };
+}
+
+// --- SISTEMA DE NOTIFICACIONES ---
+function showNotification(message, type = 'info', duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+        ${message}
+        <button onclick="this.parentElement.remove()" class="notification-close">&times;</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animación de entrada
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto-remover
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, duration);
+}
