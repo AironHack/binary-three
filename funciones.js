@@ -142,3 +142,187 @@ function showNotification(message, type = 'info', duration = 5000) {
         }
     }, duration);
 }
+// --- DASHBOARD DE PROGRESO GLOBAL ---
+function showGlobalProgress() {
+    const phishingStats = JSON.parse(localStorage.getItem('phishingStats')) || { gamesPlayed: 0, bestScore: 0 };
+    const firewallStats = JSON.parse(localStorage.getItem('firewallStats')) || { gamesPlayed: 0, bestScore: 0 };
+    const userPoints = parseInt(localStorage.getItem('userPoints')) || 0;
+    const badges = JSON.parse(localStorage.getItem('badges')) || [];
+    
+    const totalGames = phishingStats.gamesPlayed + firewallStats.gamesPlayed;
+    const bestTotalScore = phishingStats.bestScore + firewallStats.bestScore;
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-trophy"></i> Tu Progreso Global</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--accent);">${userPoints}</div>
+                        <div>Puntos Totales</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--success);">${totalGames}</div>
+                        <div>Juegos Jugados</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--warning);">${bestTotalScore}</div>
+                        <div>Mejor Puntuación</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--danger);">${badges.length}</div>
+                        <div>Insignias</div>
+                    </div>
+                </div>
+                
+                <h4>Insignias Desbloqueadas:</h4>
+                <div id="badges-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                    ${badges.map(badge => `<span class="badge-item">${badge}</span>`).join('')}
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h4>Estadísticas por Juego:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                        <div>
+                            <h5>Phishing Detector</h5>
+                            <p>Juegos: ${phishingStats.gamesPlayed}</p>
+                            <p>Mejor: ${phishingStats.bestScore}</p>
+                        </div>
+                        <div>
+                            <h5>Firewall Defender</h5>
+                            <p>Juegos: ${firewallStats.gamesPlayed}</p>
+                            <p>Mejor: ${firewallStats.bestScore}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// --- TEMAS PERSONALIZABLES ---
+const themes = {
+    default: {
+        '--bg-deep': '#0a0a0a',
+        '--bg-card': 'rgba(255, 255, 255, 0.05)',
+        '--text-p': '#ffffff',
+        '--text-s': '#b0b0b0',
+        '--accent': '#00d4ff',
+        '--success': '#00ff88',
+        '--warning': '#ffaa00',
+        '--danger': '#ff4444'
+    },
+    cyberpunk: {
+        '--bg-deep': '#0d001a',
+        '--bg-card': 'rgba(255, 0, 255, 0.05)',
+        '--text-p': '#ffffff',
+        '--text-s': '#ff00ff',
+        '--accent': '#ff00ff',
+        '--success': '#00ffff',
+        '--warning': '#ffff00',
+        '--danger': '#ff0000'
+    },
+    minimal: {
+        '--bg-deep': '#ffffff',
+        '--bg-card': 'rgba(0, 0, 0, 0.05)',
+        '--text-p': '#000000',
+        '--text-s': '#666666',
+        '--accent': '#000000',
+        '--success': '#008000',
+        '--warning': '#ffa500',
+        '--danger': '#ff0000'
+    }
+};
+
+function changeTheme(themeName) {
+    const theme = themes[themeName];
+    if (theme) {
+        Object.keys(theme).forEach(prop => {
+            document.documentElement.style.setProperty(prop, theme[prop]);
+        });
+        localStorage.setItem('selectedTheme', themeName);
+    }
+}
+
+// --- MODO ACCESIBILIDAD ---
+function toggleAccessibilityMode() {
+    document.body.classList.toggle('accessibility-mode');
+    localStorage.setItem('accessibilityMode', document.body.classList.contains('accessibility-mode'));
+}
+
+function showThemeSelector() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-palette"></i> Seleccionar Tema</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button onclick="changeTheme('default')" class="theme-option" style="background: linear-gradient(135deg, #0a0a0a, #1a1a1a); color: white; padding: 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        <i class="fas fa-moon"></i><br>Default
+                    </button>
+                    <button onclick="changeTheme('cyberpunk')" class="theme-option" style="background: linear-gradient(135deg, #0d001a, #1a0033); color: #ff00ff; padding: 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        <i class="fas fa-robot"></i><br>Cyberpunk
+                    </button>
+                    <button onclick="changeTheme('minimal')" class="theme-option" style="background: linear-gradient(135deg, #ffffff, #f0f0f0); color: black; padding: 20px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer;">
+                        <i class="fas fa-circle"></i><br>Minimal
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// --- HERRAMIENTAS INTERACTIVAS ---
+function generarPasswordSegura() {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+    let password = '';
+    for (let i = 0; i < 16; i++) {
+        password += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    
+    // Mostrar en modal
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> Contraseña Generada</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 1.2rem; word-break: break-all; margin: 15px 0;">
+                    ${password}
+                </div>
+                <p style="color: var(--success); font-weight: bold;">¡Esta contraseña es muy segura!</p>
+                <p style="font-size: 0.9rem; color: var(--text-s);">Cópiala y guárdala en un gestor de contraseñas. No la uses en múltiples sitios.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="navigator.clipboard.writeText('${password}'); showNotification('Contraseña copiada al portapapeles', 'success');" class="btn-primary">Copiar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    ganarPuntos(5, 'Generar contraseña segura');
+}
+
+function verificarURL() {
+    const url = document.getElementById('url-checker').value;
+    if (!url) {
+        showNotification('Por favor ingresa una URL', 'error');
+        return;
+    }}
