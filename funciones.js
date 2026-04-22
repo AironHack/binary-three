@@ -1087,4 +1087,327 @@ function finalizarJuegoFirewall() {
         mensaje += '<br><i class="fas fa-shield-alt" style="color: silver;"></i> ¡Logro desbloqueado: Defensor Experto!';
         ganarPuntos(10, 'Logro: Defensor Experto');
     }
-  
+      
+    // Mostrar estadísticas
+    mensaje += `<br><small>Juegos: ${firewallStats.gamesPlayed} | Mejor: ${firewallStats.bestScore} | Precisión: ${firewallStats.accuracy.toFixed(1)}%</small>`;
+    
+    resultDiv.innerHTML = mensaje;
+    resultDiv.style.display = 'block';
+    registrarEvento(`Defensa completada. Score: ${gameScore}`, "SUCCESS");
+    ganarPuntos(gameScore, 'Puntuación en Firewall Defender');
+}
+
+function mostrarEstadisticasFirewall() {
+    const stats = JSON.parse(localStorage.getItem('firewallStats')) || { gamesPlayed: 0, totalScore: 0, bestScore: 0, accuracy: 0 };
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Estadísticas de Firewall Defender</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 2rem; color: var(--accent); font-weight: bold;">${stats.bestScore}</div>
+                    <div style="color: var(--text-s);">Mejor Puntuación</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--success); font-weight: bold;">${stats.gamesPlayed}</div>
+                        <div style="color: var(--text-s); font-size: 0.8rem;">Defensas</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--warning); font-weight: bold;">${stats.accuracy.toFixed(1)}%</div>
+                        <div style="color: var(--text-s); font-size: 0.8rem;">Precisión</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4>Logros Desbloqueados:</h4>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                        ${stats.bestScore >= 150 ? '<span style="background: gold; color: black; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> Maestro</span>' : ''}
+                        ${stats.bestScore >= 80 ? '<span style="background: silver; color: black; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> Experto</span>' : ''}
+                        ${stats.gamesPlayed >= 10 ? '<span style="background: #cd7f32; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-shield-alt"></i> Veterano</span>' : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="iniciarModoPracticaFirewall()" class="btn-primary">Modo Práctica</button>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function iniciarModoPracticaFirewall() {
+    // Cerrar modal
+    document.querySelector('.modal-overlay').remove();
+    document.body.style.overflow = 'auto';
+    
+    const container = document.getElementById("game-container");
+    const scoreDisplay = document.getElementById("game-score");
+    const resultDiv = document.getElementById('game-result');
+    
+    container.innerHTML = "";
+    gameScore = 0;
+    firewallLevel = 1;
+    firewallRound = 1;
+    scoreDisplay.innerText = "Modo Práctica | Score: 0 | Nivel: 1";
+    resultDiv.style.display = 'none';
+    
+    registrarEvento("Iniciando modo práctica de firewall...", "INFO");
+    
+    let intervalo = 1000;
+    gameInterval = setInterval(() => {
+        crearPaquetePractica(container);
+        firewallRound++;
+        if (firewallRound % 15 === 0) {
+            firewallLevel++;
+            intervalo = Math.max(intervalo - 100, 500);
+            clearInterval(gameInterval);
+            gameInterval = setInterval(() => crearPaquetePractica(container), intervalo);
+        }
+        scoreDisplay.innerText = `Modo Práctica | Score: ${gameScore} | Nivel: ${firewallLevel}`;
+    }, intervalo);
+    
+    // Control por teclado
+    if (keyboardMode) {
+        document.addEventListener('keydown', manejarTecladoFirewall);
+    }
+}
+
+function crearPaquetePractica(container) {
+    const paquetesDisponibles = tiposPaquetes;
+    const paqueteData = paquetesDisponibles[Math.floor(Math.random() * paquetesDisponibles.length)];
+    
+    const paquete = document.createElement("div");
+    
+    paquete.style.position = "absolute";
+    paquete.style.left = Math.random() * 90 + "%";
+    paquete.style.top = "-20px";
+    paquete.style.padding = "5px 10px";
+    paquete.style.borderRadius = "4px";
+    paquete.style.cursor = "pointer";
+    paquete.style.fontSize = "0.7rem";
+    paquete.style.transition = "top 4s linear";
+    paquete.style.background = paqueteData.color;
+    paquete.innerHTML = `<i class="${paqueteData.icono}"></i> ${paqueteData.texto}`;
+    paquete.dataset.explicacion = paqueteData.explicacion;
+    paquete.dataset.esAmenaza = paqueteData.esAmenaza;
+
+    paquete.onclick = () => {
+        manejarClicPaquete(paquete);
+    };
+
+    container.appendChild(paquete);
+    setTimeout(() => paquete.style.top = "320px", 50);
+    setTimeout(() => {
+        if (paquete.parentElement) {
+            paquete.remove();
+            if (!paqueteData.esAmenaza) {
+                gameScore += 5;
+                mostrarFeedback("¡Bien! Dejaste pasar tráfico legítimo", "success");
+                reproducirSonido(true);
+            }
+        }
+    }, 4000);
+}
+
+function detenerModoPracticaFirewall() {
+    if (gameInterval) clearInterval(gameInterval);
+    if (keyboardMode) {
+        document.removeEventListener('keydown', manejarTecladoFirewall);
+    }
+    const resultDiv = document.getElementById('game-result');
+    resultDiv.innerHTML = `Modo práctica terminado. Puntuación final: ${gameScore}<br><small>¡Sigue practicando para mejorar tus habilidades de defensa!</small>`;
+    resultDiv.style.display = 'block';
+    registrarEvento(`Modo práctica completado. Score: ${gameScore}`, "SUCCESS");
+    ganarPuntos(Math.floor(gameScore / 10), 'Puntuación en Modo Práctica Firewall');
+}
+
+// --- PHISHING DETECTOR GAME ---
+let phishingInterval;
+
+const correosEjemplo = [
+    // Nivel 1: Fácil
+    { subject: "Actualización de Seguridad Urgente", body: "Haz clic aquí para verificar tu cuenta bancaria.", isPhishing: true, dificultad: 1, explicacion: "Los correos de bancos reales nunca piden datos sensibles por email." },
+    { subject: "Factura de Amazon", body: "Tu pedido ha sido enviado. Revisa los detalles.", isPhishing: false, dificultad: 1, explicacion: "Es un correo legítimo de confirmación de compra." },
+    { subject: "Ganaste un iPhone Gratis", body: "¡Felicidades! Reclama tu premio ahora.", isPhishing: true, dificultad: 1, explicacion: "Los premios inesperados son una señal clásica de phishing." },
+    { subject: "Confirmación de Reserva", body: "Tu vuelo está confirmado. Imprime tu boleto.", isPhishing: false, dificultad: 1, explicacion: "Correo estándar de aerolínea con información de viaje." },
+    { subject: "Problema con tu Cuenta", body: "Ingresa tus datos para resolver el issue.", isPhishing: true, dificultad: 1, explicacion: "Pide datos personales sin contexto específico." },
+    
+    // Nivel 2: Medio
+    { subject: "Actualización de Política de Privacidad", body: "Hemos actualizado nuestros términos. Revisa el enlace adjunto.", isPhishing: true, dificultad: 2, explicacion: "Enlaces adjuntos en correos de política pueden contener malware." },
+    { subject: "Recordatorio de Cita Médica", body: "Tu cita con el Dr. García es mañana a las 10:00.", isPhishing: false, dificultad: 2, explicacion: "Correo de recordatorio legítimo de un servicio médico." },
+    { subject: "Oferta Especial: 50% Descuento", body: "Solo por hoy, accede a nuestro sitio para reclamar.", isPhishing: true, dificultad: 2, explicacion: "Ofertas urgentes con enlaces son sospechosas." },
+    { subject: "Estado de tu Solicitud", body: "Tu aplicación ha sido procesada exitosamente.", isPhishing: false, dificultad: 2, explicacion: "Notificación estándar de procesamiento de solicitud." },
+    { subject: "Verificación de Identidad Requerida", body: "Por favor, confirma tu identidad haciendo clic aquí.", isPhishing: true, dificultad: 2, explicacion: "Las verificaciones reales no se hacen por email con enlaces." },
+    
+    // Nivel 3: Difícil
+    { subject: "Actualización de Software Importante", body: "Descarga la nueva versión desde nuestro servidor seguro.", isPhishing: true, dificultad: 3, explicacion: "Descargas inesperadas pueden contener virus." },
+    { subject: "Confirmación de Transferencia Bancaria", body: "Se ha realizado una transferencia de $500 a tu cuenta.", isPhishing: false, dificultad: 3, explicacion: "Notificación legítima de transacción bancaria." },
+    { subject: "Invitación a Webinar Exclusivo", body: "Únete a nuestro seminario sobre ciberseguridad avanzada.", isPhishing: true, dificultad: 3, explicacion: "Invitaciones con enlaces a dominios desconocidos." },
+    { subject: "Actualización de tu Perfil", body: "Hemos actualizado tu información de perfil automáticamente.", isPhishing: false, dificultad: 3, explicacion: "Notificación automática de cambios en el perfil." },
+    { subject: "Alerta de Seguridad: Actividad Sospechosa", body: "Detectamos actividad inusual. Verifica tu cuenta inmediatamente.", isPhishing: true, dificultad: 3, explicacion: "Aunque parece legítimo, pide acción inmediata sin detalles." }
+];
+
+// Variables globales para phishing
+let phishingScore = 0;
+let phishingLevel = 1;
+let phishingRound = 1;
+let phishingStats = JSON.parse(localStorage.getItem('phishingStats')) || { gamesPlayed: 0, totalScore: 0, bestScore: 0, accuracy: 0 };
+let phishingTutorialShown = localStorage.getItem('phishingTutorialShown') === 'true';
+
+function iniciarPhishing() {
+    // Mostrar tutorial si no se ha mostrado
+    if (!phishingTutorialShown) {
+        mostrarTutorialPhishing();
+        return;
+    }
+
+    const container = document.getElementById("phishing-container");
+    const scoreDisplay = document.getElementById("phishing-score");
+    const resultDiv = document.getElementById('phishing-result');
+    const timerDiv = document.getElementById('phishing-timer');
+    const timerBar = document.getElementById('phishing-timer-bar');
+    const timerText = document.getElementById('phishing-timer-text');
+    
+    container.innerHTML = "";
+    phishingScore = 0;
+    phishingRound = 1;
+    phishingLevel = 1;
+    scoreDisplay.innerText = "Score: 0 | Nivel: 1 | Ronda: 1";
+    resultDiv.style.display = 'none';
+    timerDiv.style.display = 'block';
+    timerBar.style.width = '100%';
+    timerText.innerText = '30s';
+    registrarEvento("Iniciando práctica de detección de phishing...", "INFO");
+
+    if (phishingInterval) clearInterval(phishingInterval);
+
+    mostrarCorreo(container);
+
+    // Temporizador visual
+    let timeLeft = 30;
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        timerBar.style.width = (timeLeft / 30) * 100 + '%';
+        timerText.innerText = timeLeft + 's';
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerDiv.style.display = 'none';
+        }
+    }, 1000);
+
+    // El juego dura 30 segundos
+    setTimeout(() => {
+        clearInterval(phishingInterval);
+        clearInterval(timerInterval);
+        timerDiv.style.display = 'none';
+        finalizarJuegoPhishing();
+    }, 30000);
+}
+
+function mostrarTutorialPhishing() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-graduation-cap"></i> Tutorial: Phishing Detector</h3>
+                <button onclick="cerrarTutorialPhishing()" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>¿Qué es el phishing?</strong> Es un intento de obtener información sensible haciéndose pasar por una entidad confiable.</p>
+                <p><strong>Señales de alerta:</strong></p>
+                <ul style="text-align: left; margin: 10px 0;">
+                    <li>Correos urgentes pidiendo acción inmediata</li>
+                    <li>Enlaces o adjuntos inesperados</li>
+                    <li>Errores gramaticales o dominios sospechosos</li>
+                    <li>Solicitudes de datos personales o financieros</li>
+                </ul>
+                <p><strong>Cómo jugar:</strong> Clasifica cada correo como "Phishing" o "Legítimo". Gana puntos por respuestas correctas y pierde por incorrectas.</p>
+                <p>¡Buena suerte!</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="cerrarTutorialPhishing()" class="btn-primary">¡Entendido!</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarTutorialPhishing() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = 'auto';
+        localStorage.setItem('phishingTutorialShown', 'true');
+        phishingTutorialShown = true;
+        iniciarPhishing();
+    }
+}
+
+function mostrarCorreo(container) {
+    // Filtrar correos por nivel actual
+    const correosNivel = correosEjemplo.filter(c => c.dificultad <= phishingLevel);
+    const index = Math.floor(Math.random() * correosNivel.length);
+    const correo = correosNivel[index];
+    
+    const emailDiv = document.createElement("div");
+    emailDiv.className = "email-display";
+    emailDiv.innerHTML = `
+        <div class="email-header">
+            <strong>Asunto:</strong> ${correo.subject}
+        </div>
+        <div class="email-body">
+            ${correo.body}
+        </div>
+        <div class="email-actions">
+            <button class="btn-secondary" onclick="clasificarCorreo(true, ${correo.isPhishing}, this.parentElement.parentElement, '${correo.explicacion.replace(/'/g, "\\'")}')">Es Phishing</button>
+            <button class="btn-secondary" onclick="clasificarCorreo(false, ${correo.isPhishing}, this.parentElement.parentElement, '${correo.explicacion.replace(/'/g, "\\'")}')">Es Legítimo</button>
+        </div>
+    `;
+    
+    container.innerHTML = "";
+    container.appendChild(emailDiv);
+}
+
+function clasificarCorreo(esPhishing, realPhishing, element, explicacion) {
+    const feedbackDiv = document.createElement('div');
+    feedbackDiv.className = 'game-feedback';
+    
+    if (esPhishing === realPhishing) {
+        phishingScore += 10 + (phishingLevel * 2); // Puntos extra por nivel
+        feedbackDiv.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success);"></i> ¡Correcto! ${explicacion}`;
+        feedbackDiv.style.color = 'var(--success)';
+        reproducirSonido(true);
+        registrarEvento("Correo clasificado correctamente", "SUCCESS");
+    } else {
+        phishingScore -= 5;
+        feedbackDiv.innerHTML = `<i class="fas fa-times-circle" style="color: var(--danger);"></i> Incorrecto. ${explicacion}`;
+        feedbackDiv.style.color = 'var(--danger)';
+        reproducirSonido(false);
+        registrarEvento("Clasificación incorrecta", "LOW");
+    }
+    
+    element.appendChild(feedbackDiv);
+    
+    // Actualizar nivel y ronda
+    phishingRound++;
+    if (phishingRound > 5) { // Cada 5 rondas, subir nivel
+        phishingLevel++;
+        phishingRound = 1;
+    }
+    
+    document.getElementById("phishing-score").innerText = `Score: ${phishingScore} | Nivel: ${phishingLevel} | Ronda: ${phishingRound}`;
+    
+    setTimeout(() => {
+        element.removeChild(feedbackDiv);
+        mostrarCorreo(element.parentElement);
+    }, 2000);
+}
