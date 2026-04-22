@@ -602,11 +602,13 @@ function mostrarPregunta() {
 
 function checkQuiz(ans) {
     if (ans === preguntas[currentQ].correct) {
-        alert(" Respuesta correcta.");
+        showNotification("¡Acceso Concedido! Respuesta correcta. +10 puntos.", "success");
+        reproducirSonido(true);
         scoreQuiz++;
         ganarPuntos(10, 'Respuesta correcta en el quiz');
     } else {
-        alert(" Error. Revisa el glosario y las guías.");
+        showNotification("Acceso Denegado. Respuesta incorrecta. Revisa el glosario.", "error");
+        reproducirSonido(false);
     }
     currentQ++;
     mostrarPregunta();
@@ -615,7 +617,7 @@ function checkQuiz(ans) {
 function generarCertificado() {
     const nombre = document.getElementById('cert-name').value.trim();
     if (!nombre) {
-        alert("Por favor, ingresa tu nombre.");
+        showNotification("Por favor, ingresa un nombre para emitir el certificado.", "info");
         return;
     }
     document.getElementById('cert-container').style.display = 'none';
