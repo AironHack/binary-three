@@ -243,5 +243,81 @@
             </div>
         </div>
     </section>
+    <section id="glosario" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Conceptos Clave</h2>
+            <p>Términos comunes que debes conocer para entender cómo operan los atacantes.</p>
+            
+            <div class="study-toggle-container">
+                <span class="study-label">Modo Estudio:</span>
+                <label class="switch">
+                    <input type="checkbox" id="study-mode-toggle" onchange="toggleStudyMode()">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-question-circle help-icon" style="margin-left: 10px;" title="Oculta los títulos para que intentes adivinarlos al ver la parte trasera."></i>
+            </div>
+        </div>
+
+        <div class="grid-amenazas" id="glosario-grid">
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-fish bg-icon"></i>
+                        <span class="card-tag">Seguridad Web</span>
+                        <h3 class="concept-title">Phishing</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Sitios web o correos falsos que se hacen pasar por empresas reales para robar tus credenciales.</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="payloads" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Biblioteca de Payloads</h2>
+            <p>Analiza código real utilizado en ataques para entender su funcionamiento técnico línea a línea.</p>
+        </div>
+        <div class="card cyber-card">
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="btn-secondary" onclick="loadPayload('fork')">Fork Bomb (DOS)</button>
+                <button class="btn-secondary" onclick="loadPayload('reverse')">Reverse Shell</button>
+                <button class="btn-secondary" onclick="loadPayload('phishing')">JS Credential Stealer</button>
+            </div>
+            <div class="payload-viewer">
+                <div id="code-area" style="padding: 20px; background: #000; font-family: 'JetBrains Mono', monospace; color: #00ff88; overflow-x: auto;">
+                    // Selecciona un payload para analizar...
+                </div>
+                <div id="explanation-area" style="padding: 20px; border-left: 1px solid var(--border-glass); font-size: 0.9rem; color: var(--text-s);">
+                    Haz clic en un botón para ver la autopsia del código.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="historia" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Ciber-Historia: Casos Reales</h2>
+            <p>Cronología de los ataques que cambiaron el mundo de la seguridad digital.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item left reveal" onclick="showHistory('wannacry')">
+                <div class="card cyber-card">
+                    <span class="card-tag tag-critical">2017</span>
+                    <h3>WannaCry Ransomware</h3>
+                    <p>El ataque que paralizó hospitales en todo el mundo.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal" onclick="showHistory('sony')">
+                <div class="card cyber-card">
+                    <span class="card-tag tag-warning">2014</span>
+                    <h3>Sony Pictures Hack</h3>
+                    <p>Una brecha masiva de datos por motivaciones políticas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     </body>
 </html>
