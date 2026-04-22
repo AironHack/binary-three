@@ -642,6 +642,19 @@ footer {
     pointer-events: none;
 }
 
+/* Ajuste de padding para tarjetas con imagen superior */
+.step-card, .tool-card {
+    padding-top: 0 !important;
+    overflow: hidden;
+}
+
+.step-card .card-image, .tool-card .card-image {
+    margin-left: -2rem;
+    margin-right: -2rem;
+    width: calc(100% + 4rem);
+    border-radius: 16px 16px 0 0;
+}
+
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
