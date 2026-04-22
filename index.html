@@ -297,7 +297,7 @@
                     </div>
                 </div>
             </div>
-
+                       
             <div class="flip-card card" onclick="flipCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -477,6 +477,127 @@
         <div id="history-detail" style="margin-top: 30px; display: none;"></div>
     </section>
 
+    <section id="blog" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Blog de Ciberseguridad</h2>
+            <p>Artículos actualizados sobre amenazas, tendencias y consejos prácticos.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad1.png" alt="Artículo sobre ransomware" class="card-image">
+                <span class="card-tag tag-critical">Amenazas</span>
+                <h3>Ransomware: La Pandemia Digital</h3>
+                <p>Analizamos los ataques de ransomware más devastadores de 2024 y cómo proteger tu organización.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 15 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-ransomware')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad2.png" alt="Artículo sobre IA" class="card-image">
+                <span class="card-tag tag-info">Tendencias</span>
+                <h3>IA en Ciberseguridad: Amigo o Enemigo</h3>
+                <p>Exploramos cómo la inteligencia artificial está revolucionando la detección de amenazas y también creando nuevas vulnerabilidades.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 10 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-ia')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad3.png" alt="Artículo con consejos" class="card-image">
+                <span class="card-tag tag-success">Consejos</span>
+                <h3>10 Hábitos para una Vida Digital Segura</h3>
+                <p>Rutinas diarias que puedes implementar hoy mismo para reducir significativamente el riesgo de ciberataques.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 5 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-habitos')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="alertas" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient"><span class="live-indicator"></span> Notificaciones en Vivo</h2>
+            <p>Avisos y consejos actualizados sobre campañas de estafas recientes.</p>
+        </div>
+
+        <div class="alert-carousel" id="alert-carousel">
+            <!-- Slide 1: Warning -->
+            <div class="alert-card alert-slide active-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 2 horas</span>
+                </div>
+                <h3>Aumento de estafas por SMS (Smishing)</h3>
+                <p>Se ha detectado un aumento en mensajes de texto que fingen ser servicios de paquetería. No hagas clic en enlaces de SMS inesperados y verifica siempre en la página oficial.</p>
+            </div>
+            
+            <!-- Slide 2: Critical -->
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 5 horas</span>
+                </div>
+                <h3>Falsas ofertas de empleo en WhatsApp</h3>
+                <p>Cuidado con mensajes internacionales ofreciendo "ganar dinero viendo videos". Son estafas piramidales diseñadas para robar datos o vaciar tu cuenta. Bloquea y reporta.</p>
+            </div>
+            
+            <!-- Slide 3: Info -->
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-info"><i class="fas fa-info-circle"></i> INFORMATIVO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Ayer</span>
+                </div>
+                <h3>Actualización urgente de Navegadores</h3>
+                <p>Se ha detectado una falla crítica en varios navegadores populares. Se recomienda encarecidamente reiniciar y actualizar Google Chrome y Firefox de inmediato.</p>
+            </div>
+            
+            <!-- Slide 4: Warning -->
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 3 horas</span>
+                </div>
+                <h3>Deepfakes en Redes Sociales</h3>
+                <p>Cuidado con videos manipulados por IA que imitan a personas conocidas. Verifica fuentes antes de compartir contenido sensible.</p>
+            </div>
+            
+            <!-- Slide 5: Critical -->
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 1 hora</span>
+                </div>
+                <h3>Nueva variante de Ransomware</h3>
+                <p>Se detectó un nuevo ransomware que afecta dispositivos móviles. Mantén tus apps actualizadas y no descargues de fuentes no oficiales.</p>
+            </div>
+        </div>
+        
+        <!-- Indicadores del carrusel -->
+        <div class="carousel-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+
+        <!-- Formulario de Suscripción -->
+        <div class="newsletter-box">
+            <h3><i class="fas fa-envelope-open-text"></i> Suscríbete a nuestro Boletín</h3>
+            <p>Recibe alertas tempranas sobre nuevas amenazas de ciberseguridad directamente en tu correo.</p>
+            <form id="newsletter-form" onsubmit="suscribirBoletin(event)">
+                <div class="input-group">
+                    <input type="email" id="email-input" placeholder="Tu correo electrónico..." required>
+                    <button type="submit" class="btn-primary">Suscribirme</button>
+                </div>
+            </form>
+            <div id="newsletter-success" class="success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> ¡Suscripción exitosa! Te mantendremos informado.
+            </div>
+        </div>
+    </section>
 
     <script src="funciones.js"></script>
 </body>
