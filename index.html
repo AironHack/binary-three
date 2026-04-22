@@ -748,6 +748,149 @@
 
         </div>
 
+        <div class="section-header" style="margin-top: 4rem;">
+            <h2 class="title-gradient">Auditoría Teórica y Monitoreo</h2>
+        </div>
+
+        <div class="grid-amenazas">
+            <!-- Quiz Card -->
+            <div class="card cyber-card quiz-card" id="quiz-card">
+                <span class="card-tag">Evaluación</span>
+                <h3 class="cyber-title">Auditoría Teórica</h3>
+                <div class="quiz-box"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn-secondary quiz-start" onclick="iniciarQuiz()"><i class="fas fa-tasks"></i> Iniciar Auditoría</button>
+                </div>
+                <div id="cert-container" style="display:none; margin-top: 1.5rem; text-align: center; padding: 15px; border: 1px solid gold; border-radius: 8px; background: rgba(255, 215, 0, 0.05);">
+                    <h4 style="color: gold; margin-bottom: 5px;"><i class="fas fa-medal"></i> ¡Calificación Perfecta!</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Ingresa tu alias para emitir tu insignia.</p>
+                    <input type="text" id="cert-name" placeholder="Tu Nombre o Alias..." class="cyber-input">
+                    <br>
+                    <button class="btn-primary" style="margin-top: 10px; width: 100%;" onclick="generarCertificado()"><i class="fas fa-stamp"></i> Emitir Insignia</button>
+                </div>
+                <div id="diploma-area" style="display:none; margin-top: 1rem;"></div>
+            </div>
+
+            <!-- Terminal Card -->
+            <div class="card cyber-card">
+                <span class="card-tag tag-warning">Monitoreo</span>
+                <h3 class="cyber-title">Registro de Eventos</h3>
+                <div class="terminal-header">
+                    <div class="mac-dots">
+                        <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+                    </div>
+                    <span class="terminal-path">/var/log/syslog</span>
+                </div>
+                <div id="log-viewer" class="cyber-terminal">
+                    <p class="log-info">> Iniciando daemon de monitoreo...</p>
+                    <p class="log-info">> Escuchando tráfico de red...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Contáctanos</h2>
+            <p>¿Tienes preguntas o sugerencias? Envíanos un mensaje.</p>
+        </div>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form id="contact-form" onsubmit="enviarMensaje(event)">
+                <div style="margin-bottom: 1rem;">
+                    <label for="contact-name" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Nombre</label>
+                    <input type="text" id="contact-name" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="contact-email" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Correo</label>
+                    <input type="email" id="contact-email" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="contact-message" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Mensaje</label>
+                    <textarea id="contact-message" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px; min-height: 100px;"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+            <div id="contact-success" class="success-message" style="display: none; margin-top: 15px;">
+                <i class="fas fa-check-circle"></i> ¡Mensaje enviado! Te responderemos pronto.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-logo">
+                <div class="logo footer-logo-text">@2026 BINARY<span> THREE</span></div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Soporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modales de Guías -->
+    <div class="modal-overlay" id="modal-privacidad">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-privacidad')"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--accent);"><i class="fas fa-lock"></i> Comunicaciones Cifradas</h2>
+            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
+            <p>El cifrado de extremo a extremo (E2EE) asegura que solo tú y la persona con la que te comunicas puedan leer lo que se envía.</p>
+            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
+            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
+                <li>Utiliza aplicaciones de mensajería como Signal o WhatsApp.</li>
+                <li>Activa la verificación de claves de seguridad con tus contactos importantes.</li>
+                <li>Nunca envíes contraseñas o datos de tarjetas de crédito a través de correos no cifrados o SMS regulares.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-acceso">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-acceso')"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--accent);"><i class="fas fa-id-badge"></i> Control de Identidad Pro</h2>
+            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
+            <p>El modelo "Zero Trust" (Confianza Cero) asume que todas las conexiones, incluso las de la red interna, pueden ser una amenaza y deben ser verificadas constantemente.</p>
+            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
+            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
+                <li>Implementa Autenticación Multifactor (MFA) obligatoria para todos los accesos.</li>
+                <li>Otorga permisos basados en el principio de "menor privilegio".</li>
+                <li>Revisa y revoca permisos de cuentas de empleados antiguos o roles cambiados de inmediato.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-auditoria">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-auditoria')"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--accent);"><i class="fas fa-search"></i> Análisis de Logs</h2>
+            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
+            <p>El análisis constante de registros (logs) es la primera línea de defensa para detectar intrusiones silenciosas o comportamientos anómalos en el servidor.</p>
+            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
+            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
+                <li>Configura alertas automáticas para múltiples intentos fallidos de inicio de sesión.</li>
+                <li>Centraliza tus logs usando herramientas como Splunk o ELK Stack para facilitar su búsqueda.</li>
+                <li>Guarda las copias de seguridad de tus logs en ubicaciones aisladas ("Write-Once, Read-Many") para evitar que los atacantes borren su rastro.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modales del Blog -->
+    <div class="modal-overlay" id="modal-blog-ransomware">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-blog-ransomware')"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--danger);"><i class="fas fa-biohazard"></i> Ransomware: La Pandemia Digital</h2>
+            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
+            <p>En 2024, el ransomware evolucionó hacia la <strong>"doble extorsión"</strong>: no solo cifran tus datos, sino que roban información sensible para amenazar con filtrarla si no se paga.</p>
+            <h4 style="margin-top: 15px; color: var(--accent);">Puntos Clave:</h4>
+            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.6;">
+                <li><strong>Backups 3-2-1:</strong> Mantén copias de seguridad fuera de línea que el ransomware no pueda alcanzar.</li>
+                <li><strong>Segmentación:</strong> Divide tu red para que un equipo infectado no comprometa a toda la empresa.</li>
+                <li><strong>Evasión:</strong> Los atacantes ahora usan técnicas "living off the land" (usar herramientas legítimas del sistema) para no ser detectados.</li>
+            </ul>
+        </div>
+    </div>
     <script src="funciones.js"></script>
 </body>
 </html> 
