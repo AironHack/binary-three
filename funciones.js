@@ -688,3 +688,403 @@ window.onload = () => {
         });
     }, { threshold: 0.5 });
     counters.forEach(counter => counterObserver.observe(counter));
+
+    // Scrollspy e Indicador de Volver Arriba
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-links a.nav-link');
+    const btnTop = document.getElementById('btn-top');
+    
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - sectionHeight / 3)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active-link');
+            if (link.getAttribute('href').includes(current) && current !== '') {
+                link.classList.add('active-link');
+            }
+        });
+        
+        if (window.scrollY > 300) {
+            btnTop.classList.add('show');
+        } else {
+            btnTop.classList.remove('show');
+        }
+    });
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Menú Responsivo
+function toggleMenu() {
+    const navLinks = document.querySelector('.nav-links');
+    navLinks.classList.toggle('active');
+}
+
+function toggleCheck(element) {
+    element.classList.toggle('checked');
+    if (element.id) {
+        localStorage.setItem('binary_three_' + element.id, element.classList.contains('checked'));
+        if (element.classList.contains('checked')) {
+            ganarPuntos(5, 'Completaste un ítem del checklist');
+        }
+    }
+    actualizarProgreso();
+}
+
+// Accesibilidad para el Checklist
+function handleCheckKeyPress(event, element) {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        toggleCheck(element);
+    }
+}
+
+function actualizarProgreso() {
+    const total = document.querySelectorAll('.checklist-item').length;
+    const checked = document.querySelectorAll('.checklist-item.checked').length;
+    const porcentaje = Math.round((checked / total) * 100);
+    
+    document.getElementById('security-progress').style.width = porcentaje + '%';
+    document.getElementById('progress-text').innerText = porcentaje + '% Completado';
+    
+    if (porcentaje === 100) {
+        document.getElementById('progress-text').innerText = '¡Felicidades! Tienes excelentes hábitos digitales.';
+        document.getElementById('progress-text').style.color = 'var(--success)';
+    } else {
+        document.getElementById('progress-text').style.color = 'var(--text-s)';
+    }
+}
+// Agrega esto a tus funciones de Verificador y Quiz
+const logs = [];
+
+function registrarEvento(evento, severidad) {
+    const timestamp = new Date().toLocaleTimeString();
+    const nuevoLog = `[${timestamp}] [${severidad}] ${evento}`;
+    logs.unshift(nuevoLog); // Añade al inicio del array
+    actualizarVistaLogs();
+}
+
+function actualizarVistaLogs() {
+    const logArea = document.getElementById("log-viewer");
+    if(logArea) {
+        logArea.innerHTML = logs.map(log => {
+            let colorClass = "log-info";
+            if (log.includes("[HIGH]")) colorClass = "log-high";
+            else if (log.includes("[LOW]") || log.includes("[WARNING]")) colorClass = "log-warning";
+            else if (log.includes("[SUCCESS]")) colorClass = "log-success";
+            return `<p class="${colorClass}">> ${log}</p>`;
+        }).join("");
+    }
+}
+
+// Simular consulta a Have I Been Pwned
+async function checkPasswordBreach(password) {
+    // En producción, usar API real con hash SHA-1
+    // Aquí simulamos con contraseñas comunes filtradas
+    const commonBreached = ["123456", "password", "123456789", "qwerty", "abc123", "password123"];
+    return commonBreached.includes(password.toLowerCase());
+}
+
+function simuladorAmenazas() {
+    const amenazas = ["Fuerza Bruta en Puerto 22", "Inyección SQL detectada", "Intento de login: Admin", "Escaneo de puertos bloqueado", "Acceso denegado a /etc/shadow"];
+    setInterval(() => {
+        const index = Math.floor(Math.random() * amenazas.length);
+        const isHigh = Math.random() > 0.5;
+        registrarEvento(`AMENAZA: ${amenazas[index]}`, isHigh ? "HIGH" : "WARNING");
+    }, 8000); // Cada 8 segundos
+}
+
+// --- 5. FIREWALL DEFENDER GAME ---
+let gameScore = 0;
+let gameInterval;
+let firewallLevel = 1;
+let firewallRound = 1;
+let firewallStats = JSON.parse(localStorage.getItem('firewallStats')) || { gamesPlayed: 0, totalScore: 0, bestScore: 0, accuracy: 0 };
+let firewallTutorialShown = localStorage.getItem('firewallTutorialShown') === 'true';
+let keyboardMode = false; // Modo teclado activado/desactivado
+
+const tiposPaquetes = [
+    { tipo: 'phishing', color: 'var(--danger)', icono: 'fas fa-envelope-open-text', texto: 'PHISHING', esAmenaza: true, explicacion: 'Correo fraudulento que intenta robar datos.' },
+    { tipo: 'malware', color: 'var(--danger)', icono: 'fas fa-virus', texto: 'MALWARE', esAmenaza: true, explicacion: 'Software malicioso que daña el sistema.' },
+    { tipo: 'spam', color: 'var(--danger)', icono: 'fas fa-exclamation-triangle', texto: 'SPAM', esAmenaza: true, explicacion: 'Correo no deseado que puede contener amenazas.' },
+    { tipo: 'correo-ok', color: 'var(--success)', icono: 'fas fa-envelope', texto: 'CORREO OK', esAmenaza: false, explicacion: 'Correo legítimo y seguro.' },
+    { tipo: 'actualizacion', color: 'var(--success)', icono: 'fas fa-download', texto: 'ACTUALIZACIÓN', esAmenaza: false, explicacion: 'Actualización de software segura.' }
+];
+
+// --- SISTEMA DE PUNTOS Y GAMIFICACIÓN ---
+let userPoints = 0;
+let badges = [];
+
+function ganarPuntos(puntos, razon) {
+    userPoints += puntos;
+    document.getElementById('user-points').innerText = userPoints;
+    localStorage.setItem('binary_three_points', userPoints);
+    registrarEvento(`+${puntos} puntos: ${razon}`, "SUCCESS");
+    checkBadges();
+}
+
+function checkBadges() {
+    if (userPoints >= 50 && !badges.includes('Principiante')) {
+        badges.push('Principiante');
+        mostrarBadge('Principiante', '¡Has completado tus primeros pasos en ciberseguridad!');
+    }
+    if (userPoints >= 100 && !badges.includes('Intermedio')) {
+        badges.push('Intermedio');
+        mostrarBadge('Intermedio', '¡Eres un guardián digital!');
+    }
+    if (userPoints >= 200 && !badges.includes('Experto')) {
+        badges.push('Experto');
+        mostrarBadge('Experto', '¡Maestro de la ciberseguridad!');
+    }
+    localStorage.setItem('binary_three_badges', JSON.stringify(badges));
+}
+
+function mostrarBadge(titulo, descripcion) {
+    const badgeDiv = document.createElement('div');
+    badgeDiv.className = 'badge-notification';
+    badgeDiv.innerHTML = `
+        <div class="badge-content">
+            <i class="fas fa-medal"></i>
+            <h4>${titulo}</h4>
+            <p>${descripcion}</p>
+        </div>
+    `;
+    document.body.appendChild(badgeDiv);
+    setTimeout(() => badgeDiv.remove(), 5000);
+}
+
+function iniciarFirewall() {
+    // Mostrar tutorial si no se ha mostrado
+    if (!firewallTutorialShown) {
+        mostrarTutorialFirewall();
+        return;
+    }
+
+    const container = document.getElementById("game-container");
+    const scoreDisplay = document.getElementById("game-score");
+    const resultDiv = document.getElementById('game-result');
+    const timerDiv = document.getElementById('game-timer');
+    const timerBar = document.getElementById('timer-bar');
+    const timerText = document.getElementById('timer-text');
+    
+    // Reiniciar estado
+    container.innerHTML = "";
+    gameScore = 0;
+    firewallLevel = 1;
+    firewallRound = 1;
+    scoreDisplay.innerText = "Score: 0 | Nivel: 1 | Ronda: 1";
+    resultDiv.style.display = 'none';
+    timerDiv.style.display = 'block';
+    timerBar.style.width = '100%';
+    timerText.innerText = '20s';
+    registrarEvento("Iniciando práctica de firewall...", "INFO");
+
+    if (gameInterval) clearInterval(gameInterval);
+
+    // Dificultad progresiva: intervalos más cortos en niveles altos
+    let intervalo = 1000 - (firewallLevel - 1) * 100;
+    intervalo = Math.max(intervalo, 300); // Mínimo 300ms
+
+    gameInterval = setInterval(() => {
+        crearPaquete(container);
+        firewallRound++;
+        if (firewallRound % 10 === 0) { // Cada 10 paquetes, subir nivel
+            firewallLevel++;
+            intervalo = Math.max(intervalo - 100, 300);
+            clearInterval(gameInterval);
+            gameInterval = setInterval(() => crearPaquete(container), intervalo);
+        }
+        scoreDisplay.innerText = `Score: ${gameScore} | Nivel: ${firewallLevel} | Ronda: ${firewallRound}`;
+    }, intervalo);
+
+    // Control por teclado
+    if (keyboardMode) {
+        document.addEventListener('keydown', manejarTecladoFirewall);
+    }
+
+    // Temporizador visual
+    let timeLeft = 20;
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        timerBar.style.width = (timeLeft / 20) * 100 + '%';
+        timerText.innerText = timeLeft + 's';
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            timerDiv.style.display = 'none';
+            if (keyboardMode) {
+                document.removeEventListener('keydown', manejarTecladoFirewall);
+            }
+        }
+    }, 1000);
+
+    // El juego dura 20 segundos
+    setTimeout(() => {
+        clearInterval(gameInterval);
+        clearInterval(timerInterval);
+        timerDiv.style.display = 'none';
+        if (keyboardMode) {
+            document.removeEventListener('keydown', manejarTecladoFirewall);
+        }
+        finalizarJuegoFirewall();
+    }, 20000);
+}
+
+function mostrarTutorialFirewall() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-shield-alt"></i> Tutorial: Firewall Defender</h3>
+                <button onclick="cerrarTutorialFirewall()" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>¿Qué es un firewall?</strong> Es un sistema que protege la red bloqueando amenazas entrantes.</p>
+                <p><strong>Cómo jugar:</strong></p>
+                <ul style="text-align: left; margin: 10px 0;">
+                    <li><span style="color: var(--danger);">Rojo</span>: Amenazas (phishing, malware, spam) - ¡Elimínalas!</li>
+                    <li><span style="color: var(--success);">Verde</span>: Tráfico legítimo - Déjalos pasar</li>
+                    <li>Haz clic en los paquetes rojos o presiona 'D' en modo teclado</li>
+                </ul>
+                <p>¡Protege la red y gana puntos!</p>
+                <div style="margin-top: 15px;">
+                    <label><input type="checkbox" id="keyboard-toggle" onchange="keyboardMode = this.checked;"> Activar modo teclado (presiona 'D' para eliminar)</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="cerrarTutorialFirewall()" class="btn-primary">¡Entendido!</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function cerrarTutorialFirewall() {
+    const modal = document.querySelector('.modal-overlay');
+    if (modal) {
+        keyboardMode = document.getElementById('keyboard-toggle').checked;
+        modal.remove();
+        document.body.style.overflow = 'auto';
+        localStorage.setItem('firewallTutorialShown', 'true');
+        firewallTutorialShown = true;
+        iniciarFirewall();
+    }
+}
+
+function manejarTecladoFirewall(event) {
+    if (event.key.toLowerCase() === 'd') {
+        // Eliminar el paquete rojo más cercano o visible
+        const paquetesRojos = document.querySelectorAll('#game-container > div[style*="var(--danger)"]');
+        if (paquetesRojos.length > 0) {
+            const paquete = paquetesRojos[0]; // El primero
+            paquete.click(); // Simular clic
+        }
+    }
+}
+
+function crearPaquete(container) {
+    // Seleccionar tipo de paquete basado en nivel
+    const paquetesDisponibles = tiposPaquetes.filter(p => p.esAmenaza || firewallLevel > 1); // Solo amenazas en nivel 1, luego todos
+    const paqueteData = paquetesDisponibles[Math.floor(Math.random() * paquetesDisponibles.length)];
+    
+    const paquete = document.createElement("div");
+    
+    paquete.style.position = "absolute";
+    paquete.style.left = Math.random() * 90 + "%";
+    paquete.style.top = "-20px";
+    paquete.style.padding = "5px 10px";
+    paquete.style.borderRadius = "4px";
+    paquete.style.cursor = "pointer";
+    paquete.style.fontSize = "0.7rem";
+    paquete.style.transition = "top 4s linear";
+    paquete.style.background = paqueteData.color;
+    paquete.innerHTML = `<i class="${paqueteData.icono}"></i> ${paqueteData.texto}`;
+    paquete.dataset.explicacion = paqueteData.explicacion;
+    paquete.dataset.esAmenaza = paqueteData.esAmenaza;
+
+    paquete.onclick = () => {
+        manejarClicPaquete(paquete);
+    };
+
+    container.appendChild(paquete);
+    setTimeout(() => paquete.style.top = "320px", 50);
+    setTimeout(() => {
+        if (paquete.parentElement) {
+            paquete.remove();
+            if (!paqueteData.esAmenaza) {
+                // Si es legítimo y no se eliminó, bonus por dejar pasar
+                gameScore += 5;
+                mostrarFeedback("¡Bien! Dejaste pasar tráfico legítimo", "success");
+                reproducirSonido(true);
+            }
+        }
+    }, 4000);
+}
+
+function manejarClicPaquete(paquete) {
+    const esAmenaza = paquete.dataset.esAmenaza === 'true';
+    const explicacion = paquete.dataset.explicacion;
+    
+    if (esAmenaza) {
+        gameScore += 10 + (firewallLevel * 2); // Bonus por nivel
+        mostrarFeedback(`¡Amenaza bloqueada! ${explicacion}`, "success");
+        reproducirSonido(true);
+        registrarEvento("Amenaza bloqueada correctamente", "SUCCESS");
+    } else {
+        gameScore -= 5;
+        mostrarFeedback(`¡Error! Bloqueaste tráfico legítimo. ${explicacion}`, "danger");
+        reproducirSonido(false);
+        registrarEvento("Tráfico legítimo bloqueado por error", "LOW");
+    }
+    
+    document.getElementById("game-score").innerText = `Score: ${gameScore} | Nivel: ${firewallLevel} | Ronda: ${firewallRound}`;
+    paquete.remove();
+}
+
+function mostrarFeedback(mensaje, tipo) {
+    const feedback = document.createElement('div');
+    feedback.className = 'game-feedback';
+    feedback.innerHTML = `<i class="fas fa-${tipo === 'success' ? 'check' : 'times'}-circle"></i> ${mensaje}`;
+    feedback.style.color = `var(--${tipo})`;
+    
+    const container = document.getElementById("game-container");
+    container.appendChild(feedback);
+    
+    setTimeout(() => {
+        if (feedback.parentElement) {
+            feedback.remove();
+        }
+    }, 2000);
+}
+
+function finalizarJuegoFirewall() {
+    // Actualizar estadísticas
+    firewallStats.gamesPlayed++;
+    firewallStats.totalScore += gameScore;
+    firewallStats.bestScore = Math.max(firewallStats.bestScore, gameScore);
+    firewallStats.accuracy = (firewallStats.totalScore / (firewallStats.gamesPlayed * 100)) * 100; // Asumiendo ~100 puntos max
+    
+    localStorage.setItem('firewallStats', JSON.stringify(firewallStats));
+    
+    const resultDiv = document.getElementById('game-result');
+    let mensaje = `¡Defensa completada! Score: ${gameScore}`;
+    
+    // Logros
+    if (gameScore >= 150) {
+        mensaje += '<br><i class="fas fa-shield-alt" style="color: gold;"></i> ¡Logro desbloqueado: Guardián Maestro!';
+        ganarPuntos(20, 'Logro: Guardián Maestro');
+    } else if (gameScore >= 80) {
+        mensaje += '<br><i class="fas fa-shield-alt" style="color: silver;"></i> ¡Logro desbloqueado: Defensor Experto!';
+        ganarPuntos(10, 'Logro: Defensor Experto');
+    }
+  
