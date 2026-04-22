@@ -319,5 +319,80 @@
             </div>
         </div>
     </section>
+    <section id="alertas" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Ciber-Alertas y Blog</h2>
+            <p>Mantente al día con las últimas noticias y avisos de seguridad global.</p>
+        </div>
+        <div class="grid-amenazas">
+            <article class="card blog-card">
+                <img src="imagenes/ciber1.png" alt="Noticia" class="blog-img">
+                <div class="blog-content">
+                    <span class="card-tag">Aviso Crítico</span>
+                    <h3>Nueva vulnerabilidad en Routers</h3>
+                    <p>Se ha detectado un fallo que permite el acceso remoto a dispositivos domésticos...</p>
+                    <a href="#" class="btn-text">Leer más <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </article>
+            <article class="card blog-card">
+                <img src="imagenes/ciber1.png" alt="Tip" class="blog-img">
+                <div class="blog-content">
+                    <span class="card-tag">Tutorial</span>
+                    <h3>Cómo configurar tu propia VPN</h3>
+                    <p>Protege tu tráfico de red siguiendo estos sencillos pasos para tu hogar...</p>
+                    <a href="#" class="btn-text">Leer más <i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="contacto" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Contacto</h2>
+            <p>¿Tienes dudas o quieres reportar un incidente? Escríbenos.</p>
+        </div>
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form id="contact-form" onsubmit="handleContact(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <input type="text" placeholder="Nombre" required style="padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white;">
+                    <input type="email" placeholder="Correo" required style="padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white;">
+                </div>
+                <textarea placeholder="Tu mensaje..." rows="5" required style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white; margin-bottom: 15px;"></textarea>
+                <button type="submit" class="btn-primary" style="width: 100%;">Enviar Mensaje <i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <div class="logo">BINARY<span> THREE</span></div>
+                <p>Tu hub de educación en ciberseguridad. Protegiendo el presente, asegurando el futuro.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navegación</h4>
+                <ul>
+                    <li><a href="#proteger">Inicio</a></li>
+                    <li><a href="#glosario">Conceptos</a></li>
+                    <li><a href="#payloads">Payloads</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Síguenos</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Binary Three - Ciberseguridad Educativa.</p>
+        </div>
+    </footer>
+
+    <script src="funciones.js"></script>
+</body>
+</html>
     </body>
 </html>
