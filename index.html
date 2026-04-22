@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -102,7 +102,9 @@
         <div class="grid-amenazas step-cards">
             <div class="card step-card glow-hover">
                 <div class="step-number">1</div>
-                <div class="card-icon"><i class="fas fa-sync-alt" style="color: var(--accent);"></i></div>
+                <div class="card-icon">
+                    <img src="imagenes/actualizar.png" alt="Actualizar" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
                 <span class="card-tag">Actualiza</span>
                 <h3>Mantén tus sistemas al día</h3>
                 <p>Instala actualizaciones, parches y revisiones regulares en cuentas, redes y aplicaciones.</p>
@@ -110,7 +112,9 @@
             </div>
             <div class="card step-card glow-hover">
                 <div class="step-number">2</div>
-                <div class="card-icon"><i class="fas fa-key" style="color: var(--success);"></i></div>
+                <div class="card-icon">
+                    <img src="imagenes/contrasena.png" alt="Seguridad" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
                 <span class="card-tag">Autenticación</span>
                 <h3>Usa contraseñas fuertes</h3>
                 <p>Activa verificación de dos pasos y utiliza gestores de contraseñas para proteger tus accesos.</p>
@@ -118,7 +122,9 @@
             </div>
             <div class="card step-card glow-hover">
                 <div class="step-number">3</div>
-                <div class="card-icon"><i class="fas fa-eye" style="color: var(--warning);"></i></div>
+                <div class="card-icon">
+                    <img src="imagenes/email.png" alt="Conciencia" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
                 <span class="card-tag">Conciencia</span>
                 <h3>Identifica correos peligrosos</h3>
                 <p>No abras archivos ni enlaces de remitentes desconocidos y verifica siempre la fuente.</p>
@@ -126,6 +132,7 @@
             </div>
         </div>
     </section>
+
     <section id="herramientas" class="section-container reveal">
         <div class="section-header">
             <h2 class="title-gradient">Herramientas Interactivas</h2>
@@ -160,6 +167,7 @@
             </div>
         </div>
     </section>
+
     <section id="checklist" class="section-container alt-background reveal">
         <div class="section-header">
             <h2 class="title-gradient">Tu Nivel de Protección</h2>
@@ -523,7 +531,6 @@
         </div>
 
         <div class="alert-carousel" id="alert-carousel">
-            <!-- Slide 1: Warning -->
             <div class="alert-card alert-slide active-slide">
                 <div class="alert-header">
                     <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
@@ -533,7 +540,6 @@
                 <p>Se ha detectado un aumento en mensajes de texto que fingen ser servicios de paquetería. No hagas clic en enlaces de SMS inesperados y verifica siempre en la página oficial.</p>
             </div>
             
-            <!-- Slide 2: Critical -->
             <div class="alert-card alert-slide">
                 <div class="alert-header">
                     <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
@@ -543,7 +549,6 @@
                 <p>Cuidado con mensajes internacionales ofreciendo "ganar dinero viendo videos". Son estafas piramidales diseñadas para robar datos o vaciar tu cuenta. Bloquea y reporta.</p>
             </div>
             
-            <!-- Slide 3: Info -->
             <div class="alert-card alert-slide">
                 <div class="alert-header">
                     <span class="card-tag tag-info"><i class="fas fa-info-circle"></i> INFORMATIVO</span>
@@ -553,7 +558,6 @@
                 <p>Se ha detectado una falla crítica en varios navegadores populares. Se recomienda encarecidamente reiniciar y actualizar Google Chrome y Firefox de inmediato.</p>
             </div>
             
-            <!-- Slide 4: Warning -->
             <div class="alert-card alert-slide">
                 <div class="alert-header">
                     <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
@@ -563,7 +567,6 @@
                 <p>Cuidado con videos manipulados por IA que imitan a personas conocidas. Verifica fuentes antes de compartir contenido sensible.</p>
             </div>
             
-            <!-- Slide 5: Critical -->
             <div class="alert-card alert-slide">
                 <div class="alert-header">
                     <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
@@ -574,7 +577,6 @@
             </div>
         </div>
         
-        <!-- Indicadores del carrusel -->
         <div class="carousel-dots">
             <span class="dot active" onclick="currentSlide(0)"></span>
             <span class="dot" onclick="currentSlide(1)"></span>
@@ -583,7 +585,6 @@
             <span class="dot" onclick="currentSlide(4)"></span>
         </div>
 
-        <!-- Formulario de Suscripción -->
         <div class="newsletter-box">
             <h3><i class="fas fa-envelope-open-text"></i> Suscríbete a nuestro Boletín</h3>
             <p>Recibe alertas tempranas sobre nuevas amenazas de ciberseguridad directamente en tu correo.</p>
@@ -661,9 +662,7 @@
         </div>
 
         <div class="grid-amenazas">
-            <!-- Game Card -->
             <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
-            <div class="card cyber-card" style="display: flex; flex-direction: column;">
                 <span class="card-tag tag-critical">Defensa Viva</span>
                 <h3 class="cyber-title">Firewall Defender</h3>
                 <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Elimina los paquetes rojos (Phishing) y deja pasar los verdes.</p>
@@ -682,8 +681,6 @@
                 <div id="game-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
             </div>
             
-            <!-- Phishing Game Card -->
-            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
             <div class="card cyber-card" style="display: flex; flex-direction: column;">
                 <span class="card-tag tag-warning">Detección</span>
                 <h3 class="cyber-title">Phishing Detector</h3>
@@ -703,8 +700,6 @@
                 <div id="phishing-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
             </div>
             
-            <!-- Social Engineering Simulator Card -->
-            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
             <div class="card cyber-card" style="display: flex; flex-direction: column;">
                 <span class="card-tag tag-info">Psicología</span>
                 <h3 class="cyber-title">Simulador de Ingeniería Social</h3>
@@ -722,8 +717,6 @@
                 </div>
             </div>
 
-            <!-- Crypto Decipher Card -->
-            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
             <div class="card cyber-card" style="display: flex; flex-direction: column;">
                 <span class="card-tag tag-info">Criptografía</span>
                 <h3 class="cyber-title">El Descifrador de Señales</h3>
@@ -753,7 +746,6 @@
         </div>
 
         <div class="grid-amenazas">
-            <!-- Quiz Card -->
             <div class="card cyber-card quiz-card" id="quiz-card">
                 <span class="card-tag">Evaluación</span>
                 <h3 class="cyber-title">Auditoría Teórica</h3>
@@ -771,7 +763,6 @@
                 <div id="diploma-area" style="display:none; margin-top: 1rem;"></div>
             </div>
 
-            <!-- Terminal Card -->
             <div class="card cyber-card">
                 <span class="card-tag tag-warning">Monitoreo</span>
                 <h3 class="cyber-title">Registro de Eventos</h3>
@@ -830,7 +821,6 @@
         </div>
     </footer>
 
-    <!-- Modales de Guías -->
     <div class="modal-overlay" id="modal-privacidad">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('modal-privacidad')"><i class="fas fa-times"></i></button>
@@ -846,98 +836,8 @@
         </div>
     </div>
 
-    <div class="modal-overlay" id="modal-acceso">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-acceso')"><i class="fas fa-times"></i></button>
-            <h2 style="color: var(--accent);"><i class="fas fa-id-badge"></i> Control de Identidad Pro</h2>
-            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
-            <p>El modelo "Zero Trust" (Confianza Cero) asume que todas las conexiones, incluso las de la red interna, pueden ser una amenaza y deben ser verificadas constantemente.</p>
-            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
-            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
-                <li>Implementa Autenticación Multifactor (MFA) obligatoria para todos los accesos.</li>
-                <li>Otorga permisos basados en el principio de "menor privilegio".</li>
-                <li>Revisa y revoca permisos de cuentas de empleados antiguos o roles cambiados de inmediato.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-auditoria">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-auditoria')"><i class="fas fa-times"></i></button>
-            <h2 style="color: var(--accent);"><i class="fas fa-search"></i> Análisis de Logs</h2>
-            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
-            <p>El análisis constante de registros (logs) es la primera línea de defensa para detectar intrusiones silenciosas o comportamientos anómalos en el servidor.</p>
-            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
-            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
-                <li>Configura alertas automáticas para múltiples intentos fallidos de inicio de sesión.</li>
-                <li>Centraliza tus logs usando herramientas como Splunk o ELK Stack para facilitar su búsqueda.</li>
-                <li>Guarda las copias de seguridad de tus logs en ubicaciones aisladas ("Write-Once, Read-Many") para evitar que los atacantes borren su rastro.</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Modales del Blog -->
-    <div class="modal-overlay" id="modal-blog-ransomware">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-blog-ransomware')"><i class="fas fa-times"></i></button>
-            <h2 style="color: var(--danger);"><i class="fas fa-biohazard"></i> Ransomware: La Pandemia Digital</h2>
-            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
-            <p>En 2024, el ransomware evolucionó hacia la <strong>"doble extorsión"</strong>: no solo cifran tus datos, sino que roban información sensible para amenazar con filtrarla si no se paga.</p>
-            <h4 style="margin-top: 15px; color: var(--accent);">Puntos Clave:</h4>
-            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.6;">
-                <li><strong>Backups 3-2-1:</strong> Mantén copias de seguridad fuera de línea que el ransomware no pueda alcanzar.</li>
-                <li><strong>Segmentación:</strong> Divide tu red para que un equipo infectado no comprometa a toda la empresa.</li>
-                <li><strong>Evasión:</strong> Los atacantes ahora usan técnicas "living off the land" (usar herramientas legítimas del sistema) para no ser detectados.</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-blog-ia">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-blog-ia')"><i class="fas fa-times"></i></button>
-            <h2 style="color: var(--accent);"><i class="fas fa-robot"></i> IA en Ciberseguridad</h2>
-            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
-            <p>La Inteligencia Artificial es un arma de doble filo. Mientras que ayuda a los defensores a detectar ataques en milisegundos, los atacantes la usan para automatizar el mal.</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
-                <div>
-                    <h4 style="color: var(--success);">Amigo (Defensa):</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-s);">Detección de anomalías en tiempo real y respuesta automatizada ante incidentes.</p>
-                </div>
-                <div>
-                    <h4 style="color: var(--danger);">Enemigo (Ataque):</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-s);">Phishing ultra-personalizado y creación de malware que cambia su código para evadir antivirus.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-blog-habitos">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-blog-habitos')"><i class="fas fa-times"></i></button>
-            <h2 style="color: var(--success);"><i class="fas fa-check-double"></i> 10 Hábitos Digitales Seguros</h2>
-            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
-            <p>La seguridad no es un producto, es un proceso diario. Aquí te resumimos los hábitos más críticos para protegerte:</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; font-size: 0.85rem; color: var(--text-s);">
-                <ul style="list-style: none;">
-                    <li><i class="fas fa-check"></i> Activa siempre el 2FA.</li>
-                    <li><i class="fas fa-check"></i> Usa un gestor de claves.</li>
-                    <li><i class="fas fa-check"></i> Actualiza el software.</li>
-                    <li><i class="fas fa-check"></i> Desconfía de links extraños.</li>
-                    <li><i class="fas fa-check"></i> No uses Wi-Fi público.</li>
-                </ul>
-                <ul style="list-style: none;">
-                    <li><i class="fas fa-check"></i> Haz backups semanales.</li>
-                    <li><i class="fas fa-check"></i> Revisa tus permisos.</li>
-                    <li><i class="fas fa-check"></i> Usa correos distintos.</li>
-                    <li><i class="fas fa-check"></i> Tapa tu cámara.</li>
-                    <li><i class="fas fa-check"></i> Infórmate sobre estafas.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
     <button id="btn-top" onclick="scrollToTop()" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
 
     <script src="funciones.js"></script>
 </body>
-</html> 
+</html>
