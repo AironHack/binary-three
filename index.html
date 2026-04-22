@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -6,18 +6,16 @@
     <meta name="description" content="Aprende a proteger tus datos con Binary Three. Guías prácticas, simulaciones y alertas para fortalecer tu ciberseguridad.">
     <meta name="keywords" content="ciberseguridad, protección de datos, phishing, ransomware, antivirus, VPN">
     <meta name="author" content="Binary Three">
-    
     <meta property="og:title" content="Binary Three | Security Hub">
     <meta property="og:description" content="Educación en ciberseguridad con herramientas interactivas.">
     <meta property="og:image" content="imagenes/ciber1.png">
     <meta property="og:url" content="https://binary-three.com">
-    
     <title>Binary Three | Security Hub</title>
-    
     <link rel="stylesheet" href="estilos.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+
     <div class="bg-layer gradient-bg"></div>
 
     <nav class="navbar">
@@ -62,6 +60,7 @@
             </ul>
         </div>
     </nav>
+
     <header class="hero reveal">
         <span class="badge">EDUCACIÓN EN CIBERSEGURIDAD</span>
         <h1 id="hero-title"></h1>
@@ -93,6 +92,7 @@
             <span class="stat-desc">Protección</span>
         </div>
     </section>
+
     <section id="proteger" class="section-container reveal">
         <div class="section-header">
             <h2 class="title-gradient">Cómo protegerte</h2>
@@ -126,7 +126,6 @@
             </div>
         </div>
     </section>
-
     <section id="herramientas" class="section-container reveal">
         <div class="section-header">
             <h2 class="title-gradient">Herramientas Interactivas</h2>
@@ -216,6 +215,24 @@
                     </div>
                     <div id="help-4" class="help-text">Nunca accedas a tu banco o introduzcas datos sensibles desde el Wi-Fi de una cafetería. Si debes hacerlo, utiliza los datos de tu celular o una VPN (Red Privada Virtual).</div>
                 </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-5" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">He revisado la privacidad de mis redes sociales y aplicaciones conectadas.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-5')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-5" class="help-text">Asegúrate de que tus perfiles sean privados para desconocidos. Ve a los ajustes de tu cuenta y revoca el acceso a aplicaciones de terceros (juegos, tests) que ya no uses.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-6" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Realizo copias de seguridad (Backups) regularmente.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-6')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-6" class="help-text">Guarda tus documentos más importantes siguiendo la regla 3-2-1: 3 copias, en 2 medios distintos (ej. PC y Disco Externo), y 1 copia off-site (en la nube).</div>
+                </div>
             </div>
         </div>
     </section>
@@ -241,8 +258,16 @@
                 <p>Metodologías de "Zero Trust": nunca confiar, siempre verificar cada intento de acceso a la red interna.</p>
                 <button class="btn-secondary read-btn" onclick="openModal('modal-acceso')">Leer Guía <i class="fas fa-book-open"></i></button>
             </div>
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-search"></i></div>
+                <span class="card-tag">Auditoría</span>
+                <h3>Análisis de Logs</h3>
+                <p>Estrategias para el rastreo sistemático de eventos sospechosos en servidores para prevenir intrusiones antes de que ocurran.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-auditoria')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
         </div>
     </section>
+
     <section id="glosario" class="section-container reveal">
         <div class="section-header">
             <h2 class="title-gradient">Conceptos Clave</h2>
@@ -272,9 +297,140 @@
                     </div>
                 </div>
             </div>
+            <!--
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-fingerprint bg-icon"></i>
+                        <span class="card-tag">Privacidad</span>
+                        <h3 class="concept-title">Rastreo de Datos</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Recopilación de información sobre tus hábitos de navegación sin tu consentimiento explícito.</p>
+                    </div>
+                </div>
             </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-wifi bg-icon"></i>
+                        <span class="card-tag">Redes</span>
+                        <h3 class="concept-title">Redes Abiertas</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Wi-Fis públicos que pueden ser interceptados fácilmente por terceros si no usas una VPN.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-bug bg-icon"></i>
+                        <span class="card-tag">Software</span>
+                        <h3 class="concept-title">Malware</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Cualquier tipo de software malicioso (virus, troyanos) diseñado para dañar o infiltrarse en un sistema.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-lock bg-icon"></i>
+                        <span class="card-tag">Extorsión</span>
+                        <h3 class="concept-title">Ransomware</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Un tipo de malware que secuestra y cifra tus archivos, exigiendo un pago para devolverte el acceso.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-users-cog bg-icon"></i>
+                        <span class="card-tag">Psicología</span>
+                        <h3 class="concept-title">Ingeniería Social</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Manipulación psicológica de personas para que revelen información confidencial o realicen acciones inseguras.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-shield-alt bg-icon"></i>
+                        <span class="card-tag">Defensa</span>
+                        <h3 class="concept-title">Zero Trust</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Modelo de seguridad que asume que ninguna conexión es confiable y verifica cada acceso continuamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-key bg-icon"></i>
+                        <span class="card-tag">Autenticación</span>
+                        <h3 class="concept-title">2FA</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Autenticación de dos factores: combina algo que sabes (contraseña) con algo que tienes (teléfono o app).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-database bg-icon"></i>
+                        <span class="card-tag">Datos</span>
+                        <h3 class="concept-title">Brecha de Datos</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Incidente donde información sensible es accedida o robada sin autorización, exponiendo datos personales.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-robot bg-icon"></i>
+                        <span class="card-tag">IA</span>
+                        <h3 class="concept-title">Deepfake</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Contenido falso generado por IA, como videos o audios manipulados para engañar o desinformar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-cloud bg-icon"></i>
+                        <span class="card-tag">Nube</span>
+                        <h3 class="concept-title">VPN</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Red Privada Virtual: encripta tu conexión a internet, protegiendo tu privacidad en redes públicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
+-->
     <section id="payloads" class="section-container alt-background reveal">
         <div class="section-header">
             <h2 class="title-gradient">Biblioteca de Payloads</h2>
@@ -318,81 +474,10 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section id="alertas" class="section-container alt-background reveal">
-        <div class="section-header">
-            <h2 class="title-gradient">Ciber-Alertas y Blog</h2>
-            <p>Mantente al día con las últimas noticias y avisos de seguridad global.</p>
-        </div>
-        <div class="grid-amenazas">
-            <article class="card blog-card">
-                <img src="imagenes/ciber1.png" alt="Noticia" class="blog-img">
-                <div class="blog-content">
-                    <span class="card-tag">Aviso Crítico</span>
-                    <h3>Nueva vulnerabilidad en Routers</h3>
-                    <p>Se ha detectado un fallo que permite el acceso remoto a dispositivos domésticos...</p>
-                    <a href="#" class="btn-text">Leer más <i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </article>
-            <article class="card blog-card">
-                <img src="imagenes/ciber1.png" alt="Tip" class="blog-img">
-                <div class="blog-content">
-                    <span class="card-tag">Tutorial</span>
-                    <h3>Cómo configurar tu propia VPN</h3>
-                    <p>Protege tu tráfico de red siguiendo estos sencillos pasos para tu hogar...</p>
-                    <a href="#" class="btn-text">Leer más <i class="fas fa-external-link-alt"></i></a>
-                </div>
-            </article>
-        </div>
+        <div id="history-detail" style="margin-top: 30px; display: none;"></div>
     </section>
 
-    <section id="contacto" class="section-container reveal">
-        <div class="section-header">
-            <h2 class="title-gradient">Contacto</h2>
-            <p>¿Tienes dudas o quieres reportar un incidente? Escríbenos.</p>
-        </div>
-        <div class="card" style="max-width: 600px; margin: 0 auto;">
-            <form id="contact-form" onsubmit="handleContact(event)">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                    <input type="text" placeholder="Nombre" required style="padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white;">
-                    <input type="email" placeholder="Correo" required style="padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white;">
-                </div>
-                <textarea placeholder="Tu mensaje..." rows="5" required style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-glass); color: white; margin-bottom: 15px;"></textarea>
-                <button type="submit" class="btn-primary" style="width: 100%;">Enviar Mensaje <i class="fas fa-paper-plane"></i></button>
-            </form>
-        </div>
-    </section>
-
-    <footer class="main-footer">
-        <div class="footer-grid">
-            <div class="footer-about">
-                <div class="logo">BINARY<span> THREE</span></div>
-                <p>Tu hub de educación en ciberseguridad. Protegiendo el presente, asegurando el futuro.</p>
-            </div>
-            <div class="footer-links">
-                <h4>Navegación</h4>
-                <ul>
-                    <li><a href="#proteger">Inicio</a></li>
-                    <li><a href="#glosario">Conceptos</a></li>
-                    <li><a href="#payloads">Payloads</a></li>
-                </ul>
-            </div>
-            <div class="footer-social">
-                <h4>Síguenos</h4>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Binary Three - Ciberseguridad Educativa.</p>
-        </div>
-    </footer>
 
     <script src="funciones.js"></script>
 </body>
-</html>
-    </body>
-</html>
+</html> 
