@@ -1049,7 +1049,7 @@ input:checked + .slider:before {
 }
 
 .game-board {
-    height: 250px;
+    height: 350px;
     background: #0f172a;
     position: relative;
     overflow: hidden;

@@ -48,13 +48,16 @@
         </div>
         <div class="nav-container-bottom">
             <ul class="nav-links">
+                <li><a href="#proteger" class="nav-link">¿Cómo protegerte?</a></li>
+                <li><a href="#herramientas" class="nav-link">Herramientas</a></li>
+                <li><a href="#checklist" class="nav-link">Tu Nivel</a></li>
                 <li><a href="#guias" class="nav-link">Guías</a></li>
                 <li><a href="#glosario" class="nav-link">Conceptos</a></li>
                 <li><a href="#payloads" class="nav-link">Payloads</a></li>
                 <li><a href="#historia" class="nav-link">Historia</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
                 <li><a href="#alertas" class="nav-link">Avisos</a></li>
                 <li><a href="#recursos" class="nav-link">Recursos</a></li>
-                <li><a href="#checklist" class="nav-link">Tu Nivel</a></li>
                 <li><a href="#simulador" class="nav-link">Práctica</a></li>
                 <li><a href="#contacto" class="nav-link">Contacto</a></li>
             </ul>
@@ -711,7 +714,7 @@
                 <div id="game-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
             </div>
             
-            <div class="card cyber-card" style="display: flex; flex-direction: column;">
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
                 <span class="card-tag tag-warning">Detección</span>
                 <h3 class="cyber-title">Phishing Detector</h3>
                 <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Clasifica correos electrónicos: ¿Es phishing o legítimo?</p>
@@ -730,11 +733,11 @@
                 <div id="phishing-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
             </div>
             
-            <div class="card cyber-card" style="display: flex; flex-direction: column;">
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
                 <span class="card-tag tag-info">Psicología</span>
                 <h3 class="cyber-title">Simulador de Ingeniería Social</h3>
                 <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Identifica las tácticas de manipulación en este chat simulado.</p>
-                <div id="social-eng-container" class="game-board" style="height: 400px; display: flex; flex-direction: column;">
+                <div id="social-eng-container" class="game-board" style="display: flex; flex-direction: column;">
                     <div id="chat-window" style="flex-grow: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px;">
                         <div class="game-placeholder"><i class="fas fa-comments fa-2x"></i><br>Bandeja de Entrada Vacía</div>
                     </div>
@@ -747,7 +750,7 @@
                 </div>
             </div>
 
-            <div class="card cyber-card" style="display: flex; flex-direction: column;">
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
                 <span class="card-tag tag-info">Criptografía</span>
                 <h3 class="cyber-title">El Descifrador de Señales</h3>
                 <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Intercepta el mensaje enemigo moviendo el desplazador para romper el cifrado César.</p>
