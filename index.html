@@ -1,11 +1,876 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>titulo de la web </title>
+    <meta name="description" content="Aprende a proteger tus datos con Binary Three. Guías prácticas, simulaciones y alertas para fortalecer tu ciberseguridad.">
+    <meta name="keywords" content="ciberseguridad, protección de datos, phishing, ransomware, antivirus, VPN">
+    <meta name="author" content="Binary Three">
+    <meta property="og:title" content="Binary Three | Security Hub">
+    <meta property="og:description" content="Educación en ciberseguridad con herramientas interactivas.">
+    <meta property="og:image" content="imagenes/ciber1.png">
+    <meta property="og:url" content="https://binary-three.com">
+    <title>Binary Three | Security Hub</title>
+    <link rel="stylesheet" href="estilos.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    
+
+    <div class="bg-layer gradient-bg"></div>
+
+    <nav class="navbar">
+        <div class="nav-container-top">
+            <div class="logo">BINARY<span> THREE</span></div>
+            <div class="nav-controls">
+                <div class="points-display">
+                    <i class="fas fa-star"></i> <span id="user-points">0</span> Puntos
+                </div>
+                <button class="sound-btn" onclick="toggleAmbientSound()" title="Sonidos" aria-label="Activar sonidos">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="progress-btn" onclick="showGlobalProgress()" title="Progreso" aria-label="Mostrar progreso">
+                    <i class="fas fa-chart-line"></i>
+                </button>
+                <button class="theme-selector-btn" onclick="showThemeSelector()" title="Temas" aria-label="Seleccionar tema">
+                    <i class="fas fa-palette"></i>
+                </button>
+                <button class="accessibility-btn" onclick="toggleAccessibilityMode()" title="Accesibilidad" aria-label="Modo accesibilidad">
+                    <i class="fas fa-universal-access"></i>
+                </button>
+                <button id="lang-toggle" class="lang-btn" onclick="toggleLanguage()">ES</button>
+                <button id="theme-toggle" class="theme-btn" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div class="nav-container-bottom">
+            <ul class="nav-links">
+                <li><a href="#proteger" class="nav-link">¿Cómo protegerte?</a></li>
+                <li><a href="#herramientas" class="nav-link">Herramientas</a></li>
+                <li><a href="#checklist" class="nav-link">Tu Nivel</a></li>
+                <li><a href="#guias" class="nav-link">Guías</a></li>
+                <li><a href="#glosario" class="nav-link">Conceptos</a></li>
+                <li><a href="#payloads" class="nav-link">Payloads</a></li>
+                <li><a href="#historia" class="nav-link">Historia</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
+                <li><a href="#alertas" class="nav-link">Avisos</a></li>
+                <li><a href="#recursos" class="nav-link">Recursos</a></li>
+                <li><a href="#simulador" class="nav-link">Práctica</a></li>
+                <li><a href="#contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero reveal">
+        <span class="badge">EDUCACIÓN EN CIBERSEGURIDAD</span>
+        <h1 id="hero-title"></h1>
+        <p>Guías prácticas, simulaciones y alertas reales para comprender ataques y fortalecer tu presencia digital.</p>
+        <div class="hero-media">
+            <img src="imagenes/ciber1.png" alt="Escudo de Seguridad Digital" class="hero-image">
+            <video controls preload="metadata" class="hero-video">
+                <source src="Video/ciberseguridad.mp4" type="video/mp4">
+                Tu navegador no soporta video HTML5.
+            </video>
+        </div>
+        <div class="hero-btns">
+            <a href="#proteger" class="btn-primary">¿Cómo protegerme?</a>
+            <a href="#quiz-card" class="btn-secondary">Prueba el quiz</a>
+        </div>
+    </header>
+
+    <section class="stats-bar">
+        <div class="stat-item">
+            <div><span class="stat-num counter" data-target="24">0</span><span class="stat-num">/7</span></div>
+            <span class="stat-desc">Monitoreo</span>
+        </div>
+        <div class="stat-item">
+            <div><span class="stat-num">+</span><span class="stat-num counter" data-target="500">0</span></div>
+            <span class="stat-desc">Vulnerabilidades</span>
+        </div>
+        <div class="stat-item">
+            <div><span class="stat-num counter" data-target="100">0</span><span class="stat-num">%</span></div>
+            <span class="stat-desc">Protección</span>
+        </div>
+    </section>
+
+    <section id="proteger" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Cómo protegerte</h2>
+            <p>Pasos sencillos que puedes aplicar ya mismo para reducir el riesgo de ataques y cuidar tu información.</p>
+        </div>
+
+        <div class="grid-amenazas step-cards">
+            <div class="card step-card glow-hover">
+                <div class="step-number">1</div>
+                <div class="card-icon">
+                    <img src="imagenes/ciber4.png" alt="Actualizar" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Actualiza</span>
+                <h3>Mantén tus sistemas al día</h3>
+                <p>Instala actualizaciones, parches y revisiones regulares en cuentas, redes y aplicaciones.</p>
+                <div style="margin-top: 20px;"><a href="#checklist" class="btn-text">Ir a mi Auditoría <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+            <div class="card step-card glow-hover">
+                <div class="step-number">2</div>
+                <div class="card-icon">
+                    <img src="imagenes/ciber5.jpg" alt="Seguridad" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Autenticación</span>
+                <h3>Usa contraseñas fuertes</h3>
+                <p>Activa verificación de dos pasos y utiliza gestores de contraseñas para proteger tus accesos.</p>
+                <div style="margin-top: 20px;"><a href="#password-tool" class="btn-text">Probar mi contraseña <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+            <div class="card step-card glow-hover">
+                <div class="step-number">3</div>
+                <div class="card-icon">
+                    <img src="imagenes/ciber6.jpg" alt="Conciencia" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Conciencia</span>
+                <h3>Identifica correos peligrosos</h3>
+                <p>No abras archivos ni enlaces de remitentes desconocidos y verifica siempre la fuente.</p>
+                <div style="margin-top: 20px;"><a href="#simulador" class="btn-text" onclick="setTimeout(() => iniciarFirewall(), 500)">Entrenar con el juego <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="herramientas" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Herramientas Interactivas</h2>
+            <p>Utilidades prácticas para evaluar y mejorar tu seguridad digital.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card tool-card" id="password-tool">
+                <div class="card-icon">
+                    <img src="imagenes/ciber7.jpg" alt="Generador" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Generador</span>
+                <h3>Generador de Contraseñas</h3>
+                <p>Crea contraseñas seguras y únicas para todas tus cuentas.</p>
+                <input type="text" id="generated-pass-input" readonly placeholder="Tu contraseña aparecerá aquí..." 
+                       style="width: 100%; margin: 15px 0; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: var(--accent); border-radius: 8px; font-family: 'JetBrains Mono', monospace; text-align: center; font-weight: bold;">
+                <button class="btn-primary" onclick="generarPasswordSegura()">Generar <i class="fas fa-random"></i></button>
+            </div>
+
+            <div class="card tool-card" id="url-tool">
+                <div class="card-icon">
+                    <img src="imagenes/ciber8.jpg" alt="Verificador" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Verificador</span>
+                <h3>Verificador de Enlaces</h3>
+                <p>Analiza URLs sospechosas para detectar posibles amenazas.</p>
+                <input type="url" id="url-checker" placeholder="Pega aquí la URL..." style="width: 100%; margin: 10px 0; padding: 10px; border-radius: 4px; border: 1px solid var(--border-glass);">
+                <button class="btn-primary" onclick="verificarURL()">Verificar <i class="fas fa-check"></i></button>
+            </div>
+
+            <div class="card tool-card" id="strength-tool">
+                <div class="card-icon">
+                    <img src="imagenes/ciber9.png" alt="Calculadora" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Calculadora</span>
+                <h3>Riesgo de Contraseña</h3>
+                <p>Calcula cuánto tiempo tardaría un atacante en crackear tu contraseña.</p>
+                <input type="password" id="password-strength" placeholder="Ingresa tu contraseña..." style="width: 100%; margin: 10px 0; padding: 10px; border-radius: 4px; border: 1px solid var(--border-glass);">
+                <button class="btn-primary" onclick="calcularFuerzaPassword()">Calcular <i class="fas fa-chart-bar"></i></button>
+            </div>
+           <div class="card tool-card" id="privacy-tool">
+                <div class="card-icon">
+                    <img src="imagenes/Auditoría.jpg" alt="Privacidad" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
+                <span class="card-tag">Auditoría</span>
+                <h3>Privacidad del Navegador</h3>
+                <p>Descubre qué datos está compartiendo tu navegador ahora mismo sin que te des cuenta.</p>
+                <button class="btn-primary" onclick="auditarPrivacidad()">¿Qué sabe internet de mí? <i class="fas fa-fingerprint"></i></button>
+            </div>
+    </section>
+
+    <section id="checklist" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Tu Nivel de Protección</h2>
+            <p>Marca las acciones que ya has completado para ver qué tan segura es tu vida digital.</p>
+        </div>
+        
+        <div class="card" id="checklist-card" style="max-width: 700px; margin: 0 auto; position: relative;">
+            <div class="rank-badge" id="rank-badge">Rango: <span id="rank-text">Vulnerable</span></div>
+            <h3>Auditoría de Seguridad</h3>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="security-progress"></div>
+            </div>
+            <p style="text-align: right; margin-top: 5px; font-size: 0.85rem; font-weight: bold;" id="progress-text">0% Completado</p>
+            
+            <div class="checklist-container">
+                <h4 style="color: var(--accent); margin: 20px 0 10px; font-size: 0.9rem;"><i class="fas fa-shield-alt"></i> NIVEL BÁSICO</h4>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-1" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">He actualizado mi sistema operativo y aplicaciones recientemente.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-1')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-1" class="help-text">Ve a la configuración de tu sistema (Windows Update o Preferencias del Sistema) y asegúrate de no tener actualizaciones pendientes. Esto parchea vulnerabilidades conocidas.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-2" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Tengo activada la autenticación de dos pasos (2FA) en mis cuentas.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-2')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-2" class="help-text">Busca "Seguridad" en los ajustes de tus cuentas (correo, banco). Activa la opción para que te pidan un código de tu teléfono además de tu contraseña al iniciar sesión.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-3" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">No uso la misma contraseña para cuentas importantes.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-3')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-3" class="help-text">Si usas una sola contraseña y se filtra, todas tus cuentas estarán en riesgo. Usa un Gestor de Contraseñas (como Bitwarden) para crear contraseñas únicas y largas para todo.</div>
+                </div>
+
+                <h4 style="color: var(--warning); margin: 30px 0 10px; font-size: 0.9rem;"><i class="fas fa-user-secret"></i> NIVEL AVANZADO</h4>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-4" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Evito conectarme a redes Wi-Fi públicas sin protección.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-4')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-4" class="help-text">Nunca accedas a tu banco o introduzcas datos sensibles desde el Wi-Fi de una cafetería. Si debes hacerlo, utiliza los datos de tu celular o una VPN (Red Privada Virtual).</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-5" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">He revisado la privacidad de mis redes sociales y aplicaciones conectadas.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-5')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-5" class="help-text">Asegúrate de que tus perfiles sean privados para desconocidos. Ve a los ajustes de tu cuenta y revoca el acceso a aplicaciones de terceros (juegos, tests) que ya no uses.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-6" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Realizo copias de seguridad (Backups) regularmente.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-6')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-6" class="help-text">Guarda tus documentos más importantes siguiendo la regla 3-2-1: 3 copias, en 2 medios distintos (ej. PC y Disco Externo), y 1 copia off-site (en la nube).</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guias" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Guías de Buenas Prácticas</h2>
+            <p>Recomendaciones esenciales para mantener tu información a salvo.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-lock"></i></div>
+                <span class="card-tag">Privacidad</span>
+                <h3>Comunicaciones Cifradas</h3>
+                <p>Usa aplicaciones que ofrezcan cifrado de extremo a extremo para asegurar que tus mensajes sean privados.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-privacidad')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-id-badge"></i></div>
+                <span class="card-tag">Acceso</span>
+                <h3>Control de Identidad Pro</h3>
+                <p>Metodologías de "Zero Trust": nunca confiar, siempre verificar cada intento de acceso a la red interna.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-acceso')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-search"></i></div>
+                <span class="card-tag">Auditoría</span>
+                <h3>Análisis de Logs</h3>
+                <p>Estrategias para el rastreo sistemático de eventos sospechosos en servidores para prevenir intrusiones antes de que ocurran.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-auditoria')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="glosario" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Conceptos Clave</h2>
+            <p>Términos comunes que debes conocer para entender cómo operan los atacantes.</p>
+            
+            <div class="study-toggle-container">
+                <span class="study-label">Modo Estudio:</span>
+                <label class="switch">
+                    <input type="checkbox" id="study-mode-toggle" onchange="toggleStudyMode()">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-question-circle help-icon" style="margin-left: 10px;" title="Oculta los títulos para que intentes adivinarlos al ver la parte trasera."></i>
+            </div>
+        </div>
+
+        <div class="grid-amenazas" id="glosario-grid">
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-fish bg-icon"></i>
+                        <span class="card-tag">Seguridad Web</span>
+                        <h3 class="concept-title">Phishing</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Sitios web o correos falsos que se hacen pasar por empresas reales para robar tus credenciales.</p>
+                    </div>
+                </div>
+            </div>
+                       
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-fingerprint bg-icon"></i>
+                        <span class="card-tag">Privacidad</span>
+                        <h3 class="concept-title">Rastreo de Datos</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Recopilación de información sobre tus hábitos de navegación sin tu consentimiento explícito.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-wifi bg-icon"></i>
+                        <span class="card-tag">Redes</span>
+                        <h3 class="concept-title">Redes Abiertas</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Wi-Fis públicos que pueden ser interceptados fácilmente por terceros si no usas una VPN.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-bug bg-icon"></i>
+                        <span class="card-tag">Software</span>
+                        <h3 class="concept-title">Malware</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Cualquier tipo de software malicioso (virus, troyanos) diseñado para dañar o infiltrarse en un sistema.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-lock bg-icon"></i>
+                        <span class="card-tag">Extorsión</span>
+                        <h3 class="concept-title">Ransomware</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Un tipo de malware que secuestra y cifra tus archivos, exigiendo un pago para devolverte el acceso.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-users-cog bg-icon"></i>
+                        <span class="card-tag">Psicología</span>
+                        <h3 class="concept-title">Ingeniería Social</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Manipulación psicológica de personas para que revelen información confidencial o realicen acciones inseguras.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-shield-alt bg-icon"></i>
+                        <span class="card-tag">Defensa</span>
+                        <h3 class="concept-title">Zero Trust</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Modelo de seguridad que asume que ninguna conexión es confiable y verifica cada acceso continuamente.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-key bg-icon"></i>
+                        <span class="card-tag">Autenticación</span>
+                        <h3 class="concept-title">2FA</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Autenticación de dos factores: combina algo que sabes (contraseña) con algo que tienes (teléfono o app).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-database bg-icon"></i>
+                        <span class="card-tag">Datos</span>
+                        <h3 class="concept-title">Brecha de Datos</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Incidente donde información sensible es accedida o robada sin autorización, exponiendo datos personales.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-robot bg-icon"></i>
+                        <span class="card-tag">IA</span>
+                        <h3 class="concept-title">Deepfake</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Contenido falso generado por IA, como videos o audios manipulados para engañar o desinformar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flip-card card" onclick="flipCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <i class="fas fa-cloud bg-icon"></i>
+                        <span class="card-tag">Nube</span>
+                        <h3 class="concept-title">VPN</h3>
+                        <div class="flip-hint"><i class="fas fa-hand-pointer"></i> Toca para girar</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <p>Red Privada Virtual: encripta tu conexión a internet, protegiendo tu privacidad en redes públicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="payloads" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Biblioteca de Payloads</h2>
+            <p>Analiza código real utilizado en ataques para entender su funcionamiento técnico línea a línea.</p>
+        </div>
+        <div class="card cyber-card">
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <button class="btn-secondary" onclick="loadPayload('fork')">Fork Bomb (DOS)</button>
+                <button class="btn-secondary" onclick="loadPayload('reverse')">Reverse Shell</button>
+                <button class="btn-secondary" onclick="loadPayload('phishing')">JS Credential Stealer</button>
+            </div>
+            <div class="payload-viewer">
+                <div id="code-area" style="padding: 20px; background: #000; font-family: 'JetBrains Mono', monospace; color: #00ff88; overflow-x: auto;">
+                    // Selecciona un payload para analizar...
+                </div>
+                <div id="explanation-area" style="padding: 20px; border-left: 1px solid var(--border-glass); font-size: 0.9rem; color: var(--text-s);">
+                    Haz clic en un botón para ver la autopsia del código.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="historia" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Ciber-Historia: Casos Reales</h2>
+            <p>Cronología de los ataques que cambiaron el mundo de la seguridad digital.</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item left reveal" onclick="showHistory('wannacry')">
+                <div class="card cyber-card">
+                    <span class="card-tag tag-critical">2017</span>
+                    <h3>WannaCry Ransomware</h3>
+                    <p>El ataque que paralizó hospitales en todo el mundo.</p>
+                </div>
+            </div>
+            <div class="timeline-item right reveal" onclick="showHistory('sony')">
+                <div class="card cyber-card">
+                    <span class="card-tag tag-warning">2014</span>
+                    <h3>Sony Pictures Hack</h3>
+                    <p>Una brecha masiva de datos por motivaciones políticas.</p>
+                </div>
+            </div>
+        </div>
+        <div id="history-detail" style="margin-top: 30px; display: none;"></div>
+    </section>
+
+    <section id="blog" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Blog de Ciberseguridad</h2>
+            <p>Artículos actualizados sobre amenazas, tendencias y consejos prácticos.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad1.png" alt="Artículo sobre ransomware" class="card-image">
+                <span class="card-tag tag-critical">Amenazas</span>
+                <h3>Ransomware: La Pandemia Digital</h3>
+                <p>Analizamos los ataques de ransomware más devastadores de 2024 y cómo proteger tu organización.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 15 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-ransomware')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad2.png" alt="Artículo sobre IA" class="card-image">
+                <span class="card-tag tag-info">Tendencias</span>
+                <h3>IA en Ciberseguridad: Amigo o Enemigo</h3>
+                <p>Exploramos cómo la inteligencia artificial está revolucionando la detección de amenazas y también creando nuevas vulnerabilidades.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 10 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-ia')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+            <div class="card blog-card">
+                <img src="imagenes/ciberseguridad3.png" alt="Artículo con consejos" class="card-image">
+                <span class="card-tag tag-success">Consejos</span>
+                <h3>10 Hábitos para una Vida Digital Segura</h3>
+                <p>Rutinas diarias que puedes implementar hoy mismo para reducir significativamente el riesgo de ciberataques.</p>
+                <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 15px;">
+                    <small style="color: var(--text-s);"><i class="far fa-calendar-alt"></i> 5 Abril 2026</small>
+                    <button class="btn-text" onclick="openModal('modal-blog-habitos')">Leer más <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="alertas" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient"><span class="live-indicator"></span> Notificaciones en Vivo</h2>
+            <p>Avisos y consejos actualizados sobre campañas de estafas recientes.</p>
+        </div>
+
+        <div class="alert-carousel" id="alert-carousel">
+            <div class="alert-card alert-slide active-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 2 horas</span>
+                </div>
+                <h3>Aumento de estafas por SMS (Smishing)</h3>
+                <p>Se ha detectado un aumento en mensajes de texto que fingen ser servicios de paquetería. No hagas clic en enlaces de SMS inesperados y verifica siempre en la página oficial.</p>
+            </div>
+            
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 5 horas</span>
+                </div>
+                <h3>Falsas ofertas de empleo en WhatsApp</h3>
+                <p>Cuidado con mensajes internacionales ofreciendo "ganar dinero viendo videos". Son estafas piramidales diseñadas para robar datos o vaciar tu cuenta. Bloquea y reporta.</p>
+            </div>
+            
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-info"><i class="fas fa-info-circle"></i> INFORMATIVO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Ayer</span>
+                </div>
+                <h3>Actualización urgente de Navegadores</h3>
+                <p>Se ha detectado una falla crítica en varios navegadores populares. Se recomienda encarecidamente reiniciar y actualizar Google Chrome y Firefox de inmediato.</p>
+            </div>
+            
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-warning"><i class="fas fa-exclamation-triangle"></i> ADVERTENCIA</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 3 horas</span>
+                </div>
+                <h3>Deepfakes en Redes Sociales</h3>
+                <p>Cuidado con videos manipulados por IA que imitan a personas conocidas. Verifica fuentes antes de compartir contenido sensible.</p>
+            </div>
+            
+            <div class="alert-card alert-slide">
+                <div class="alert-header">
+                    <span class="card-tag tag-critical"><i class="fas fa-radiation"></i> CRÍTICO</span>
+                    <span class="alert-source"><i class="far fa-clock"></i> Hace 1 hora</span>
+                </div>
+                <h3>Nueva variante de Ransomware</h3>
+                <p>Se detectó un nuevo ransomware que afecta dispositivos móviles. Mantén tus apps actualizadas y no descargues de fuentes no oficiales.</p>
+            </div>
+        </div>
+        
+        <div class="carousel-dots">
+            <span class="dot active" onclick="currentSlide(0)"></span>
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+
+        <div class="newsletter-box">
+            <h3><i class="fas fa-envelope-open-text"></i> Suscríbete a nuestro Boletín</h3>
+            <p>Recibe alertas tempranas sobre nuevas amenazas de ciberseguridad directamente en tu correo.</p>
+            <form id="newsletter-form" onsubmit="suscribirBoletin(event)">
+                <div class="input-group">
+                    <input type="email" id="email-input" placeholder="Tu correo electrónico..." required>
+                    <button type="submit" class="btn-primary">Suscribirme</button>
+                </div>
+            </form>
+            <div id="newsletter-success" class="success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> ¡Suscripción exitosa! Te mantendremos informado.
+            </div>
+        </div>
+    </section>
+
+    <section id="recursos" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Herramientas Recomendadas</h2>
+            <p>Software y utilidades gratuitas que te ayudarán a protegerte diariamente.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card resource-card">
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-bitwarden.png" alt="Bitwarden Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
+                <h3>Bitwarden</h3>
+                <p>Gestor de contraseñas de código abierto para proteger todas tus cuentas.</p>
+                <div class="platform-tags">
+                    <span>Gratis</span> <span>Windows</span> <span>iOS</span> <span>Android</span>
+                </div>
+                <a href="https://bitwarden.com" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
+            <div class="card resource-card">
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-proton.jpg" alt="ProtonVPN Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
+                <h3>ProtonVPN</h3>
+                <p>Navega de forma anónima y segura en redes Wi-Fi públicas y cafeterías.</p>
+                <div class="platform-tags">
+                    <span>Freemium</span> <span>Mac</span> <span>Windows</span> <span>Móvil</span>
+                </div>
+                <a href="https://proton.me/vpn" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
+            <div class="card resource-card">
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-windows.png" alt="Windows Defender Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
+                <h3>Windows Defender</h3>
+                <p>Protección nativa contra malware. Suficiente si mantienes el sistema actualizado.</p>
+                <div class="platform-tags">
+                    <span>Gratis</span> <span>Windows</span>
+                </div>
+                <a href="https://www.microsoft.com/es-es/windows/microsoft-defender" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
+            <div class="card resource-card">
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-ublock.png" alt="uBlock Origin Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
+                <h3>uBlock Origin</h3>
+                <p>Extensión ligera y eficiente que bloquea anuncios maliciosos y rastreadores web.</p>
+                <div class="platform-tags">
+                    <span>Gratis</span> <span>Chrome</span> <span>Firefox</span> <span>Edge</span>
+                </div>
+                <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+            </div>
+
+            <div class="card resource-card">
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-pwned.png" alt="HIBP Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
+                <h3>Have I Been Pwned</h3>
+                <p>Verifica al instante si tu correo o contraseña han sido filtrados en una brecha de datos.</p>
+                <div class="platform-tags">
+                    <span>Web Gratis</span> <span>Global</span>
+                </div>
+                <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulador" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Centro de Operaciones (SOC)</h2>
+            <p>Simulaciones interactivas y ejercicios para identificar amenazas en un entorno controlado.</p>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
+                <span class="card-tag tag-critical">Defensa Viva</span>
+                <h3 class="cyber-title">Firewall Defender</h3>
+                <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Elimina los paquetes rojos (Phishing) y deja pasar los verdes.</p>
+                <div id="game-timer" class="game-timer" style="display: none;">
+                    <div class="timer-bar" id="timer-bar"></div>
+                    <span class="timer-text" id="timer-text">20s</span>
+                </div>
+                <div id="game-container" class="game-board">
+                    <div class="game-placeholder"><i class="fas fa-shield-alt fa-2x"></i><br>Sistemas en Espera</div>
+                </div>
+                <div class="game-header" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn-primary" onclick="iniciarFirewall()"><i class="fas fa-play"></i> Iniciar Defensa</button>
+                    <button class="btn-secondary" onclick="mostrarEstadisticasFirewall()" style="font-size: 0.8rem;"><i class="fas fa-chart-bar"></i> Estadísticas</button>
+                    <span id="game-score" class="cyber-score">Score: 0 | Nivel: 1 | Ronda: 1</span>
+                </div>
+                <div id="game-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
+            </div>
+            
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
+                <span class="card-tag tag-warning">Detección</span>
+                <h3 class="cyber-title">Phishing Detector</h3>
+                <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Clasifica correos electrónicos: ¿Es phishing o legítimo?</p>
+                <div id="phishing-timer" class="game-timer" style="display: none;">
+                    <div class="timer-bar" id="phishing-timer-bar"></div>
+                    <span class="timer-text" id="phishing-timer-text">30s</span>
+                </div>
+                <div id="phishing-container" class="game-board">
+                    <div class="game-placeholder"><i class="fas fa-envelope fa-2x"></i><br>Correo en Espera</div>
+                </div>
+                <div class="game-header" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn-primary" onclick="iniciarPhishing()"><i class="fas fa-play"></i> Iniciar Detección</button>
+                    <button class="btn-secondary" onclick="mostrarEstadisticasPhishing()" style="font-size: 0.8rem;"><i class="fas fa-chart-bar"></i> Estadísticas</button>
+                    <span id="phishing-score" class="cyber-score">Score: 0 | Nivel: 1 | Ronda: 1</span>
+                </div>
+                <div id="phishing-result" class="game-result" style="display: none; margin-top: 15px; text-align: center; color: var(--success); font-weight: bold;"></div>
+            </div>
+            
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
+                <span class="card-tag tag-info">Psicología</span>
+                <h3 class="cyber-title">Simulador de Ingeniería Social</h3>
+                <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Identifica las tácticas de manipulación en este chat simulado.</p>
+                <div id="social-eng-container" class="game-board" style="display: flex; flex-direction: column;">
+                    <div id="chat-window" style="flex-grow: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px;">
+                        <div class="game-placeholder"><i class="fas fa-comments fa-2x"></i><br>Bandeja de Entrada Vacía</div>
+                    </div>
+                    <div id="chat-options" style="padding: 15px; border-top: 1px solid var(--border-glass); display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                    </div>
+                </div>
+                <div class="game-header" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn-primary" onclick="iniciarSocialEng()"><i class="fas fa-play"></i> Iniciar Chat</button>
+                    <span id="social-eng-score" class="cyber-score">Puntos: 0</span>
+                </div>
+            </div>
+
+            <div class="card cyber-card" style="grid-column: 1 / -1; display: flex; flex-direction: column;">
+                <span class="card-tag tag-info">Criptografía</span>
+                <h3 class="cyber-title">El Descifrador de Señales</h3>
+                <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Intercepta el mensaje enemigo moviendo el desplazador para romper el cifrado César.</p>
+                <div id="crypto-game-container" class="game-board" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px;">
+                    <div id="cipher-text-display" style="font-family: 'JetBrains Mono', monospace; font-size: 1.4rem; color: var(--accent); letter-spacing: 4px; text-align: center; word-break: break-all; min-height: 80px; text-shadow: 0 0 8px rgba(14, 165, 233, 0.4);">
+                        [ SISTEMA A LA ESPERA ]
+                    </div>
+                    <div id="crypto-controls" style="width: 100%; margin-top: 30px; display: none;">
+                        <label style="display: block; text-align: center; color: var(--text-s); margin-bottom: 10px; font-size: 0.8rem; font-family: 'JetBrains Mono';">DESPLAZAMIENTO: <span id="shift-value" style="color: var(--accent); font-weight: bold;">0</span></label>
+                        <input type="range" id="crypto-slider" min="0" max="25" value="0" oninput="actualizarCripto(this.value)">
+                        <div id="alphabet-helper" style="display: flex; justify-content: space-between; margin-top: 10px; font-family: 'JetBrains Mono'; font-size: 0.6rem; color: var(--text-s); opacity: 0.6;">
+                            <span>A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="game-header" style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn-primary" onclick="iniciarCripto()"><i class="fas fa-unlock-alt"></i> Interceptar Señal</button>
+                    <span id="crypto-score" class="cyber-score">Puntos: 0</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="section-header" style="margin-top: 4rem;">
+            <h2 class="title-gradient">Auditoría Teórica y Monitoreo</h2>
+        </div>
+
+        <div class="grid-amenazas">
+            <div class="card cyber-card quiz-card" id="quiz-card">
+                <span class="card-tag">Evaluación</span>
+                <h3 class="cyber-title">Auditoría Teórica</h3>
+                <div class="quiz-box"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn-secondary quiz-start" onclick="iniciarQuiz()"><i class="fas fa-tasks"></i> Iniciar Auditoría</button>
+                </div>
+                <div id="cert-container" style="display:none; margin-top: 1.5rem; text-align: center; padding: 15px; border: 1px solid gold; border-radius: 8px; background: rgba(255, 215, 0, 0.05);">
+                    <h4 style="color: gold; margin-bottom: 5px;"><i class="fas fa-medal"></i> ¡Calificación Perfecta!</h4>
+                    <p style="font-size: 0.85rem; color: var(--text-s); margin-bottom: 15px;">Ingresa tu alias para emitir tu insignia.</p>
+                    <input type="text" id="cert-name" placeholder="Tu Nombre o Alias..." class="cyber-input">
+                    <br>
+                    <button class="btn-primary" style="margin-top: 10px; width: 100%;" onclick="generarCertificado()"><i class="fas fa-stamp"></i> Emitir Insignia</button>
+                </div>
+                <div id="diploma-area" style="display:none; margin-top: 1rem;"></div>
+            </div>
+
+            <div class="card cyber-card">
+                <span class="card-tag tag-warning">Monitoreo</span>
+                <h3 class="cyber-title">Registro de Eventos</h3>
+                <div class="terminal-header">
+                    <div class="mac-dots">
+                        <span class="dot-red"></span><span class="dot-yellow"></span><span class="dot-green"></span>
+                    </div>
+                    <span class="terminal-path">/var/log/syslog</span>
+                </div>
+                <div id="log-viewer" class="cyber-terminal">
+                    <p class="log-info">> Iniciando daemon de monitoreo...</p>
+                    <p class="log-info">> Escuchando tráfico de red...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Contáctanos</h2>
+            <p>¿Tienes preguntas o sugerencias? Envíanos un mensaje.</p>
+        </div>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+            <form id="contact-form" onsubmit="enviarMensaje(event)">
+                <div style="margin-bottom: 1rem;">
+                    <label for="contact-name" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Nombre</label>
+                    <input type="text" id="contact-name" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="contact-email" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Correo</label>
+                    <input type="email" id="contact-email" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="contact-message" style="display: block; margin-bottom: 0.5rem; color: var(--text-s);">Mensaje</label>
+                    <textarea id="contact-message" required style="width: 100%; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: white; border-radius: 8px; min-height: 100px;"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Enviar Mensaje</button>
+            </form>
+            <div id="contact-success" class="success-message" style="display: none; margin-top: 15px;">
+                <i class="fas fa-check-circle"></i> ¡Mensaje enviado! Te responderemos pronto.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-logo">
+                <div class="logo footer-logo-text">@2026 BINARY<span> THREE</span></div>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Soporte</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="modal-privacidad">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal('modal-privacidad')"><i class="fas fa-times"></i></button>
+            <h2 style="color: var(--accent);"><i class="fas fa-lock"></i> Comunicaciones Cifradas</h2>
+            <hr style="border: 1px solid var(--border-glass); margin: 15px 0;">
+            <p>El cifrado de extremo a extremo (E2EE) asegura que solo tú y la persona con la que te comunicas puedan leer lo que se envía.</p>
+            <h4 style="margin-top: 15px; color: var(--success);">Acciones Recomendadas:</h4>
+            <ul style="margin-left: 20px; color: var(--text-s); margin-top: 10px; line-height: 1.8;">
+                <li>Utiliza aplicaciones de mensajería como Signal o WhatsApp.</li>
+                <li>Activa la verificación de claves de seguridad con tus contactos importantes.</li>
+                <li>Nunca envíes contraseñas o datos de tarjetas de crédito a través de correos no cifrados o SMS regulares.</li>
+            </ul>
+        </div>
+    </div>
+
+    <button id="btn-top" onclick="scrollToTop()" aria-label="Volver arriba"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="funciones.js"></script>
 </body>
 </html>
