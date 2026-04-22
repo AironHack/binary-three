@@ -1237,3 +1237,258 @@ input:checked + .slider:before {
     .nav-links li { margin: 0.8rem 0; width: 100%; }
     .nav-links a { font-size: 1.1rem; display: block; width: 100%; }
 }
+
+/* Tema Claro/Oscuro */
+.nav-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.points-display {
+    background: rgba(255,255,255,0.1);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+.lang-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--border-glass);
+    color: var(--text-p);
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.lang-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.theme-btn {
+    background: none;
+    border: 1px solid var(--border-glass);
+    color: var(--text-p);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-btn:hover {
+    background: rgba(255,255,255,0.1);
+}
+
+body.light-theme {
+    --bg-deep: #f1f5f9; /* Gris azulado muy suave */
+    --bg-card: #ffffff;
+    --text-p: #1e293b;
+    --text-s: #475569;
+    --border-glass: rgba(15, 23, 42, 0.08);
+    --card-glow: rgba(139, 92, 246, 0.1);
+}
+
+body.light-theme .btn-primary {
+    color: #fff; /* Asegura que el texto sea blanco sobre el fondo azul en modo claro */
+}
+
+body.light-theme .btn-secondary {
+    background: rgba(14, 165, 233, 0.1);
+    color: #0369a1; /* Un azul un poco más oscuro para mejor contraste en fondo blanco */
+    border-color: rgba(14, 165, 233, 0.4);
+}
+
+body.light-theme .navbar {
+    background: rgba(248, 250, 252, 0.9);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras para Phishing Game */
+.game-feedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-glass);
+    text-align: center;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+body.light-theme .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+}
+
+body.light-theme .alert-card {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+body.light-theme .cyber-card {
+    background: #f1f5f9;
+    border: 1px solid rgba(14, 165, 233, 0.4);
+}
+
+body.light-theme .flip-card-back {
+    background: rgba(14, 165, 233, 0.1);
+    border-color: rgba(14, 165, 233, 0.4);
+}
+
+/* Badge Notifications */
+.badge-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 1000;
+    animation: slideInRight 0.5s ease;
+}
+
+/* Animaciones de Scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Notificaciones */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 300px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-success { border-left: 4px solid var(--success); }
+.notification-error { border-left: 4px solid var(--danger); }
+.notification-info { border-left: 4px solid var(--accent); }
+
+.notification-close {
+    background: none;
+    border: none;
+    color: var(--text-s);
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+/* Dashboard de Progreso */
+.progress-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-glass);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+.badge-item {
+    background: linear-gradient(45deg, var(--accent), var(--success));
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* Modo Accesibilidad */
+.accessibility-mode {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.accessibility-mode .btn-primary,
+.accessibility-mode .btn-secondary {
+    padding: 15px 25px;
+    font-size: 1.1rem;
+}
+
+.accessibility-mode .card {
+    border: 2px solid var(--border-glass);
+}
+
+/* Temas adicionales */
+body.cyberpunk-theme .gradient-bg {
+    background: linear-gradient(135deg, #0d001a, #1a0033, #330066);
+}
+
+body.minimal-theme .gradient-bg {
+    background: linear-gradient(135deg, #f5f5f5, #e0e0e0, #cccccc);
+}
+
+/* Multimedia */
+.hero-media {
+    display: flex;
+    gap: 30px;
+    margin: 40px auto;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1100px;
+}
+
+.hero-image, .hero-video {
+    flex: 1;
+    width: 100%;
+    max-width: 500px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(14, 165, 233, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.hero-image:hover, .hero-video:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(14, 165, 233, 0.25);
+}
+
+.card-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 15px;
+}
