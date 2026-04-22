@@ -1,243 +1,351 @@
 
-// --- 1. CONFIGURACIÓN DEL SIMULADOR DE TERMINAL (Efecto de Escritura) ---
-const terminalData = {
-    elementId: "content-area", // Se inyectará en la sección de Protocolos
-    texto: [
-        "> Iniciando Protocolo Zero Trust...",
-        "> Verificando integridad de la red académica...",
-        "> Escaneando vectores de Phishing detectados...",
-        "> [ESTADO: PROTEGIDO] - Sistema listo para análisis técnico."
-    ],
-    velocidad: 50
-};
+// --- ANIMACIONES DE SCROLL Y EFECTOS VISUALES ---
+function initScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-let lineaActual = 0;
-let charIndex = 0;
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, observerOptions);
 
-function escribirTerminal() {
-    const area = document.getElementById(terminalData.elementId);
-    
-    if (lineaActual < terminalData.texto.length) {
-        if (charIndex === 0) {
-            const p = document.createElement("p");
-            p.style.fontFamily = "'JetBrains Mono', monospace";
-            p.style.color = "var(--accent)";
-            p.style.fontSize = "0.9rem";
-            p.id = `linea-${lineaActual}`;
-            area.appendChild(p);
-        }
-
-        const parrafo = document.getElementById(`linea-${lineaActual}`);
-        parrafo.textContent += terminalData.texto[lineaActual].charAt(charIndex);
-        charIndex++;
-
-        if (charIndex < terminalData.texto[lineaActual].length) {
-            setTimeout(escribirTerminal, terminalData.velocidad);
-        } else {
-            lineaActual++;
-            charIndex = 0;
-            setTimeout(escribirTerminal, 500); // Pausa entre líneas
-        }
-    }
-}
-
-// --- 2. VERIFICADOR DE CONTRASEÑAS TÉCNICO ---
-// Vamos a inyectar el verificador dentro del área de protocolos después de la terminal
-function cargarVerificador() {
-    const area = document.getElementById(terminalData.elementId);
-    const container = document.createElement("div");
-    container.className = "card";
-    container.style.marginTop = "2rem";
-    container.innerHTML = `
-        <span class="card-tag">Toolbox</span>
-        <h3>Shield-Check: Analizador de Claves</h3>
-        <p>Las contraseñas débiles son el 80% de las brechas.</p>
-        <input type="password" id="pass-checker" placeholder="Ingresa clave de prueba..." 
-               style="width:100%; padding:12px; background:rgba(0,0,0,0.3); border:1px solid var(--border-glass); color:white; border-radius:8px; margin-top:10px;">
-        <div id="meter" style="height:4px; width:0%; transition:0.5s; margin-top:10px; border-radius:2px;"></div>
-        <p id="pass-msg" style="font-size:0.8rem; margin-top:5px; color:var(--text-s);">Esperando entrada...</p>
-    `;
-    area.appendChild(container);
-
-    const input = document.getElementById("pass-checker");
-    const meter = document.getElementById("meter");
-    const msg = document.getElementById("pass-msg");
-
-    input.addEventListener("input", () => {
-        const val = input.value;
-        let score = 0;
-
-        if (val.length >= 8) score++;
-        if (/[0-9]/.test(val)) score++;
-        if (/[A-Z]/.test(val)) score++;
-        if (/[!@#$%^&*]/.test(val)) score++;
-
-        if (val.length === 0) {
-            meter.style.width = "0%";
-            msg.innerText = "Esperando entrada...";
-        } else if (score < 2) {
-            meter.style.width = "30%";
-            meter.style.backgroundColor = "#ef4444"; // Rojo Tailwind
-            msg.innerText = "CRÍTICO: Contraseña vulnerable.";
-        } else if (score < 4) {
-            meter.style.width = "60%";
-            meter.style.backgroundColor = "#f59e0b"; // Ámbar Tailwind
-            msg.innerText = "MEDIO: Añade símbolos o números.";
-        } else {
-            meter.style.width = "100%";
-            meter.style.backgroundColor = "var(--accent)";
-            msg.innerText = "SEGURO: Protocolo de cifrado óptimo.";
-        }
+    // Observar todas las secciones con clase reveal
+    document.querySelectorAll('.reveal').forEach(section => {
+        observer.observe(section);
     });
 }
 
-// --- 3. QUIZ DE EVALUACIÓN ---
-const preguntas = [
-    { q: "¿Cuál es el vector principal del 91% de ataques?", a: "Fuerza bruta", b: "Phishing", c: "Virus USB", correct: "b" },
-    { q: "¿Qué significa Zero Trust?", a: "Confianza total", b: "No confiar en nadie", c: "Sin antivirus", correct: "b" }
-];
+// --- EFECTOS DE PARTÍCULAS ---
+function initParticles() {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'particles-canvas';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '-1';
+    document.body.appendChild(canvas);
 
-let currentQ = 0;
+    const ctx = canvas.getContext('2d');
+    let particles = [];
 
-function iniciarQuiz() {
-    const quizBox = document.querySelector(".quiz-box");
-    quizBox.innerHTML = `<h3>Evaluación en curso...</h3><div id="q-area"></div>`;
-    mostrarPregunta();
-}
-
-function mostrarPregunta() {
-    const area = document.getElementById("q-area");
-    if (currentQ < preguntas.length) {
-        const p = preguntas[currentQ];
-        area.innerHTML = `
-            <p style="margin-bottom:1.5rem;">${p.q}</p>
-            <div style="display:grid; gap:10px;">
-                <button class="btn-secondary" onclick="checkQuiz('a')">${p.a}</button>
-                <button class="btn-secondary" onclick="checkQuiz('b')">${p.b}</button>
-                <button class="btn-secondary" onclick="checkQuiz('c')">${p.c}</button>
-            </div>
-        `;
-    } else {
-        area.innerHTML = `<h4>Evaluación Finalizada</h4><p>Nivel de concienciación: ALTO. Sigue protegiendo tus datos.</p>`;
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     }
-}
 
-function checkQuiz(ans) {
-    if (ans === preguntas[currentQ].correct) {
-        alert(" Respuesta técnica correcta.");
-    } else {
-        alert(" Error de protocolo. Revisa el catálogo de amenazas.");
+    function createParticle() {
+        return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            size: Math.random() * 2 + 1,
+            opacity: Math.random() * 0.5 + 0.2
+        };
     }
-    currentQ++;
-    mostrarPregunta();
-}
 
-// --- 4. INICIALIZADOR GLOBAL ---
-window.onload = () => {
-    // Iniciamos la terminal al cargar
-    escribirTerminal();
-    
-    // Cargamos el verificador de claves después de un breve delay
-    setTimeout(cargarVerificador, 2000);
-    
-    // Escuchar el botón del quiz (ya definido en tu HTML)
-    // El botón de tu HTML ya tiene onclick="iniciarQuiz()", así que funcionará directo.
-};
-// Agrega esto a tus funciones de Verificador y Quiz
-const logs = [];
+    function updateParticles() {
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
 
-function registrarEvento(evento, severidad) {
-    const timestamp = new Date().toLocaleTimeString();
-    const nuevoLog = `[${timestamp}] [${severidad}] ${evento}`;
-    logs.unshift(nuevoLog); // Añade al inicio del array
-    actualizarVistaLogs();
-}
-
-function actualizarVistaLogs() {
-    const logArea = document.getElementById("log-viewer"); // Necesitarás un div con este ID
-    if(logArea) {
-        logArea.innerHTML = logs.map(log => `<p>> ${log}</p>`).join("");
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+        });
     }
-}
-function generarPasswordSegura(largo = 16) {
-    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
-    let retVal = "";
-    for (let i = 0; i < largo; ++i) {
-        retVal += charset.charAt(Math.floor(Math.random() * charset.length));
+
+    function drawParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(0, 123, 255, ${p.opacity})`;
+            ctx.fill();
+        });
     }
-    // Puedes inyectar esto en el input del password checker
-    document.getElementById("pass-checker").value = retVal;
-    // Disparar manualmente el evento 'input' para que el medidor se actualice
-    document.getElementById("pass-checker").dispatchEvent(new Event('input'));
-}
-function simuladorAmenazas() {
-    const amenazas = ["Fuerza Bruta en Puerto 22", "Inyección SQL detectada", "Intento de login: Admin"];
-    setInterval(() => {
-        const index = Math.floor(Math.random() * amenazas.length);
-        console.warn(`ALERTA: ${amenazas[index]}`);
-        // Aquí podrías hacer que el borde de la página parpadee en rojo un segundo
-        document.body.style.border = "2px solid red";
-        setTimeout(() => document.body.style.border = "none", 500);
-        registrarEvento(`AMENAZA: ${amenazas[index]}`, "HIGH");
-    }, 15000); // Cada 15 segundos
+
+    function animate() {
+        updateParticles();
+        drawParticles();
+        requestAnimationFrame(animate);
+    }
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Crear partículas iniciales
+    for (let i = 0; i < 50; i++) {
+        particles.push(createParticle());
+    }
+
+    animate();
 }
 
-// --- 5. FIREWALL DEFENDER GAME ---
-let gameScore = 0;
-let gameInterval;
+// --- SONIDOS AMBIENTALES ---
+let ambientAudio = null;
+let isAmbientPlaying = false;
 
-function iniciarFirewall() {
-    const container = document.getElementById("game-container");
-    const scoreDisplay = document.getElementById("game-score");
+function initAmbientSounds() {
+    // Crear audio de fondo (tonos suaves de "conexión digital")
+    ambientAudio = new (window.AudioContext || window.webkitAudioContext)();
     
-    // Reiniciar estado
-    container.innerHTML = "";
-    gameScore = 0;
-    scoreDisplay.innerText = "Score: 0";
-    registrarEvento("Iniciando Firewall Defender...", "INFO");
-
-    if (gameInterval) clearInterval(gameInterval);
-
-    gameInterval = setInterval(() => {
-        crearPaquete(container);
-    }, 1000);
-
-    // El juego dura 20 segundos
-    setTimeout(() => {
-        clearInterval(gameInterval);
-        alert(`Sesión terminada. Paquetes neutralizados: ${gameScore}`);
-        registrarEvento(`Sesión de defensa completada. Score: ${gameScore}`, "SUCCESS");
-    }, 20000);
-}
-
-function crearPaquete(container) {
-    const esAmenaza = Math.random() > 0.4;
-    const paquete = document.createElement("div");
+    function playAmbientTone() {
+        if (!isAmbientPlaying) return;
+        
+        const oscillator = ambientAudio.createOscillator();
+        const gainNode = ambientAudio.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(ambientAudio.destination);
+        
+        oscillator.frequency.setValueAtTime(220, ambientAudio.currentTime); // Nota A3
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.05, ambientAudio.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, ambientAudio.currentTime + 2);
+        
+        oscillator.start(ambientAudio.currentTime);
+        oscillator.stop(ambientAudio.currentTime + 2);
+        
+        // Repetir cada 5-10 segundos
+        setTimeout(playAmbientTone, Math.random() * 5000 + 5000);
+    }
     
-    paquete.style.position = "absolute";
-    paquete.style.left = Math.random() * 90 + "%";
-    paquete.style.top = "-20px";
-    paquete.style.padding = "5px 10px";
-    paquete.style.borderRadius = "4px";
-    paquete.style.cursor = "pointer";
-    paquete.style.fontSize = "0.7rem";
-    paquete.style.transition = "top 4s linear";
-    paquete.style.background = esAmenaza ? "#ef4444" : "#22c55e";
-    paquete.innerText = esAmenaza ? "AMENAZA" : "TRAFICO OK";
-
-    paquete.onclick = () => {
-        if (esAmenaza) {
-            gameScore += 10;
-            registrarEvento("Paquete malicioso interceptado", "SUCCESS");
-        } else {
-            gameScore -= 5;
-            registrarEvento("¡ERROR! Bloqueaste tráfico legítimo", "LOW");
+    // Control de volumen
+    window.toggleAmbientSound = function() {
+        isAmbientPlaying = !isAmbientPlaying;
+        if (isAmbientPlaying) {
+            playAmbientTone();
         }
-        document.getElementById("game-score").innerText = `Score: ${gameScore}`;
-        paquete.remove();
     };
-
-    container.appendChild(paquete);
-    setTimeout(() => paquete.style.top = "320px", 50);
-    setTimeout(() => paquete.remove(), 4000);
 }
+
+// --- SISTEMA DE NOTIFICACIONES ---
+function showNotification(message, type = 'info', duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.innerHTML = `
+        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+        ${message}
+        <button onclick="this.parentElement.remove()" class="notification-close">&times;</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animación de entrada
+    setTimeout(() => notification.classList.add('show'), 100);
+    
+    // Auto-remover
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, duration);
+}
+
+// --- DASHBOARD DE PROGRESO GLOBAL ---
+function showGlobalProgress() {
+    const phishingStats = JSON.parse(localStorage.getItem('phishingStats')) || { gamesPlayed: 0, bestScore: 0 };
+    const firewallStats = JSON.parse(localStorage.getItem('firewallStats')) || { gamesPlayed: 0, bestScore: 0 };
+    const userPoints = parseInt(localStorage.getItem('userPoints')) || 0;
+    const badges = JSON.parse(localStorage.getItem('badges')) || [];
+    
+    const totalGames = phishingStats.gamesPlayed + firewallStats.gamesPlayed;
+    const bestTotalScore = phishingStats.bestScore + firewallStats.bestScore;
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-trophy"></i> Tu Progreso Global</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--accent);">${userPoints}</div>
+                        <div>Puntos Totales</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--success);">${totalGames}</div>
+                        <div>Juegos Jugados</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--warning);">${bestTotalScore}</div>
+                        <div>Mejor Puntuación</div>
+                    </div>
+                    <div class="progress-card">
+                        <div style="font-size: 2rem; color: var(--danger);">${badges.length}</div>
+                        <div>Insignias</div>
+                    </div>
+                </div>
+                
+                <h4>Insignias Desbloqueadas:</h4>
+                <div id="badges-container" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px;">
+                    ${badges.map(badge => `<span class="badge-item">${badge}</span>`).join('')}
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h4>Estadísticas por Juego:</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px;">
+                        <div>
+                            <h5>Phishing Detector</h5>
+                            <p>Juegos: ${phishingStats.gamesPlayed}</p>
+                            <p>Mejor: ${phishingStats.bestScore}</p>
+                        </div>
+                        <div>
+                            <h5>Firewall Defender</h5>
+                            <p>Juegos: ${firewallStats.gamesPlayed}</p>
+                            <p>Mejor: ${firewallStats.bestScore}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// --- TEMAS PERSONALIZABLES ---
+const themes = {
+    default: {
+        '--bg-deep': '#0a0a0a',
+        '--bg-card': 'rgba(255, 255, 255, 0.05)',
+        '--text-p': '#ffffff',
+        '--text-s': '#b0b0b0',
+        '--accent': '#00d4ff',
+        '--success': '#00ff88',
+        '--warning': '#ffaa00',
+        '--danger': '#ff4444'
+    },
+    cyberpunk: {
+        '--bg-deep': '#0d001a',
+        '--bg-card': 'rgba(255, 0, 255, 0.05)',
+        '--text-p': '#ffffff',
+        '--text-s': '#ff00ff',
+        '--accent': '#ff00ff',
+        '--success': '#00ffff',
+        '--warning': '#ffff00',
+        '--danger': '#ff0000'
+    },
+    minimal: {
+        '--bg-deep': '#ffffff',
+        '--bg-card': 'rgba(0, 0, 0, 0.05)',
+        '--text-p': '#000000',
+        '--text-s': '#666666',
+        '--accent': '#000000',
+        '--success': '#008000',
+        '--warning': '#ffa500',
+        '--danger': '#ff0000'
+    }
+};
+
+function changeTheme(themeName) {
+    const theme = themes[themeName];
+    if (theme) {
+        Object.keys(theme).forEach(prop => {
+            document.documentElement.style.setProperty(prop, theme[prop]);
+        });
+        localStorage.setItem('selectedTheme', themeName);
+    }
+}
+
+// --- MODO ACCESIBILIDAD ---
+function toggleAccessibilityMode() {
+    document.body.classList.toggle('accessibility-mode');
+    localStorage.setItem('accessibilityMode', document.body.classList.contains('accessibility-mode'));
+}
+
+function showThemeSelector() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-palette"></i> Seleccionar Tema</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button onclick="changeTheme('default')" class="theme-option" style="background: linear-gradient(135deg, #0a0a0a, #1a1a1a); color: white; padding: 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        <i class="fas fa-moon"></i><br>Default
+                    </button>
+                    <button onclick="changeTheme('cyberpunk')" class="theme-option" style="background: linear-gradient(135deg, #0d001a, #1a0033); color: #ff00ff; padding: 20px; border-radius: 8px; border: none; cursor: pointer;">
+                        <i class="fas fa-robot"></i><br>Cyberpunk
+                    </button>
+                    <button onclick="changeTheme('minimal')" class="theme-option" style="background: linear-gradient(135deg, #ffffff, #f0f0f0); color: black; padding: 20px; border-radius: 8px; border: 1px solid #ccc; cursor: pointer;">
+                        <i class="fas fa-circle"></i><br>Minimal
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+// --- HERRAMIENTAS INTERACTIVAS ---
+function generarPasswordSegura(largo = 16) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+';
+    let password = '';
+    for (let i = 0; i < largo; i++) {
+        password += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+
+    // 1. Mostrar la contraseña de forma visible en el campo del generador
+    const genInput = document.getElementById("generated-pass-input");
+    if (genInput) genInput.value = password;
+
+    // 2. Validar automáticamente en el analizador técnico si existe
+    const inputChecker = document.getElementById("pass-checker");
+    if (inputChecker) {
+        inputChecker.value = password;
+        inputChecker.dispatchEvent(new Event('input'));
+    }
+    
+    // Mostrar en modal
+    const modal = document.createElement('div'); // Crear el modal
+    modal.id = 'generated-password-modal'; // Asignar un ID único al modal
+    modal.className = 'modal-overlay show-modal'; // Clases para mostrarlo
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> Contraseña Generada</h3>
+                <button class="close-modal" onclick="closeModal('generated-password-modal')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div style="background: var(--bg-card); padding: 15px; border-radius: 8px; font-family: monospace; font-size: 1.2rem; word-break: break-all; margin: 15px 0;">
+                    ${password}
+                </div>
+                <p style="color: var(--success); font-weight: bold;">¡Esta contraseña es muy segura!</p>
+                <p style="font-size: 0.9rem; color: var(--text-s);">Cópiala y guárdala en un gestor de contraseñas. No la uses en múltiples sitios.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="navigator.clipboard.writeText('${password}'); showNotification('Contraseña copiada al portapapeles', 'success');" class="btn-primary">Copiar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    ganarPuntos(5, 'Generar contraseña segura');
+}
+
+function verificarURL() {
+    const url = document.getElementById('url-checker').value;
+    if (!url) {
+        showNotification('Por favor ingresa una URL', 'error');
+        return;
+    }
+    
