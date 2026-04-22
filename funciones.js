@@ -1697,7 +1697,34 @@ function startCarousel() {
 document.addEventListener('DOMContentLoaded', () => {
     startCarousel();
     simuladorAmenazas();
+    
+    // Cargar tema guardado
+    const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+    changeTheme(savedTheme);
+    
+    // Actualizar ícono del toggle
+    const icon = document.querySelector('#theme-toggle i');
+    if (savedTheme === 'minimal') {
+        icon.className = 'fas fa-sun';
+    } else {
+        icon.className = 'fas fa-moon';
+    }
 });
+
+// Función para alternar entre modo oscuro y claro
+function toggleTheme() {
+    const currentTheme = localStorage.getItem('selectedTheme') || 'default';
+    const newTheme = currentTheme === 'default' ? 'minimal' : 'default';
+    changeTheme(newTheme);
+    
+    // Actualizar ícono
+    const icon = document.querySelector('#theme-toggle i');
+    if (newTheme === 'minimal') {
+        icon.className = 'fas fa-sun';
+    } else {
+        icon.className = 'fas fa-moon';
+    }
+}
 
 // --- Lógica del Boletín (Simulación) ---
 function suscribirBoletin(event) {
