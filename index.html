@@ -161,5 +161,87 @@
             </div>
         </div>
     </section>
+    <section id="checklist" class="section-container alt-background reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Tu Nivel de Protección</h2>
+            <p>Marca las acciones que ya has completado para ver qué tan segura es tu vida digital.</p>
+        </div>
+        
+        <div class="card" id="checklist-card" style="max-width: 700px; margin: 0 auto; position: relative;">
+            <div class="rank-badge" id="rank-badge">Rango: <span id="rank-text">Vulnerable</span></div>
+            <h3>Auditoría de Seguridad</h3>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="security-progress"></div>
+            </div>
+            <p style="text-align: right; margin-top: 5px; font-size: 0.85rem; font-weight: bold;" id="progress-text">0% Completado</p>
+            
+            <div class="checklist-container">
+                <h4 style="color: var(--accent); margin: 20px 0 10px; font-size: 0.9rem;"><i class="fas fa-shield-alt"></i> NIVEL BÁSICO</h4>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-1" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">He actualizado mi sistema operativo y aplicaciones recientemente.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-1')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-1" class="help-text">Ve a la configuración de tu sistema (Windows Update o Preferencias del Sistema) y asegúrate de no tener actualizaciones pendientes. Esto parchea vulnerabilidades conocidas.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-2" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Tengo activada la autenticación de dos pasos (2FA) en mis cuentas.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-2')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-2" class="help-text">Busca "Seguridad" en los ajustes de tus cuentas (correo, banco). Activa la opción para que te pidan un código de tu teléfono además de tu contraseña al iniciar sesión.</div>
+                </div>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-3" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">No uso la misma contraseña para cuentas importantes.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-3')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-3" class="help-text">Si usas una sola contraseña y se filtra, todas tus cuentas estarán en riesgo. Usa un Gestor de Contraseñas (como Bitwarden) para crear contraseñas únicas y largas para todo.</div>
+                </div>
+
+                <h4 style="color: var(--warning); margin: 30px 0 10px; font-size: 0.9rem;"><i class="fas fa-user-secret"></i> NIVEL AVANZADO</h4>
+                
+                <div class="checklist-wrapper">
+                    <div class="checklist-item" id="check-4" role="button" tabindex="0" onclick="toggleCheck(this)" onkeypress="handleCheckKeyPress(event, this)">
+                        <div class="check-circle" aria-hidden="true"></div>
+                        <span class="checklist-text">Evito conectarme a redes Wi-Fi públicas sin protección.</span>
+                        <i class="fas fa-question-circle help-icon" onclick="toggleHelp(event, 'help-4')" title="Saber cómo"></i>
+                    </div>
+                    <div id="help-4" class="help-text">Nunca accedas a tu banco o introduzcas datos sensibles desde el Wi-Fi de una cafetería. Si debes hacerlo, utiliza los datos de tu celular o una VPN (Red Privada Virtual).</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="guias" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Guías de Buenas Prácticas</h2>
+            <p>Recomendaciones esenciales para mantener tu información a salvo.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-lock"></i></div>
+                <span class="card-tag">Privacidad</span>
+                <h3>Comunicaciones Cifradas</h3>
+                <p>Usa aplicaciones que ofrezcan cifrado de extremo a extremo para asegurar que tus mensajes sean privados.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-privacidad')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
+            <div class="card manual-card">
+                <div class="manual-icon"><i class="fas fa-id-badge"></i></div>
+                <span class="card-tag">Acceso</span>
+                <h3>Control de Identidad Pro</h3>
+                <p>Metodologías de "Zero Trust": nunca confiar, siempre verificar cada intento de acceso a la red interna.</p>
+                <button class="btn-secondary read-btn" onclick="openModal('modal-acceso')">Leer Guía <i class="fas fa-book-open"></i></button>
+            </div>
+        </div>
+    </section>
     </body>
 </html>
