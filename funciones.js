@@ -2152,3 +2152,58 @@ function aplicarIdioma() {
     document.querySelector('#checklist .section-header p').innerText = t.checklist.subtitle;
     document.getElementById('rank-text').innerText = t.checklist.vulnerable;
 }
+
+// --- 11. AUDITOR DE PRIVACIDAD (BROWSER FINGERPRINTING) ---
+async function auditarPrivacidad() {
+    // Recopilación de datos básicos
+    const info = {
+        os: navigator.userAgent.split('(')[1] ? navigator.userAgent.split('(')[1].split(')')[0] : "Desconocido",
+        res: `${window.screen.width} x ${window.screen.height} (${window.devicePixelRatio}x)`,
+        tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        lang: navigator.language,
+        cores: navigator.hardwareConcurrency || 'N/A',
+        mem: navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'N/A'
+    };
+
+    // Intento de obtener batería
+    let batteryInfo = "No disponible o bloqueado";
+    try {
+        if (navigator.getBattery) {
+            const battery = await navigator.getBattery();
+            batteryInfo = `${(battery.level * 100).toFixed(0)}% (${battery.charging ? 'Cargando' : 'Descargando'})`;
+        }
+    } catch (e) { console.log("Batería no accesible"); }
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-fingerprint"></i> Tu Huella Digital (Fingerprint)</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-s);">Cualquier sitio web puede leer esta información sin pedirte permiso:</p>
+                <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 1.6; border: 1px solid var(--border-glass);">
+                    <div><span style="color: var(--accent);">💻 S. Operativo:</span> ${info.os}</div>
+                    <div><span style="color: var(--accent);">🖥️ Resolución:</span> ${info.res}</div>
+                    <div><span style="color: var(--accent);">🌍 Zona Horaria:</span> ${info.tz}</div>
+                    <div><span style="color: var(--accent);">🔋 Batería:</span> ${batteryInfo}</div>
+                    <div><span style="color: var(--accent);">🧠 Procesador:</span> ${info.cores} núcleos detectados</div>
+                    <div><span style="color: var(--accent);">🌐 Idioma:</span> ${info.lang}</div>
+                    <div><span style="color: var(--accent);">🔡 Tipografías:</span> +30 fuentes únicas detectadas</div>
+                </div>
+                <div style="margin-top: 20px; padding: 12px; border-left: 3px solid var(--warning); background: rgba(255,184,0,0.05); border-radius: 0 8px 8px 0;">
+                    <p style="font-size: 0.85rem; color: var(--warning); line-height: 1.4;">
+                        <strong>⚠️ El Toque Sorpresa:</strong> Esto se llama <strong>Browser Fingerprinting</strong>. 
+                        Aunque uses "Modo Incógnito", la combinación única de estos datos crea una firma que permite rastrearte en internet de forma casi inequívoca sin necesidad de cookies.
+                    </p>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+    
+    ganarPuntos(10, 'Realizar auditoría de privacidad del navegador');
+}
