@@ -93,5 +93,73 @@
             <span class="stat-desc">Protección</span>
         </div>
     </section>
+    <section id="proteger" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Cómo protegerte</h2>
+            <p>Pasos sencillos que puedes aplicar ya mismo para reducir el riesgo de ataques y cuidar tu información.</p>
+        </div>
+
+        <div class="grid-amenazas step-cards">
+            <div class="card step-card glow-hover">
+                <div class="step-number">1</div>
+                <div class="card-icon"><i class="fas fa-sync-alt" style="color: var(--accent);"></i></div>
+                <span class="card-tag">Actualiza</span>
+                <h3>Mantén tus sistemas al día</h3>
+                <p>Instala actualizaciones, parches y revisiones regulares en cuentas, redes y aplicaciones.</p>
+                <div style="margin-top: 20px;"><a href="#checklist" class="btn-text">Ir a mi Auditoría <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+            <div class="card step-card glow-hover">
+                <div class="step-number">2</div>
+                <div class="card-icon"><i class="fas fa-key" style="color: var(--success);"></i></div>
+                <span class="card-tag">Autenticación</span>
+                <h3>Usa contraseñas fuertes</h3>
+                <p>Activa verificación de dos pasos y utiliza gestores de contraseñas para proteger tus accesos.</p>
+                <div style="margin-top: 20px;"><a href="#password-tool" class="btn-text">Probar mi contraseña <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+            <div class="card step-card glow-hover">
+                <div class="step-number">3</div>
+                <div class="card-icon"><i class="fas fa-eye" style="color: var(--warning);"></i></div>
+                <span class="card-tag">Conciencia</span>
+                <h3>Identifica correos peligrosos</h3>
+                <p>No abras archivos ni enlaces de remitentes desconocidos y verifica siempre la fuente.</p>
+                <div style="margin-top: 20px;"><a href="#simulador" class="btn-text" onclick="setTimeout(() => iniciarFirewall(), 500)">Entrenar con el juego <i class="fas fa-arrow-right"></i></a></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="herramientas" class="section-container reveal">
+        <div class="section-header">
+            <h2 class="title-gradient">Herramientas Interactivas</h2>
+            <p>Utilidades prácticas para evaluar y mejorar tu seguridad digital.</p>
+        </div>
+        
+        <div class="grid-amenazas">
+            <div class="card tool-card" id="password-tool">
+                <div class="tool-icon"><i class="fas fa-key"></i></div>
+                <span class="card-tag">Generador</span>
+                <h3>Generador de Contraseñas</h3>
+                <p>Crea contraseñas seguras y únicas para todas tus cuentas.</p>
+                <input type="text" id="generated-pass-input" readonly placeholder="Tu contraseña aparecerá aquí..." 
+                       style="width: 100%; margin: 15px 0; padding: 12px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-glass); color: var(--accent); border-radius: 8px; font-family: 'JetBrains Mono', monospace; text-align: center; font-weight: bold;">
+                <button class="btn-primary" onclick="generarPasswordSegura()">Generar <i class="fas fa-random"></i></button>
+            </div>
+            <div class="card tool-card" id="url-tool">
+                <div class="tool-icon"><i class="fas fa-search"></i></div>
+                <span class="card-tag">Verificador</span>
+                <h3>Verificador de Enlaces</h3>
+                <p>Analiza URLs sospechosas para detectar posibles amenazas.</p>
+                <input type="url" id="url-checker" placeholder="Pega aquí la URL..." style="width: 100%; margin: 10px 0; padding: 10px; border-radius: 4px; border: 1px solid var(--border-glass);">
+                <button class="btn-primary" onclick="verificarURL()">Verificar <i class="fas fa-check"></i></button>
+            </div>
+            <div class="card tool-card" id="strength-tool">
+                <div class="tool-icon"><i class="fas fa-calculator"></i></div>
+                <span class="card-tag">Calculadora</span>
+                <h3>Riesgo de Contraseña</h3>
+                <p>Calcula cuánto tiempo tardaría un atacante en crackear tu contraseña.</p>
+                <input type="password" id="password-strength" placeholder="Ingresa tu contraseña..." style="width: 100%; margin: 10px 0; padding: 10px; border-radius: 4px; border: 1px solid var(--border-glass);">
+                <button class="btn-primary" onclick="calcularFuerzaPassword()">Calcular <i class="fas fa-chart-bar"></i></button>
+            </div>
+        </div>
+    </section>
     </body>
 </html>
