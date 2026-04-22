@@ -1411,3 +1411,360 @@ function clasificarCorreo(esPhishing, realPhishing, element, explicacion) {
         mostrarCorreo(element.parentElement);
     }, 2000);
 }
+
+function finalizarJuegoPhishing() {
+    // Actualizar estadísticas
+    phishingStats.gamesPlayed++;
+    phishingStats.totalScore += phishingScore;
+    phishingStats.bestScore = Math.max(phishingStats.bestScore, phishingScore);
+    phishingStats.accuracy = (phishingStats.totalScore / (phishingStats.gamesPlayed * 50)) * 100; // Asumiendo ~50 puntos max por juego
+    
+    localStorage.setItem('phishingStats', JSON.stringify(phishingStats));
+    
+    const resultDiv = document.getElementById('phishing-result');
+    let mensaje = `¡Práctica terminada! Score: ${phishingScore}`;
+    
+    // Logros
+    if (phishingScore >= 100) {
+        mensaje += '<br><i class="fas fa-trophy" style="color: gold;"></i> ¡Logro desbloqueado: Maestro Detector!';
+        ganarPuntos(20, 'Logro: Maestro Detector');
+        reproducirSonido(true); // Sonido de logro
+    } else if (phishingScore >= 50) {
+        mensaje += '<br><i class="fas fa-medal" style="color: silver;"></i> ¡Logro desbloqueado: Detector Experto!';
+        ganarPuntos(10, 'Logro: Detector Experto');
+        reproducirSonido(true);
+    }
+    
+    // Mostrar estadísticas
+    mensaje += `<br><small>Estadísticas: Juegos: ${phishingStats.gamesPlayed} | Mejor: ${phishingStats.bestScore} | Precisión: ${phishingStats.accuracy.toFixed(1)}%</small>`;
+    
+    resultDiv.innerHTML = mensaje;
+    resultDiv.style.display = 'block';
+    registrarEvento(`Práctica completada. Score: ${phishingScore}`, "SUCCESS");
+    ganarPuntos(phishingScore, 'Puntuación en Phishing Detector');
+}
+
+// Función para sonidos simples
+function reproducirSonido(exito) {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(exito ? 800 : 400, audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (e) {
+        // Silencio si no soporta Web Audio
+    }
+}
+
+function mostrarEstadisticasPhishing() {
+    const stats = JSON.parse(localStorage.getItem('phishingStats')) || { gamesPlayed: 0, totalScore: 0, bestScore: 0, accuracy: 0 };
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay show-modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-bar"></i> Estadísticas de Phishing Detector</h3>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="text-align: center; margin: 20px 0;">
+                    <div style="font-size: 2rem; color: var(--accent); font-weight: bold;">${stats.bestScore}</div>
+                    <div style="color: var(--text-s);">Mejor Puntuación</div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--success); font-weight: bold;">${stats.gamesPlayed}</div>
+                        <div style="color: var(--text-s); font-size: 0.8rem;">Juegos Jugados</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; color: var(--warning); font-weight: bold;">${stats.accuracy.toFixed(1)}%</div>
+                        <div style="color: var(--text-s); font-size: 0.8rem;">Precisión Media</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px;">
+                    <h4>Logros Desbloqueados:</h4>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+                        ${stats.bestScore >= 100 ? '<span style="background: gold; color: black; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-trophy"></i> Maestro</span>' : ''}
+                        ${stats.bestScore >= 50 ? '<span style="background: silver; color: black; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-medal"></i> Experto</span>' : ''}
+                        ${stats.gamesPlayed >= 10 ? '<span style="background: #cd7f32; color: white; padding: 5px 10px; border-radius: 15px; font-size: 0.8rem;"><i class="fas fa-star"></i> Veterano</span>' : ''}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="iniciarModoPractica()" class="btn-primary">Modo Práctica Ilimitado</button>
+                <button onclick="this.parentElement.parentElement.parentElement.remove(); document.body.style.overflow = 'auto';" class="btn-secondary">Cerrar</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function iniciarModoPractica() {
+    // Cerrar modal de estadísticas
+    document.querySelector('.modal-overlay').remove();
+    document.body.style.overflow = 'auto';
+    
+    // Iniciar modo práctica (sin tiempo límite)
+    const container = document.getElementById("phishing-container");
+    const scoreDisplay = document.getElementById("phishing-score");
+    const resultDiv = document.getElementById('phishing-result');
+    
+    container.innerHTML = "";
+    phishingScore = 0;
+    phishingLevel = 1;
+    phishingRound = 1;
+    scoreDisplay.innerText = "Modo Práctica | Score: 0 | Nivel: 1 | Ronda: 1";
+    resultDiv.style.display = 'none';
+    
+    registrarEvento("Iniciando modo práctica de phishing...", "INFO");
+    
+    mostrarCorreoPractica(container);
+}
+
+function mostrarCorreoPractica(container) {
+    const correosNivel = correosEjemplo.filter(c => c.dificultad <= phishingLevel);
+    const index = Math.floor(Math.random() * correosNivel.length);
+    const correo = correosNivel[index];
+    
+    const emailDiv = document.createElement("div");
+    emailDiv.className = "email-display";
+    emailDiv.innerHTML = `
+        <div class="email-header">
+            <strong>Asunto:</strong> ${correo.subject}
+        </div>
+        <div class="email-body">
+            ${correo.body}
+        </div>
+        <div class="email-actions">
+            <button class="btn-secondary" onclick="clasificarCorreoPractica(true, ${correo.isPhishing}, this.parentElement.parentElement, '${correo.explicacion.replace(/'/g, "\\'")}')">Es Phishing</button>
+            <button class="btn-secondary" onclick="clasificarCorreoPractica(false, ${correo.isPhishing}, this.parentElement.parentElement, '${correo.explicacion.replace(/'/g, "\\'")}')">Es Legítimo</button>
+            <button class="btn-secondary" onclick="detenerModoPractica()" style="background: var(--danger); margin-top: 10px;">Terminar Práctica</button>
+        </div>
+    `;
+    
+    container.innerHTML = "";
+    container.appendChild(emailDiv);
+}
+
+function clasificarCorreoPractica(esPhishing, realPhishing, element, explicacion) {
+    const feedbackDiv = document.createElement('div');
+    feedbackDiv.className = 'game-feedback';
+    
+    if (esPhishing === realPhishing) {
+        phishingScore += 10 + (phishingLevel * 2);
+        feedbackDiv.innerHTML = `<i class="fas fa-check-circle" style="color: var(--success);"></i> ¡Correcto! ${explicacion}`;
+        feedbackDiv.style.color = 'var(--success)';
+        reproducirSonido(true);
+    } else {
+        phishingScore -= 5;
+        feedbackDiv.innerHTML = `<i class="fas fa-times-circle" style="color: var(--danger);"></i> Incorrecto. ${explicacion}`;
+        feedbackDiv.style.color = 'var(--danger)';
+        reproducirSonido(false);
+    }
+    
+    element.appendChild(feedbackDiv);
+    
+    // Actualizar nivel y ronda
+    phishingRound++;
+    if (phishingRound > 5) {
+        phishingLevel++;
+        phishingRound = 1;
+    }
+    
+    document.getElementById("phishing-score").innerText = `Modo Práctica | Score: ${phishingScore} | Nivel: ${phishingLevel} | Ronda: ${phishingRound}`;
+    
+    setTimeout(() => {
+        element.removeChild(feedbackDiv);
+        mostrarCorreoPractica(element.parentElement);
+    }, 2000);
+}
+
+function detenerModoPractica() {
+    const resultDiv = document.getElementById('phishing-result');
+    resultDiv.innerHTML = `Modo práctica terminado. Puntuación final: ${phishingScore}<br><small>¡Sigue practicando para mejorar tus habilidades!</small>`;
+    resultDiv.style.display = 'block';
+    registrarEvento(`Modo práctica completado. Score: ${phishingScore}`, "SUCCESS");
+    ganarPuntos(Math.floor(phishingScore / 10), 'Puntuación en Modo Práctica');
+}
+
+// Lógica de Modales de Guías
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) {
+        modal.classList.add('show-modal');
+        document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if(modal) {
+        // Para el modal de contraseña generada (dinámico), lo removemos del DOM.
+        if (modalId === 'generated-password-modal') {
+            modal.classList.remove('show-modal'); // Para permitir animaciones de salida
+            setTimeout(() => modal.remove(), 300); // Eliminar después de un breve retraso
+        } else {
+            // Para otros modales estáticos, solo removemos la clase para ocultarlos.
+            modal.classList.remove('show-modal');
+        }
+        document.body.style.overflow = 'auto'; // Restaura scroll
+    }
+}
+
+// Cerrar modal al hacer clic fuera del contenido
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+        const modal = e.target;
+        if (modal.id === 'generated-password-modal') {
+            modal.classList.remove('show-modal');
+            setTimeout(() => modal.remove(), 300);
+        } else {
+            modal.classList.remove('show-modal');
+        }
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Lógica para Glosario y Modo Estudio
+function toggleStudyMode() {
+    const isChecked = document.getElementById('study-mode-toggle').checked;
+    const glosarioGrid = document.getElementById('glosario-grid');
+    
+    if (isChecked) {
+        glosarioGrid.classList.add('study-mode-active');
+    } else {
+        glosarioGrid.classList.remove('study-mode-active');
+    }
+}
+
+function flipCard(cardElement) {
+    // Alterna la clase is-flipped para dispositivos táctiles
+    cardElement.classList.toggle('is-flipped');
+}
+
+// --- Lógica del Carrusel de Alertas ---
+let slideIndex = 0;
+let carouselTimer;
+
+function showSlide(index) {
+    const slides = document.querySelectorAll('.alert-slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    if (slides.length === 0) return;
+    
+    if (index >= slides.length) slideIndex = 0;
+    else if (index < 0) slideIndex = slides.length - 1;
+    else slideIndex = index;
+    
+    slides.forEach(slide => slide.classList.remove('active-slide'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    slides[slideIndex].classList.add('active-slide');
+    if(dots[slideIndex]) dots[slideIndex].classList.add('active');
+}
+
+function nextSlide() {
+    showSlide(slideIndex + 1);
+}
+
+function currentSlide(index) {
+    clearInterval(carouselTimer);
+    showSlide(index);
+    startCarousel();
+}
+
+function startCarousel() {
+    // Inicia si aún no hay timer y existen los elementos
+    if(document.querySelector('.alert-slide')) {
+        carouselTimer = setInterval(nextSlide, 6000);
+    }
+}
+
+// Iniciar al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    startCarousel();
+    simuladorAmenazas();
+});
+
+// --- Lógica del Boletín (Simulación) ---
+function suscribirBoletin(event) {
+    event.preventDefault(); 
+    const input = document.getElementById('email-input');
+    const btn = event.target.querySelector('button');
+    const successMsg = document.getElementById('newsletter-success');
+    
+    if (input.value) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando';
+        btn.disabled = true;
+        
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-check"></i> Suscrito';
+            btn.style.background = 'var(--success)';
+            input.disabled = true;
+            successMsg.style.display = 'block';
+        }, 1500);
+    }
+}
+
+// --- Toggle Tema Claro/Oscuro ---
+function toggleTheme() {
+    const body = document.body;
+    const themeBtn = document.getElementById('theme-toggle');
+    const icon = themeBtn.querySelector('i');
+    
+    body.classList.toggle('light-theme');
+    
+    if (body.classList.contains('light-theme')) {
+        icon.className = 'fas fa-sun';
+        localStorage.setItem('theme', 'light');
+    } else {
+        icon.className = 'fas fa-moon';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Cargar tema al inicio
+window.addEventListener('load', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.getElementById('theme-toggle').querySelector('i').className = 'fas fa-sun';
+    }
+    
+    // Cargar puntos y badges
+    const savedPoints = localStorage.getItem('binary_three_points');
+    if (savedPoints) {
+        userPoints = parseInt(savedPoints);
+        document.getElementById('user-points').innerText = userPoints;
+    }
+    
+    const savedBadges = localStorage.getItem('binary_three_badges');
+    if (savedBadges) {
+        badges = JSON.parse(savedBadges);
+    }
+    
+    // Cargar idioma
+    const savedLang = localStorage.getItem('binary_three_lang');
+    if (savedLang) {
+        currentLang = savedLang;
+        document.getElementById('lang-toggle').innerText = currentLang.toUpperCase();
+        aplicarIdioma();
+    }
+    
+    // Iniciar typewriter effect
+    iniciarTypewriter();
+});
+
