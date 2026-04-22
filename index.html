@@ -173,14 +173,15 @@
                 <input type="password" id="password-strength" placeholder="Ingresa tu contraseña..." style="width: 100%; margin: 10px 0; padding: 10px; border-radius: 4px; border: 1px solid var(--border-glass);">
                 <button class="btn-primary" onclick="calcularFuerzaPassword()">Calcular <i class="fas fa-chart-bar"></i></button>
             </div>
-            <div class="card tool-card" id="privacy-tool">
-                <div class="tool-icon"><i class="fas fa-user-secret"></i></div>
+           <div class="card tool-card" id="privacy-tool">
+                <div class="card-icon">
+                    <img src="imagenes/Auditoría.jpg" alt="Privacidad" style="width: 45px; height: 45px; object-fit: contain;">
+                </div>
                 <span class="card-tag">Auditoría</span>
                 <h3>Privacidad del Navegador</h3>
                 <p>Descubre qué datos está compartiendo tu navegador ahora mismo sin que te des cuenta.</p>
                 <button class="btn-primary" onclick="auditarPrivacidad()">¿Qué sabe internet de mí? <i class="fas fa-fingerprint"></i></button>
             </div>
-        </div>
     </section>
 
     <section id="checklist" class="section-container alt-background reveal">
@@ -623,7 +624,9 @@
 
         <div class="grid-amenazas">
             <div class="card resource-card">
-                <div class="app-logo" style="background: #175DDC;"><i class="fas fa-shield-halved"></i></div>
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-bitwarden.png" alt="Bitwarden Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
                 <h3>Bitwarden</h3>
                 <p>Gestor de contraseñas de código abierto para proteger todas tus cuentas.</p>
                 <div class="platform-tags">
@@ -631,8 +634,11 @@
                 </div>
                 <a href="https://bitwarden.com" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
             </div>
+
             <div class="card resource-card">
-                <div class="app-logo" style="background: #8b5cf6;"><i class="fas fa-network-wired"></i></div>
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-proton.jpg" alt="ProtonVPN Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
                 <h3>ProtonVPN</h3>
                 <p>Navega de forma anónima y segura en redes Wi-Fi públicas y cafeterías.</p>
                 <div class="platform-tags">
@@ -640,17 +646,23 @@
                 </div>
                 <a href="https://proton.me/vpn" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
             </div>
+
             <div class="card resource-card">
-                <div class="app-logo" style="background: #10b981;"><i class="fas fa-shield-alt"></i></div>
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-windows.png" alt="Windows Defender Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
                 <h3>Windows Defender</h3>
                 <p>Protección nativa contra malware. Suficiente si mantienes el sistema actualizado.</p>
                 <div class="platform-tags">
                     <span>Gratis</span> <span>Windows</span>
                 </div>
-                <a href="https://www.microsoft.com/en-us/windows/windows-defender" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
+                <a href="https://www.microsoft.com/es-es/windows/microsoft-defender" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
             </div>
+
             <div class="card resource-card">
-                <div class="app-logo" style="background: #800000;"><i class="fas fa-ban"></i></div>
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-ublock.png" alt="uBlock Origin Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
                 <h3>uBlock Origin</h3>
                 <p>Extensión ligera y eficiente que bloquea anuncios maliciosos y rastreadores web.</p>
                 <div class="platform-tags">
@@ -658,8 +670,11 @@
                 </div>
                 <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer" class="btn-secondary resource-link">Sitio Oficial <i class="fas fa-external-link-alt"></i></a>
             </div>
+
             <div class="card resource-card">
-                <div class="app-logo" style="background: #f59e0b;"><i class="fas fa-user-secret"></i></div>
+                <div class="card-icon" style="background: transparent;">
+                    <img src="imagenes/logo-pwned.png" alt="HIBP Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                </div>
                 <h3>Have I Been Pwned</h3>
                 <p>Verifica al instante si tu correo o contraseña han sido filtrados en una brecha de datos.</p>
                 <div class="platform-tags">
