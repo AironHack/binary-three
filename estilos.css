@@ -1290,64 +1290,79 @@ input:checked + .slider:before {
 }
 
 body.light-theme {
-    --bg-deep: #f1f5f9; /* Gris azulado muy suave */
+    --bg-deep: #f8fafc; /* Fondo limpio y profesional */
     --bg-card: #ffffff;
-    --text-p: #1e293b;
-    --text-s: #475569;
-    --border-glass: rgba(15, 23, 42, 0.08);
-    --card-glow: rgba(139, 92, 246, 0.1);
+    --accent: #0284c7; /* Azul profundo para mejor contraste */
+    --accent-alt: #6366f1;
+    --text-p: #0f172a; /* Texto principal casi negro */
+    --text-s: #64748b; /* Texto secundario suave */
+    --border-glass: rgba(0, 0, 0, 0.06);
+    --card-glow: rgba(2, 132, 199, 0.05);
 }
 
-body.light-theme .btn-primary {
-    color: #fff; /* Asegura que el texto sea blanco sobre el fondo azul en modo claro */
-}
-
-body.light-theme .btn-secondary {
-    background: rgba(14, 165, 233, 0.1);
-    color: #0369a1; /* Un azul un poco más oscuro para mejor contraste en fondo blanco */
-    border-color: rgba(14, 165, 233, 0.4);
+body.light-theme .gradient-bg {
+    background: radial-gradient(circle at 20% 20%, rgba(2, 132, 199, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 body.light-theme .navbar {
-    background: rgba(248, 250, 252, 0.9);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.85);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* Mejoras para Phishing Game */
-.game-feedback {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-glass);
-    text-align: center;
-    font-weight: bold;
-    animation: fadeIn 0.5s ease-in-out;
+body.light-theme .nav-links a {
+    color: #475569;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+body.light-theme .nav-links a:hover, 
+body.light-theme .nav-links a.active-link {
+    color: var(--accent);
+    background: rgba(2, 132, 199, 0.05);
 }
 
 body.light-theme .card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-glass);
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .card:hover {
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+    border-color: rgba(2, 132, 199, 0.2);
+}
+
+body.light-theme .text-glow {
+    background: linear-gradient(135deg, #0f172a 30%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: initial; /* Reset para que se vea el degradado oscuro */
 }
 
 body.light-theme .alert-card {
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.2);
+    background: #fffcf5;
+    border: 1px solid #fef3c7;
 }
 
 body.light-theme .cyber-card {
-    background: #f1f5f9;
-    border: 1px solid rgba(14, 165, 233, 0.4);
+    background: #ffffff;
+    border: 1px solid rgba(2, 132, 199, 0.1);
+}
+
+body.light-theme .game-board {
+    background: #f8fafc;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+body.light-theme .cyber-terminal {
+    background: #0f172a; /* Mantenemos la terminal oscura por estética hacker */
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .flip-card-back {
-    background: rgba(14, 165, 233, 0.1);
-    border-color: rgba(14, 165, 233, 0.4);
+    background: linear-gradient(135deg, #f0f9ff, #e0e7ff);
+    color: #0f172a;
 }
 
 /* Badge Notifications */
